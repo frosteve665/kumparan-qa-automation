@@ -1,0 +1,33 @@
+{
+  "name": "kumparan-qa-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "auth:capture": "tsx scripts/capture-session.ts",
+    "typecheck": "tsc --noEmit",
+    "explore": "tsx scripts/explorer/crawl.ts",
+    "explore:digest": "tsx scripts/explorer/digest.ts",
+    "docs:test-cases": "tsx scripts/docs/build-test-cases.ts",
+    "test:desktop": "playwright test --project=desktop-chrome",
+    "test:mobile": "playwright test --project=mobile-chrome --project=mobile-safari",
+    "test:api": "playwright test --project=api-graphql",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:agent": "playwright test tests/agent",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.4",
+    "dotenv": "^18.0.7",
+    "exceljs": "^4.4.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.5"
+  }
+}

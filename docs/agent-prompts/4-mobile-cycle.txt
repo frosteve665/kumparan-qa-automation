@@ -1,0 +1,21 @@
+Run the full Playwright agent cycle for the MOBILE site (m.kumparan.com), using the project "mobile-chrome".
+
+Step 1. Use the playwright-test-planner agent.
+- Seed file: tests/seed.spec.ts, run on the mobile-chrome project (it opens https://m.kumparan.com).
+- First read docs/features/navigation.md, docs/features/share.md and docs/features/auth.md (mobile rows).
+- Plan exactly 4 mobile-specific scenarios, IDs TC-AGT-010 to TC-AGT-013:
+  burger side menu (open, items, close), top-nav strip routes (nb-* items), the mobile share bar and share modal,
+  and the guest login entry from the side menu (open the login form only, never submit it).
+- Save the plan to specs/mobile.plan.md.
+
+Step 2. Use the playwright-test-generator agent.
+- Generate one test per scenario into tests/agent/mobile/mobile.agent.spec.ts.
+- Import { test, expect } from '../../../src/fixtures'. Test titles start with the scenario ID in brackets.
+- Wrap the describe with: test.skip(({ platform }) => platform !== 'mobile', 'Generated for m.kumparan.com').
+- getByTestId (data-qa-id) first; every test ends with assertions on the outcome.
+- Never click submit, report, comment-send, login or logout buttons.
+
+Step 3. Use the playwright-test-healer agent.
+- Run tests/agent/mobile on the mobile-chrome project and fix failures.
+- Fix the test, never weaken or delete an assertion. A real product defect: keep the assertion and mark it with
+  test.fixme(true, '<what is wrong>') and say so in the summary.

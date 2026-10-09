@@ -1,0 +1,13 @@
+node_modules/
+.env
+.explore/
+.auth/
+test-results/
+playwright-report/
+reports/
+blob-report/
+
+# Agent MCP session logs
+.playwright-mcp/
+# Crawler screenshots (regenerate with npm run explore)
+knowledge/shots/

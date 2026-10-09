@@ -1,0 +1,83 @@
+name: QA automation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 1 * * *' # 08:00 WIB daily regression
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: 'true'
+  REPORT_KEEP_RUNS: '1'
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run typecheck
+
+  api:
+    needs: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: GraphQL API tests
+        run: npx playwright test --project=api-graphql
+      - name: Results summary
+        if: always()
+        run: node scripts/ci/summary.mjs >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-api
+          path: reports/
+          retention-days: 14
+
+  web:
+    needs: typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [desktop-chrome, mobile-chrome, mobile-safari]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps ${{ matrix.project == 'mobile-safari' && 'webkit' || 'chromium' }}
+      # Signed-in tests need a session captured by a human (Cloudflare check on login).
+      # Store it base64-encoded as the AUTH_STATE_B64 secret; without it those tests skip with a reason.
+      - name: Restore signed-in session (optional)
+        env:
+          AUTH_STATE_B64: ${{ secrets.AUTH_STATE_B64 }}
+        if: env.AUTH_STATE_B64 != ''
+        run: mkdir -p .auth && echo "$AUTH_STATE_B64" | base64 -d > .auth/user.json
+      - name: Web tests (${{ matrix.project }})
+        run: npx playwright test --project=${{ matrix.project }}
+      - name: Results summary
+        if: always()
+        run: node scripts/ci/summary.mjs >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-${{ matrix.project }}
+          path: |
+            reports/
+            playwright-report/
+          retention-days: 14
