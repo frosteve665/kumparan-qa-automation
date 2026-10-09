@@ -11,7 +11,7 @@ export interface FailureClassification {
  * wrong outcome is a finding about kumparan itself. The classifier is a first
  * guess; a "bug" is only filed after a human reproduces it (see docs/bugs/).
  */
-const ENVIRONMENT = /econnrefused|enotfound|getaddrinfo|net::err_|socket hang up|browser.*closed unexpectedly|cf-chl|503 service unavailable/i;
+const ENVIRONMENT = /econnrefused|enotfound|getaddrinfo|net::err_|socket hang up|browser.*closed unexpectedly|cf-chl|503 service unavailable|don't have permission to access this website/i;
 const SCRIPT_ERROR = /locator\..*timeout|waiting for (locator|selector|getByTestId)|strict mode violation|target (page, context or browser )?(has been )?closed|element is not attached|outside of the viewport|intercepts pointer events/i;
 
 export function classifyFailure(message: string): FailureClassification {

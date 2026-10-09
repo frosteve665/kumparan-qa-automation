@@ -2,6 +2,7 @@ import { test as base, expect, request as playwrightRequest } from '@playwright/
 import { existsSync } from 'node:fs';
 import type { Platform } from '../config/platform';
 import { AUTH_FILE } from '../config/paths';
+import { env } from '../config/env';
 import { blockAds, guardWrites, stubShareTargets, type BlockedWrite } from '../support/network';
 import { findFreshArticlePath } from '../support/test-data';
 import { autoDismissPromos } from '../support/interruptions';
@@ -36,9 +37,13 @@ interface Fixtures {
 interface WorkerFixtures {
   /** A live, recently published article path, resolved once per worker so tests never depend on a stale hard-coded URL. */
   articlePath: string;
+  /** Whether the target answers this network at all (its firewall blocks some datacenter ranges). */
+  siteAccess: { blocked: boolean; detail: string };
 }
 
-export const test = base.extend<Fixtures & TestOptions, WorkerFixtures>({
+interface AccessGate { accessGate: void }
+
+export const test = base.extend<Fixtures & TestOptions & AccessGate, WorkerFixtures>({
   platform: ['desktop', { option: true }],
   allowAds: [false, { option: true }],
 
@@ -64,6 +69,34 @@ export const test = base.extend<Fixtures & TestOptions, WorkerFixtures>({
   comments: async ({ page, platform }, use) => use(new CommentPage(page, platform)),
   report: async ({ page, platform }, use) => use(new ReportPage(page, platform)),
   search: async ({ page, platform }, use) => use(new SearchPage(page, platform)),
+
+  /**
+   * Environment preflight. kumparan's firewall answers some networks (e.g.
+   * GitHub-hosted runners) with "Sorry, you don't have permission to access
+   * this website". That is an environment limitation, not a product or test
+   * failure: every web test is skipped with that reason instead of failing.
+   */
+  siteAccess: [async ({ playwright }, use, workerInfo) => {
+    const { baseURL, userAgent } = workerInfo.project.use;
+    const api = await playwright.request.newContext(userAgent ? { userAgent } : {});
+    let result = { blocked: false, detail: 'reachable' };
+    try {
+      const res = await api.get(baseURL ?? env.desktopBaseUrl, { timeout: 30_000 });
+      const body = await res.text();
+      if (res.status() === 403 || /don't have permission to access this website/i.test(body)) {
+        result = { blocked: true, detail: `HTTP ${res.status()} from ${baseURL}: the site's firewall blocks this network` };
+      }
+    } catch (err) {
+      result = { blocked: true, detail: `unreachable: ${(err as Error).message.split('\n')[0]}` };
+    }
+    await api.dispose();
+    await use(result);
+  }, { scope: 'worker' }],
+
+  accessGate: [async ({ siteAccess }, use, testInfo) => {
+    testInfo.skip(siteAccess.blocked, `environment: ${siteAccess.detail}. Run locally or on a self-hosted runner.`);
+    await use();
+  }, { auto: true }],
 
   articlePath: [async ({}, use) => {
     const api = await playwrightRequest.newContext();

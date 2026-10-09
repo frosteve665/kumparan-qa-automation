@@ -86,6 +86,12 @@ npx playwright test --grep @smoke
 Then open **`reports/index.html`** (run history → dashboard → video per test) or `npm run report`
 for Playwright's own HTML report.
 
+**CI and kumparan's firewall.** kumparan blocks GitHub-hosted runners ("Sorry, you don't have
+permission to access this website", verified from the first CI run's evidence). An environment
+preflight detects this once per worker and **skips the web tests with that reason** instead of
+reporting misleading failures; the GraphQL suite runs fully in CI. Run the web suite locally (as in
+the results above) or on a self-hosted runner, where the same workflow runs it unchanged.
+
 **Signed-in tests.** kumparan's login is protected by Cloudflare Turnstile, which must not be
 automated. Run `npm run auth:capture` once: a browser opens, you tick "Verify you are human", and
 the session is saved to `.auth/user.json` (gitignored) for every signed-in test. Without it those

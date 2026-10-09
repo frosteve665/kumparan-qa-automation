@@ -106,6 +106,14 @@ No fixed sleeps in specs. Waiting is event- or state-based:
   browser-specific branch; quarantine with `test.fixme` and an issue reference only if the cause is
   outside our control.
 
+## Environment preflight
+kumparan's firewall blocks some networks entirely (GitHub-hosted runners get "Sorry, you don't
+have permission to access this website"). A worker-scoped fixture (`siteAccess`) checks the target
+once per worker with the project's user agent; if it is blocked, an auto fixture skips every web
+test with `environment: HTTP 403 ... the site's firewall blocks this network`. The failure
+classifier also maps that page to `environment`. Result: CI never reports a firewall as a product
+or script failure, and the API suite still runs there.
+
 ## Evidence
 - `video: 'on'` and a final screenshot for **every** test; trace on failure.
 - An on-page caption in every video shows the test case ID, project and current step.
