@@ -1,7 +1,7 @@
 # Test cases
 
 Generated from `test-design/catalog.ts` by `npm run docs:test-cases`. Do not edit by hand.
-Execution status from run `2026-10-09-17-19-23` (reports/results.json) and the manual log (test-design/manual-results.ts).
+Execution status from run `2026-10-09-18-42-51` (reports/results.json) and the manual log (test-design/manual-results.ts).
 Also available as a spreadsheet: [test-cases.xlsx](test-cases.xlsx).
 
 **Legend.** Type: Positive / Negative / Boundary / Edge. Priority: P1 (blocks a core business function), P2 (degrades it), P3 (cosmetic or rare).
@@ -12,145 +12,133 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
 | Module | Cases | P1 | Positive | Negative | Boundary | Edge | Automated |
 |---|---|---|---|---|---|---|---|
 | Home feed | 3 | 2 | 2 | 0 | 0 | 1 | 3 |
-| Authentication | 12 | 7 | 5 | 4 | 1 | 2 | 7 |
+| Authentication | 7 | 3 | 2 | 3 | 1 | 1 | 7 |
 | Article view | 5 | 2 | 4 | 1 | 0 | 0 | 5 |
-| Like | 5 | 3 | 3 | 1 | 0 | 1 | 1 |
-| Comment | 6 | 3 | 3 | 1 | 2 | 0 | 3 |
+| Like | 1 | 1 | 0 | 1 | 0 | 0 | 1 |
+| Comment | 3 | 2 | 2 | 1 | 0 | 0 | 3 |
 | Report | 12 | 4 | 2 | 2 | 3 | 5 | 12 |
 | Share | 6 | 2 | 4 | 0 | 0 | 2 | 6 |
 | Search | 10 | 2 | 3 | 1 | 3 | 3 | 10 |
 | Navigation & preferences | 6 | 0 | 5 | 0 | 0 | 1 | 6 |
 | Agent-generated (Task C) | 13 | 3 | 7 | 2 | 1 | 3 | 13 |
 | GraphQL API (Task D) | 19 | 11 | 9 | 6 | 3 | 1 | 19 |
-| **Total** | **97** | **39** | | | | | **85** |
+| **Total** | **85** | **32** | | | | | **85** |
 
 ## Home feed
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-HOME-001](#tc-home-001) | Homepage loads with header, headlines and story cards | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS<br>mobile safari: PASS |
-| [TC-HOME-002](#tc-home-002) | Opening a headline navigates to its article | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS<br>mobile safari: PASS |
-| [TC-HOME-003](#tc-home-003) | Homepage stays usable with real ads enabled | Edge | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
+| [TC-HOME-001](#tc-home-001) | Homepage loads with header, headlines and story cards | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-HOME-002](#tc-home-002) | Opening a headline navigates to its article | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-HOME-003](#tc-home-003) | Homepage stays usable with real ads enabled | Edge | P2 | Desktop, Mobile | Automated | NOT RUN |
 
 ## Authentication
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-AUTH-001](#tc-auth-001) | Login entry point opens the login form | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS<br>mobile safari: PASS |
-| [TC-AUTH-002](#tc-auth-002) | Submit stays disabled while email and password are empty | Negative | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-AUTH-003](#tc-auth-003) | Malformed email is rejected with a format message (4 data rows) | Negative | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-AUTH-004](#tc-auth-004) | Clearing the password shows a required-field message | Boundary | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-AUTH-005](#tc-auth-005) | Login is protected by a bot challenge before submit | Negative | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-AUTH-006](#tc-auth-006) | Password visibility toggle reveals and hides the password | Edge | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-AUTH-007](#tc-auth-007) | Alternative sign-in methods and recovery links are offered | Positive | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-AUTH-008](#tc-auth-008) | Valid account logs in and the header shows the user | Positive | P1 | Desktop, Mobile | Manual (human-assisted: Cloudflare check) | NOT RUN |
-| [TC-AUTH-009](#tc-auth-009) | Wrong password is rejected with a clear message | Negative | P1 | Desktop | Manual (human-assisted: Cloudflare check) | NOT RUN |
-| [TC-AUTH-010](#tc-auth-010) | Signed-in session survives a reload and a new tab | Positive | P1 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
-| [TC-AUTH-011](#tc-auth-011) | Signed-in user visiting /login is not shown the login form | Edge | P2 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
-| [TC-AUTH-012](#tc-auth-012) | Logout ends the session; liking requires login again | Positive | P1 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
+| [TC-AUTH-001](#tc-auth-001) | Login entry point opens the login form | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-AUTH-002](#tc-auth-002) | Submit stays disabled while email and password are empty | Negative | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-AUTH-003](#tc-auth-003) | Malformed email is rejected with a format message (4 data rows) | Negative | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-AUTH-004](#tc-auth-004) | Clearing the password shows a required-field message | Boundary | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-AUTH-005](#tc-auth-005) | Login is protected by a bot challenge before submit | Negative | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-AUTH-006](#tc-auth-006) | Password visibility toggle reveals and hides the password | Edge | P3 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-AUTH-007](#tc-auth-007) | Alternative sign-in methods and recovery links are offered | Positive | P3 | Desktop, Mobile | Automated | NOT RUN |
 
 ## Article view
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-ART-001](#tc-art-001) | Article shows title, byline, date and body | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS<br>mobile safari: PASS |
-| [TC-ART-002](#tc-art-002) | Engagement bar offers like, comment and share with numeric counters | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS<br>mobile safari: PASS |
-| [TC-ART-003](#tc-art-003) | Page title and canonical URL identify the story | Positive | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-ART-004](#tc-art-004) | Unknown story URL returns 404 and keeps site navigation | Negative | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: FLAKY |
-| [TC-ART-005](#tc-art-005) | Breadcrumb Home returns to the homepage | Positive | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
+| [TC-ART-001](#tc-art-001) | Article shows title, byline, date and body | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-ART-002](#tc-art-002) | Engagement bar offers like, comment and share with numeric counters | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-ART-003](#tc-art-003) | Page title and canonical URL identify the story | Positive | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-ART-004](#tc-art-004) | Unknown story URL returns 404 and keeps site navigation | Negative | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-ART-005](#tc-art-005) | Breadcrumb Home returns to the homepage | Positive | P3 | Desktop, Mobile | Automated | NOT RUN |
 
 ## Like
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-LIKE-001](#tc-like-001) | Signed-in like increments the count and activates the icon | Positive | P1 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
-| [TC-LIKE-002](#tc-like-002) | Unlike restores the original count | Positive | P1 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
-| [TC-LIKE-003](#tc-like-003) | Like state survives a reload | Positive | P2 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
-| [TC-LIKE-004](#tc-like-004) | Guest who taps like is sent to login and the count does not change | Negative | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-LIKE-005](#tc-like-005) | Rapid double tap does not double count | Edge | P2 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
+| [TC-LIKE-004](#tc-like-004) | Guest who taps like is sent to login and the count does not change | Negative | P1 | Desktop, Mobile | Automated | NOT RUN |
 
 ## Comment
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-CMT-001](#tc-cmt-001) | Comment button opens the story comment thread | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS<br>mobile safari: PASS |
-| [TC-CMT-002](#tc-cmt-002) | Comment count on the article matches the thread | Positive | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-CMT-003](#tc-cmt-003) | Signed-in user can compose a comment and send becomes available (not submitted) | Positive | P1 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
-| [TC-CMT-004](#tc-cmt-004) | Guest typing a comment publishes nothing | Negative | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-CMT-005](#tc-cmt-005) | Empty or whitespace-only comment cannot be sent | Boundary | P2 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
-| [TC-CMT-006](#tc-cmt-006) | Emoji, Indonesian text and line breaks are kept in the editor | Boundary | P3 | Desktop, Mobile | Planned (needs signed-in session) | PLANNED |
+| [TC-CMT-001](#tc-cmt-001) | Comment button opens the story comment thread | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-CMT-002](#tc-cmt-002) | Comment count on the article matches the thread | Positive | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-CMT-004](#tc-cmt-004) | Guest typing a comment publishes nothing | Negative | P1 | Desktop, Mobile | Automated | NOT RUN |
 
 ## Report
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-RPT-001](#tc-rpt-001) | Report opens "Laporkan Konten" with six reasons | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-002](#tc-rpt-002) | Each of reasons 1-5 can be selected and enables submit (5 data rows) | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-003](#tc-rpt-003) | Submit stays disabled until a reason is chosen | Negative | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-004](#tc-rpt-004) | Cancel from the story returns to the story without reporting | Negative | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-005](#tc-rpt-005) | Only one reason can be selected at a time | Boundary | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-006](#tc-rpt-006) | "Lainnya" reveals a free-text field | Edge | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-007](#tc-rpt-007) | Guest can complete the report form up to submit | Edge | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-008](#tc-rpt-008) | Report link for a missing story is handled cleanly | Edge | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-009](#tc-rpt-009) | Cancel on a directly opened report link keeps the user on kumparan (BUG-001) | Edge | P2 | Desktop, Mobile | Automated | desktop: DEFECT<br>mobile: DEFECT |
-| [TC-RPT-010](#tc-rpt-010) | "Lainnya" with an empty reason cannot be submitted | Boundary | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-011](#tc-rpt-011) | "Lainnya" becomes submittable once a reason is written | Boundary | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-012](#tc-rpt-012) | Report form keeps its own URL after opening from a story (BUG-002) | Edge | P3 | Desktop, Mobile | Automated | desktop: SKIPPED<br>mobile: SKIPPED |
+| [TC-RPT-001](#tc-rpt-001) | Report opens "Laporkan Konten" with six reasons | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-002](#tc-rpt-002) | Each of reasons 1-5 can be selected and enables submit (5 data rows) | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-003](#tc-rpt-003) | Submit stays disabled until a reason is chosen | Negative | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-004](#tc-rpt-004) | Cancel from the story returns to the story without reporting | Negative | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-005](#tc-rpt-005) | Only one reason can be selected at a time | Boundary | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-006](#tc-rpt-006) | "Lainnya" reveals a free-text field | Edge | P3 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-007](#tc-rpt-007) | Guest can complete the report form up to submit | Edge | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-008](#tc-rpt-008) | Report link for a missing story is handled cleanly | Edge | P3 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-009](#tc-rpt-009) | Cancel on a directly opened report link keeps the user on kumparan (BUG-001) | Edge | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-010](#tc-rpt-010) | "Lainnya" with an empty reason cannot be submitted | Boundary | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-011](#tc-rpt-011) | "Lainnya" becomes submittable once a reason is written | Boundary | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-RPT-012](#tc-rpt-012) | Report form keeps its own URL after opening from a story (BUG-002) | Edge | P3 | Desktop, Mobile | Automated | NOT RUN |
 
 ## Share
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-SHR-001](#tc-shr-001) | WhatsApp share carries the headline and the story link | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SHR-002](#tc-shr-002) | Share menu lists every share channel | Positive | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SHR-003](#tc-shr-003) | Copy link puts the story link on the clipboard and confirms it | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SHR-004](#tc-shr-004) | Facebook, X and LINE shares carry the story link (3 data rows) | Positive | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SHR-005](#tc-shr-005) | Shared links are absolute https URLs on kumparan.com | Edge | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SHR-006](#tc-shr-006) | Share menu closes with its close button | Edge | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
+| [TC-SHR-001](#tc-shr-001) | WhatsApp share carries the headline and the story link | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SHR-002](#tc-shr-002) | Share menu lists every share channel | Positive | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SHR-003](#tc-shr-003) | Copy link puts the story link on the clipboard and confirms it | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SHR-004](#tc-shr-004) | Facebook, X and LINE shares carry the story link (3 data rows) | Positive | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SHR-005](#tc-shr-005) | Shared links are absolute https URLs on kumparan.com | Edge | P3 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SHR-006](#tc-shr-006) | Share menu closes with its close button | Edge | P3 | Desktop, Mobile | Automated | NOT RUN |
 
 ## Search
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-SRCH-001](#tc-srch-001) | Keyword search from the header returns relevant stories | Positive | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS<br>mobile safari: PASS |
-| [TC-SRCH-002](#tc-srch-002) | Result tabs switch the result type (5 data rows) | Positive | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SRCH-003](#tc-srch-003) | "Terbaru" sort switches to newest-first | Positive | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SRCH-004](#tc-srch-004) | Nonsense keyword shows the "not found" state | Negative | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SRCH-005](#tc-srch-005) | Submitting an empty query stays on the search landing page | Boundary | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SRCH-006](#tc-srch-006) | One-character query is accepted | Boundary | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SRCH-007](#tc-srch-007) | 200-character query is handled without error | Boundary | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SRCH-008](#tc-srch-008) | HTML typed into search is shown as text, never rendered | Edge | P1 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SRCH-009](#tc-srch-009) | Emoji and unicode queries are encoded and searched | Edge | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-SRCH-010](#tc-srch-010) | Query with "&" is encoded, not split | Edge | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
+| [TC-SRCH-001](#tc-srch-001) | Keyword search from the header returns relevant stories | Positive | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SRCH-002](#tc-srch-002) | Result tabs switch the result type (5 data rows) | Positive | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SRCH-003](#tc-srch-003) | "Terbaru" sort switches to newest-first | Positive | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SRCH-004](#tc-srch-004) | Nonsense keyword shows the "not found" state | Negative | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SRCH-005](#tc-srch-005) | Submitting an empty query stays on the search landing page | Boundary | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SRCH-006](#tc-srch-006) | One-character query is accepted | Boundary | P3 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SRCH-007](#tc-srch-007) | 200-character query is handled without error | Boundary | P3 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SRCH-008](#tc-srch-008) | HTML typed into search is shown as text, never rendered | Edge | P1 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SRCH-009](#tc-srch-009) | Emoji and unicode queries are encoded and searched | Edge | P3 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-SRCH-010](#tc-srch-010) | Query with "&" is encoded, not split | Edge | P3 | Desktop, Mobile | Automated | NOT RUN |
 
 ## Navigation & preferences
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-NAV-001](#tc-nav-001) | Channel menu opens the News channel | Positive | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-NAV-002](#tc-nav-002) | Mobile side menu opens and closes | Positive | P2 | Mobile | Automated | desktop: SKIPPED<br>mobile: PASS |
-| [TC-NAV-003](#tc-nav-003) | Dark mode switches the theme and survives a reload | Positive | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-NAV-004](#tc-nav-004) | "Lihat lainnya" on trending opens the Trending page | Positive | P2 | Desktop | Automated | desktop: PASS<br>mobile: SKIPPED |
-| [TC-NAV-005](#tc-nav-005) | Homepage loads without first-party JavaScript errors (BUG-003) | Edge | P2 | Desktop, Mobile | Automated | desktop: DEFECT<br>mobile: PASS |
-| [TC-NAV-006](#tc-nav-006) | Mobile top-nav strip opens Trending | Positive | P2 | Mobile | Automated | desktop: SKIPPED<br>mobile: PASS |
+| [TC-NAV-001](#tc-nav-001) | Channel menu opens the News channel | Positive | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-NAV-002](#tc-nav-002) | Mobile side menu opens and closes | Positive | P2 | Mobile | Automated | NOT RUN |
+| [TC-NAV-003](#tc-nav-003) | Dark mode switches the theme and survives a reload | Positive | P3 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-NAV-004](#tc-nav-004) | "Lihat lainnya" on trending opens the Trending page | Positive | P2 | Desktop | Automated | NOT RUN |
+| [TC-NAV-005](#tc-nav-005) | Homepage loads without first-party JavaScript errors (BUG-003) | Edge | P2 | Desktop, Mobile | Automated | NOT RUN |
+| [TC-NAV-006](#tc-nav-006) | Mobile top-nav strip opens Trending | Positive | P2 | Mobile | Automated | NOT RUN |
 
 ## Agent-generated (Task C)
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-AGT-001](#tc-agt-001) | Search a common term and switch every result tab | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-002](#tc-agt-002) | No-result term shows the empty state | Negative | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-003](#tc-agt-003) | Boundary queries: empty, 1 char, 300 chars, special characters | Boundary | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-004](#tc-agt-004) | Sort Terbaru/Relevansi and clear the query with x-circle | Edge | P3 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-005](#tc-agt-005) | Share bar: WhatsApp popup and copy link from a headline story | Positive | P1 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-006](#tc-agt-006) | Share menu lists channels, closes, and works for a non-ASCII headline | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-007](#tc-agt-007) | Header and sub-menu routes (Trending, Breaking News, Audio Story, More) | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-008](#tc-agt-008) | Guest notification, theme persistence across pages, invalid route | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-009](#tc-agt-009) | Share modal closes with Escape like an accessible dialog (BUG-006) | Negative | P2 | Desktop | Automated (agent-generated) | desktop: DEFECT<br>mobile: SKIPPED |
-| [TC-AGT-010](#tc-agt-010) | Mobile burger side menu: open, every item and link, close (x3) | Positive | P2 | Mobile | Automated (agent-generated) | desktop: SKIPPED<br>mobile: PASS |
-| [TC-AGT-011](#tc-agt-011) | Mobile top-nav strip routes | Positive | P2 | Mobile | Automated (agent-generated) | desktop: SKIPPED<br>mobile: PASS |
-| [TC-AGT-012](#tc-agt-012) | Mobile share bar and share modal | Positive | P1 | Mobile | Automated (agent-generated) | desktop: SKIPPED<br>mobile: PASS |
-| [TC-AGT-013](#tc-agt-013) | Mobile guest login entry from the side menu (form only, never submitted) | Positive | P1 | Mobile | Automated (agent-generated) | desktop: SKIPPED<br>mobile: PASS |
+| [TC-AGT-001](#tc-agt-001) | Search a common term and switch every result tab | Positive | P2 | Desktop | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-002](#tc-agt-002) | No-result term shows the empty state | Negative | P2 | Desktop | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-003](#tc-agt-003) | Boundary queries: empty, 1 char, 300 chars, special characters | Boundary | P2 | Desktop | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-004](#tc-agt-004) | Sort Terbaru/Relevansi and clear the query with x-circle | Edge | P3 | Desktop | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-005](#tc-agt-005) | Share bar: WhatsApp popup and copy link from a headline story | Positive | P1 | Desktop | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-006](#tc-agt-006) | Share menu lists channels, closes, and works for a non-ASCII headline | Edge | P2 | Desktop | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-007](#tc-agt-007) | Header and sub-menu routes (Trending, Breaking News, Audio Story, More) | Positive | P2 | Desktop | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-008](#tc-agt-008) | Guest notification, theme persistence across pages, invalid route | Edge | P2 | Desktop | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-009](#tc-agt-009) | Share modal closes with Escape like an accessible dialog (BUG-006) | Negative | P2 | Desktop | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-010](#tc-agt-010) | Mobile burger side menu: open, every item and link, close (x3) | Positive | P2 | Mobile | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-011](#tc-agt-011) | Mobile top-nav strip routes | Positive | P2 | Mobile | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-012](#tc-agt-012) | Mobile share bar and share modal | Positive | P1 | Mobile | Automated (agent-generated) | NOT RUN |
+| [TC-AGT-013](#tc-agt-013) | Mobile guest login entry from the side menu (form only, never submitted) | Positive | P1 | Mobile | Automated (agent-generated) | NOT RUN |
 
 ## GraphQL API (Task D)
 
@@ -299,71 +287,6 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
 - **Expected:** Facebook, Google, phone sign-in, "Lupa Password" and "Daftar Sekarang!" visible
 - **Automation:** `tests/web/auth/login.spec.ts`
 
-### TC-AUTH-008
-
-**Valid account logs in and the header shows the user** · Positive · P1 · Desktop, Mobile · Manual (human-assisted: Cloudflare check)
-
-- **Risk:** Active accounts cannot log in
-- **Preconditions:** Registered account; human solves the Cloudflare check
-- **Steps:**
-  1. Open /login
-  2. Enter the valid account
-  3. Tick "Verify you are human"
-  4. Click "Masuk"
-- **Expected:** Redirected away from /login; header shows the user instead of "Masuk"
-- **Automation:** `scripts/capture-session.ts`
-
-### TC-AUTH-009
-
-**Wrong password is rejected with a clear message** · Negative · P1 · Desktop · Manual (human-assisted: Cloudflare check)
-
-- **Risk:** Invalid accounts accepted, or rejected without a clear message
-- **Preconditions:** Registered email; human solves the Cloudflare check
-- **Steps:**
-  1. Open /login
-  2. Enter the registered email and a wrong password
-  3. Tick "Verify you are human"
-  4. Click "Masuk"
-- **Expected:** Stays on /login with a clear error message; no session created
-- **Automation:** `scripts/capture-session.ts --negative`
-
-### TC-AUTH-010
-
-**Signed-in session survives a reload and a new tab** · Positive · P1 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Users logged out unexpectedly
-- **Preconditions:** Signed-in session
-- **Steps:**
-  1. Open the homepage signed in
-  2. Reload
-  3. Open a new tab on the homepage
-- **Expected:** Header shows the user in all three
-- **Automation:** `tests/web/auth/session.spec.ts`
-
-### TC-AUTH-011
-
-**Signed-in user visiting /login is not shown the login form** · Edge · P2 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Confusing double login
-- **Preconditions:** Signed-in session
-- **Steps:**
-  1. Open /login while signed in
-- **Expected:** Redirected away, or the form is not offered
-- **Automation:** `tests/web/auth/session.spec.ts`
-
-### TC-AUTH-012
-
-**Logout ends the session; liking requires login again** · Positive · P1 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Session not terminated on shared devices
-- **Preconditions:** Signed-in session (in a separate context)
-- **Steps:**
-  1. Open the account menu
-  2. Click logout
-  3. Open a story and tap like
-- **Expected:** Header shows "Masuk"; like redirects to /login
-- **Automation:** `tests/web/auth/logout.spec.ts`
-
 ### TC-ART-001
 
 **Article shows title, byline, date and body** · Positive · P1 · Desktop, Mobile · Automated
@@ -424,45 +347,6 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
 - **Expected:** Homepage with headlines
 - **Automation:** `tests/web/article/article.spec.ts`
 
-### TC-LIKE-001
-
-**Signed-in like increments the count and activates the icon** · Positive · P1 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Likes not recorded
-- **Preconditions:** Signed-in; story not yet liked by the account
-- **Test data:** Any live story (resolved from the homepage each run)
-- **Steps:**
-  1. Open a story
-  2. Tap like
-- **Expected:** Count +1; icon active (state reverted in teardown)
-- **Automation:** `tests/web/engagement/like-signed-in.spec.ts`
-
-### TC-LIKE-002
-
-**Unlike restores the original count** · Positive · P1 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Counter drift
-- **Preconditions:** Signed-in
-- **Test data:** Any live story (resolved from the homepage each run)
-- **Steps:**
-  1. Like a story
-  2. Tap like again
-- **Expected:** Count back to the original; icon inactive
-- **Automation:** `tests/web/engagement/like-signed-in.spec.ts`
-
-### TC-LIKE-003
-
-**Like state survives a reload** · Positive · P2 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Like stored only client-side
-- **Preconditions:** Signed-in
-- **Test data:** Any live story (resolved from the homepage each run)
-- **Steps:**
-  1. Like a story
-  2. Reload
-- **Expected:** Still liked with the incremented count (reverted in teardown)
-- **Automation:** `tests/web/engagement/like-signed-in.spec.ts`
-
 ### TC-LIKE-004
 
 **Guest who taps like is sent to login and the count does not change** · Negative · P1 · Desktop, Mobile · Automated
@@ -476,20 +360,6 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   3. Return to the story
 - **Expected:** Redirect to /login; like count unchanged
 - **Automation:** `tests/web/engagement/like.spec.ts`
-
-### TC-LIKE-005
-
-**Rapid double tap does not double count** · Edge · P2 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Race condition inflates likes
-- **Preconditions:** Signed-in
-- **Test data:** Any live story (resolved from the homepage each run)
-- **Steps:**
-  1. Open a story
-  2. Tap like twice quickly
-  3. Reload
-- **Expected:** Count is original or original +1, never +2
-- **Automation:** `tests/web/engagement/like-signed-in.spec.ts`
 
 ### TC-CMT-001
 
@@ -517,19 +387,6 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
 - **Expected:** Thread header shows "<same count> Komentar"; empty state when 0
 - **Automation:** `tests/web/engagement/comment.spec.ts`
 
-### TC-CMT-003
-
-**Signed-in user can compose a comment and send becomes available (not submitted)** · Positive · P1 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Signed-in users cannot comment
-- **Preconditions:** Signed-in
-- **Test data:** Any live story (resolved from the homepage each run)
-- **Steps:**
-  1. Open a thread
-  2. Type a comment
-- **Expected:** Text kept; send button enabled. Not clicked (assignment rule)
-- **Automation:** `tests/web/engagement/comment-signed-in.spec.ts`
-
 ### TC-CMT-004
 
 **Guest typing a comment publishes nothing** · Negative · P1 · Desktop, Mobile · Automated
@@ -542,31 +399,6 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   2. Type a comment
 - **Expected:** No comment mutation sent; still on the thread. Observation OBS-001: no login prompt while drafting
 - **Automation:** `tests/web/engagement/comment.spec.ts`
-
-### TC-CMT-005
-
-**Empty or whitespace-only comment cannot be sent** · Boundary · P2 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Blank comments published
-- **Preconditions:** Signed-in
-- **Test data:** Any live story (resolved from the homepage each run)
-- **Steps:**
-  1. Open a thread
-  2. Leave the editor empty, then type only spaces
-- **Expected:** Send unavailable or ignored (asserted without clicking a publishing send)
-- **Automation:** `tests/web/engagement/comment-signed-in.spec.ts`
-
-### TC-CMT-006
-
-**Emoji, Indonesian text and line breaks are kept in the editor** · Boundary · P3 · Desktop, Mobile · Planned (needs signed-in session)
-
-- **Risk:** Content mangled
-- **Preconditions:** Signed-in
-- **Test data:** "Mantap 👍\nTerima kasih"
-- **Steps:**
-  1. Type multi-line text with emoji
-- **Expected:** Editor value identical to input
-- **Automation:** `tests/web/engagement/comment-signed-in.spec.ts`
 
 ### TC-RPT-001
 

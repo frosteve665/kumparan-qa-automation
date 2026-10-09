@@ -20,7 +20,7 @@ If the knowledge is stale or missing, re-crawl instead of guessing:
 ## 2. Safety rules (production)
 - Never click: `btn-send-comment`, report submit (`btn-report` inside the report form), `btn-save` on /login, logout, social login.
 - The write guard aborts comment/report mutations and fails the test: never route around it.
-- Login is behind Cloudflare Turnstile: never automate it. Signed-in tests call `useSignedInSession()`.
+- Login is behind Cloudflare Turnstile: never automate it. Logged-in flows are out of scope.
 
 ## 3. Writing a test
 - Import `{ test, expect }` from `src/fixtures` (web) or `src/fixtures/api` (GraphQL). Never from `@playwright/test` directly in specs.

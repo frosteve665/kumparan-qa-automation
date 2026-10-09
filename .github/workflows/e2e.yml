@@ -61,13 +61,6 @@ jobs:
       - run: npm ci
       - name: Install browsers
         run: npx playwright install --with-deps ${{ matrix.project == 'mobile-safari' && 'webkit' || 'chromium' }}
-      # Signed-in tests need a session captured by a human (Cloudflare check on login).
-      # Store it base64-encoded as the AUTH_STATE_B64 secret; without it those tests skip with a reason.
-      - name: Restore signed-in session (optional)
-        env:
-          AUTH_STATE_B64: ${{ secrets.AUTH_STATE_B64 }}
-        if: env.AUTH_STATE_B64 != ''
-        run: mkdir -p .auth && echo "$AUTH_STATE_B64" | base64 -d > .auth/user.json
       - name: Web tests (${{ matrix.project }})
         run: npx playwright test --project=${{ matrix.project }}
       - name: Results summary

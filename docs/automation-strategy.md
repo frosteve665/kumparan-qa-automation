@@ -48,7 +48,6 @@ and runs on desktop Chrome, Pixel 7 and (for `@smoke`) iPhone 15 WebKit.
 | Network safety | Auto fixture `network`: blocks ad hosts, stubs share popups, **guards writes** (see below) |
 | Interruptions | Auto fixture `interruptions`: `page.addLocatorHandler` closes the promo modal whenever it appears |
 | Test data | Worker fixture `articlePath` resolves a live story once per worker; inputs live in `src/data/*.data.ts` |
-| Signed-in state | `useSignedInSession()` loads `.auth/user.json` (captured once, human-assisted); tests skip with a reason when absent |
 | API | `gql` fixture: a GraphQL client on Playwright's `request` fixture, one per test |
 
 ### The write guard
@@ -60,8 +59,7 @@ which explore production on their own.
 
 ## Data and cleanup
 - **Read-mostly by design.** Nothing in the guest suite writes data.
-- **Likes** (signed-in) are the only real writes: each test records the initial state and reverts
-  it in `finally`/teardown (unlike), so the account ends exactly as it started.
+- **No account is used:** logged-in flows are out of scope (Cloudflare human check), so no test changes any user's data.
 - **Comments and reports** are never submitted (write guard).
 - **GraphQLZero** mutations are not persisted by the server, so they need no cleanup; tests use
   unique titles anyway (worker index) so parallel runs never collide.
@@ -73,8 +71,6 @@ which explore production on their own.
 - **Workers: 4 locally, 2 in CI.** The target is someone else's production behind Cloudflare: we cap
   load to stay polite and below rate limits instead of maximizing speed.
 - Projects (desktop, mobile, safari smoke, api) run side by side; the API project needs no browser.
-- **Session safety**: the only test that ends a session (logout) runs in its own context with its
-  own login, so it cannot log out other workers.
 - Scaling further: `npx playwright test --shard=1/3` per CI job; the evidence reporter output is per
   shard and the HTML report merges with `npx playwright merge-reports`.
 
@@ -129,7 +125,6 @@ npm run test:mobile              # mobile chrome + safari smoke
 npm run test:api                 # GraphQL only
 npm run test:smoke               # @smoke across projects
 npm run test:agent               # Playwright-agent-generated tests
-npm run auth:capture             # one-time signed-in session (human ticks the Cloudflare box)
 npm run explore && npm run explore:digest   # re-crawl the site, refresh the flow map and drift report
 npm run docs:test-cases          # regenerate docs/test-cases.md + .xlsx with the latest results
 ```

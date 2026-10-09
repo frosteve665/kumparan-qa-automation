@@ -1,7 +1,5 @@
 import { test as base, expect, request as playwrightRequest } from '@playwright/test';
-import { existsSync } from 'node:fs';
 import type { Platform } from '../config/platform';
-import { AUTH_FILE } from '../config/paths';
 import { env } from '../config/env';
 import { blockAds, guardWrites, stubShareTargets, type BlockedWrite } from '../support/network';
 import { findFreshArticlePath } from '../support/test-data';
@@ -106,14 +104,3 @@ export const test = base.extend<Fixtures & TestOptions & AccessGate, WorkerFixtu
 });
 
 export { expect };
-
-/**
- * Signed-in tests reuse the session captured by `npm run auth:capture`
- * (login is behind a human-only Cloudflare challenge). Without it they are
- * skipped with a reason in the report, never silently passed.
- */
-export const hasSession = existsSync(AUTH_FILE);
-export function useSignedInSession(): void {
-  test.skip(!hasSession, `No signed-in session at ${AUTH_FILE}. Run "npm run auth:capture" once (human ticks the Cloudflare box).`);
-  test.use({ storageState: hasSession ? AUTH_FILE : undefined });
-}

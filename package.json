@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "auth:capture": "tsx scripts/capture-session.ts",
     "typecheck": "tsc --noEmit",
     "explore": "tsx scripts/explorer/crawl.ts",
     "explore:digest": "tsx scripts/explorer/digest.ts",

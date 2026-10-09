@@ -13,7 +13,7 @@ Agents, and GraphQL API testing, delivered as one framework.
 
 | | |
 |---|---|
-| **Test cases** | **97** designed (85 automated, 2 human-assisted login checks, 10 signed-in cases planned behind the captcha session) ([docs/test-cases.md](docs/test-cases.md) · [xlsx](docs/test-cases.xlsx)), risk-based, Positive / Negative / Boundary / Edge |
+| **Test cases** | **85** designed, all automated ([docs/test-cases.md](docs/test-cases.md) · [xlsx](docs/test-cases.xlsx)), risk-based, Positive / Negative / Boundary / Edge |
 | **Automated** | 85 cases → **186 executions** per full run across desktop Chrome, Pixel 7, iPhone 15 (smoke) and GraphQL |
 | **Defects found** | **6** with reproducible evidence ([docs/bugs](docs/bugs)): 3 on kumparan web, 1 accessibility (found by an AI agent), 2 on the API; plus 6 documented observations |
 | **Site knowledge** | A crawler clicked **183** `data-qa-id` actions on both sites; an explorer agent turned them into [feature maps](docs/features) |
@@ -73,7 +73,6 @@ Observations, coverage and exit-criteria assessment: [docs/findings.md](docs/fin
 ```bash
 npm ci
 npx playwright install chromium webkit
-cp .env.example .env            # only needed for the signed-in session capture
 
 npm test                        # everything
 npm run test:desktop            # kumparan.com
@@ -92,11 +91,12 @@ preflight detects this once per worker and **skips the web tests with that reaso
 reporting misleading failures; the GraphQL suite runs fully in CI. Run the web suite locally (as in
 the results above) or on a self-hosted runner, where the same workflow runs it unchanged.
 
-**Signed-in tests.** kumparan's login is protected by Cloudflare Turnstile, which must not be
-automated. Run `npm run auth:capture` once: a browser opens, you tick "Verify you are human", and
-the session is saved to `.auth/user.json` (gitignored) for every signed-in test. Without it those
-tests are skipped with a reason, never silently passed. In CI, store the file base64-encoded as the
-`AUTH_STATE_B64` secret.
+**Out of scope: logged-in flows.** kumparan's login is protected by a Cloudflare Turnstile
+"Verify you are human" check. Passing it needs a person, and automating around it would defeat
+its purpose, so every case that needs a logged-in account is out of scope (see
+[test-plan.md](docs/test-plan.md#out-of-scope)). The suite covers everything reachable without
+human intervention: login form validation, the bot challenge itself, and every guest-side
+authorization rule (like, comment and report as a guest).
 
 ## How it is built
 

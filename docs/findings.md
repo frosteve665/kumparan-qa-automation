@@ -18,8 +18,8 @@ Evidence: `reports/index.html` (each execution has a video).
 - **FLAKY (1):** TC-ART-004 on mobile received HTTP **505** instead of 404 on its first attempt and passed on retry. 18 follow-up requests all returned 404, so this is recorded as an observation (OBS-003), not a defect.
 - **SKIPPED (18)** by design: tests for the other platform only (desktop-only or mobile-only features and agent cycles), the Chromium-only clipboard check on WebKit, and BUG-002's intermittent reproduction (`test.fixme`).
 
-Manual and human-assisted executions (Cloudflare-gated login, TC-AUTH-008/009) are logged in
-`test-design/manual-results.ts` and shown in test-cases.md.
+Logged-in flows are out of scope: they need a person to pass Cloudflare's "Verify you are human"
+check on every login (see test-plan.md, Out of scope).
 
 ## Defects
 
@@ -47,8 +47,8 @@ Manual and human-assisted executions (Cloudflare-gated login, TC-AUTH-008/009) a
 
 | Rule | Evidence | Status |
 |---|---|---|
-| Active accounts can log in and log out | TC-AUTH-008 (human-assisted), TC-AUTH-010..012 (signed-in session) | See test-cases.md: requires the Cloudflare session capture |
-| Invalid accounts rejected with a clear message | TC-AUTH-002..005 automated (client-side); TC-AUTH-009 server-side (human-assisted) | Client-side validation messages are clear ("Harus diisi dengan format email", "Tidak boleh kosong") |
+| Active accounts can log in and log out | Login entry and form (TC-AUTH-001, 006, 007); bot challenge present (TC-AUTH-005) | **Not automatable:** a successful login needs a human to pass Cloudflare Turnstile. Out of scope by agreement; recommend a staging test sitekey |
+| Invalid accounts rejected with a clear message | TC-AUTH-002..005 (client-side validation) | Pass: clear messages ("Harus diisi dengan format email", "Tidak boleh kosong"); submit disabled. Server-side rejection sits behind the same human check |
 | Users can view, share, like, comment, report (comment/report not submitted) | ART, SHR, LIKE, CMT, RPT modules; write guard enforced | Pass, with BUG-001, BUG-002, BUG-006 |
 | Core functions usable on desktop and mobile | Every web spec runs on both front-ends; smoke on WebKit | Pass (parity confirmed; differences only in layout) |
 
@@ -56,7 +56,7 @@ Manual and human-assisted executions (Cloudflare-gated login, TC-AUTH-008/009) a
 
 | Criterion (test-plan.md section 9) | Result |
 |---|---|
-| 100% of P1 cases executed on desktop and mobile | Met for all guest P1 cases; signed-in P1 cases depend on the human session capture |
+| 100% of P1 cases executed on desktop and mobile | Met (logged-in flows are out of scope) |
 | 100% of P1 automated cases pass or fail only as a documented known defect | Met |
 | At least 95% of executed automated cases pass (known defects excluded) | Met: 161 + 1 flaky of 162 non-defect executions (99.4%) |
 | Every FLAKY result has a recorded cause | Met (OBS-003) |
@@ -64,7 +64,7 @@ Manual and human-assisted executions (Cloudflare-gated login, TC-AUTH-008/009) a
 | Evidence for every execution of the final run | Met (video + final screenshot for every web test) |
 
 ## Risks and recommendations
-1. **Ask for a staging host with a Cloudflare Turnstile test sitekey**: it makes the login and signed-in suite fully unattended.
+1. **Ask for a staging host with a Cloudflare Turnstile test sitekey**: it would bring the logged-in flows (login, logout, signed-in like/comment) into automated scope.
 2. **Fix BUG-003 first**: it is the root of the late-interactivity class of issues (OBS-002, swallowed taps) that real users on slow devices feel.
 3. **Treat BUG-006 as part of an accessibility pass** on modals and custom form controls (OBS-005).
 4. **Add `data-qa-id`** to the few controls without one (comment textarea, password toggle, dark-mode switch, promo modal): the suite documents each fallback in its page objects.

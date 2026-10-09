@@ -10,10 +10,10 @@ Structure follows ISO/IEC/IEEE 29119-3 (test plan). Case-level detail lives in
 | Area | Desktop (kumparan.com) | Mobile (m.kumparan.com) |
 |---|---|---|
 | Home feed | Headlines, story cards, ads-on usability | Same, plus top-nav strip |
-| Authentication | Login form validation, bot challenge, valid/invalid login, session, logout | Same; entry via burger menu |
+| Authentication | Login entry, form validation, password toggle, bot challenge | Same; entry via burger menu |
 | Article view | Content, byline, metadata, 404 handling, breadcrumb | Same |
-| Like | Guest redirect, signed-in like/unlike, persistence | Same |
-| Comment | Thread, counters, guest and signed-in drafting (never submitted) | Same |
+| Like | Guest redirect, count unchanged for guests | Same |
+| Comment | Thread, counters, guest drafting publishes nothing (never submitted) | Same |
 | Report | Form, reasons, validation, cancel paths (never submitted) | Same |
 | Share | WhatsApp, Facebook, X, LINE, copy link, share menu | Same, plus Instagram icon |
 | Search | Keyword, tabs, sort, empty/long/unicode/HTML input | Same; dedicated /search page |
@@ -21,6 +21,7 @@ Structure follows ISO/IEC/IEEE 29119-3 (test plan). Case-level detail lives in
 | GraphQL API (Task D) | GraphQLZero: queries, mutations, negative, security | n/a |
 
 ### Out of scope
+- **Anything that needs a logged-in account: valid login, server-side rejection of a wrong password, logout, session persistence, and signed-in like/comment.** The login form is protected by Cloudflare Turnstile ("Verify you are human"), which requires a person on every login. A test that needs human intervention is not automation, and bypassing the check would defeat its purpose. Decision agreed with the requester on 2026-10-10. What remains covered: the login form's client-side validation (clear messages for empty and malformed input), the presence of the bot challenge, and every guest-side authorization rule. **Recommendation:** a staging host with a Cloudflare Turnstile test sitekey would let all of these run unattended.
 - **Submitting comments and reports** (assignment rule): asserted up to the submit button only, and enforced by a network-level write guard.
 - **Social login (Facebook/Google/phone OTP)**: third-party identity providers; presence is verified, the flows are not.
 - **Registration and password recovery flows**: links verified; the flows would create accounts or send email.
@@ -66,13 +67,12 @@ that into feature maps (`docs/features/`). Cases are grounded in recorded behavi
 - Production is the only available environment; there is no staging or test data API.
 - Story content changes constantly, so tests resolve a live story from the homepage each run and assert structure/behavior, not specific headlines.
 - Bahasa Indonesia UI copy ("Masuk", "Laporkan Konten", ...) is stable enough to assert where no `data-qa-id` exists.
-- One test account is available. Its likes are reverted after each signed-in test.
 - GraphQLZero is a fake backend: mutations respond as if successful but do not persist.
 
 ## 5. Dependencies and constraints
 | Dependency | Impact | Mitigation |
 |---|---|---|
-| Cloudflare Turnstile on /login | Login cannot run unattended (and must not be bypassed) | Human ticks once per session (`npm run auth:capture`); session reused via storageState. **Recommendation:** Cloudflare test sitekey on a staging host removes this step. |
+| Cloudflare Turnstile on /login | A successful login cannot run unattended (and must not be bypassed) | Logged-in flows out of scope; the challenge itself is asserted (TC-AUTH-005). **Recommendation:** a Cloudflare test sitekey on a staging host. |
 | Bot protection blocks headless user agents (403) | Default headless Chromium is rejected | Real device profiles/user agents; capped workers (2 in CI) |
 | Third-party ads and a promo modal | Layout shift, intercepted clicks, flakiness | Ad hosts blocked (one ads-on smoke test keeps it honest); promo auto-dismissed via `page.addLocatorHandler` |
 | Late JavaScript wiring (hydration, see BUG-003) | Early clicks ignored | `waitForInteractive` (React handlers attached) and retry-until-effect helpers, never fixed sleeps |
@@ -81,7 +81,6 @@ that into feature maps (`docs/features/`). Cases are grounded in recorded behavi
 ## 6. Test data
 | Data | Source | Notes |
 |---|---|---|
-| Valid account | `.env` (local) / GitHub Secrets (CI) | Never committed or given to an AI agent |
 | Invalid emails | `src/data/auth.data.ts` | Equivalence classes: no @, no domain, no local part, double @ |
 | Search inputs | `src/data/search.data.ts` | keyword, nonsense, 1 char, 200 chars, emoji, `&`, HTML probe |
 | Story under test | Resolved from the live homepage | Fallback to a known story if parsing fails |
@@ -98,7 +97,6 @@ that into feature maps (`docs/features/`). Cases are grounded in recorded behavi
 ## 8. Entry criteria
 - Sites reachable (homepage 200 with a real browser user agent).
 - `npm ci` and Playwright browsers installed; `npm run typecheck` green.
-- For signed-in cases: a valid captured session in `.auth/user.json`.
 
 ## 9. Exit criteria
 - 100% of P1 cases executed on desktop and mobile; 100% of P1 automated cases pass, or fail only as a documented known defect.

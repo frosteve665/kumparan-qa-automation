@@ -6,9 +6,8 @@ automation for kumparan.com (desktop), m.kumparan.com (mobile) and a GraphQL API
 ## Ground rules (production site)
 1. **Never submit a comment or a report.** Assert up to the submit button. The fixture write guard
    aborts such requests and fails the test; do not weaken or bypass it.
-2. **Never automate past the Cloudflare check on login.** Signed-in tests use the session captured
-   by a human with `npm run auth:capture`.
-3. **Never put credentials in code, prompts or logs.** They live in `.env` (local) and GitHub Secrets (CI).
+2. **Never automate past the Cloudflare check on login.** Logged-in flows need a human and are out of scope.
+3. **Never put credentials in code, prompts or logs.**
 4. Be polite to production: keep workers low, no request loops, no load tests.
 
 ## Layout

@@ -8,7 +8,6 @@
  * design, page objects, the Playwright agents, and UI-drift detection.
  *
  *   npm run explore                 # guest view, desktop + mobile
- *   npm run explore -- --session    # signed-in view (needs .auth/user.json)
  *   npm run explore -- --only=article --platform=mobile
  *
  * Production safety: submit buttons, logout and social login are never clicked,
@@ -19,7 +18,6 @@ import { chromium, devices, request, selectors, type Browser, type BrowserContex
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { env } from '../../src/config/env';
-import { AUTH_FILE } from '../../src/config/paths';
 import type { Platform } from '../../src/config/platform';
 import { blockAds, guardWrites, type BlockedWrite } from '../../src/support/network';
 import { findFreshArticlePath } from '../../src/support/test-data';
@@ -86,7 +84,7 @@ const PAGES: PageTarget[] = [
 ];
 
 const args = new Map(process.argv.slice(2).map((a): [string, string] => { const [k = '', v = ''] = a.replace(/^--/, '').split('='); return [k, v]; }));
-const signedIn = args.has('session');
+const signedIn = false; // guest view only: logged-in flows need a human (Cloudflare check)
 const onlyPage = args.get('only');
 const onlyPlatform = args.get('platform') as Platform | undefined;
 
@@ -97,7 +95,6 @@ function contextOptions(platform: Platform): BrowserContextOptions {
     baseURL: platform === 'mobile' ? env.mobileBaseUrl : env.desktopBaseUrl,
     locale: 'id-ID',
     timezoneId: 'Asia/Jakarta',
-    ...(signedIn ? { storageState: AUTH_FILE } : {}),
   };
 }
 
@@ -239,7 +236,6 @@ async function pool<T, R>(items: T[], size: number, fn: (item: T) => Promise<R>)
 
 async function main(): Promise<void> {
   selectors.setTestIdAttribute('data-qa-id');
-  if (signedIn && !existsSync(AUTH_FILE)) throw new Error(`--session needs ${AUTH_FILE}; run "npm run auth:capture" first.`);
   mkdirSync(SHOTS, { recursive: true });
   const api = await request.newContext();
   const articlePath = await findFreshArticlePath(api);
