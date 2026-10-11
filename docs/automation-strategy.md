@@ -24,7 +24,9 @@ flowchart LR
   classDef s fill:#eef,stroke:#88a
 ```
 
-**One spec, two sites.** kumparan serves two different front-ends. Page objects take the platform
+**One spec, two sites.** Platform-specific tests carry `@desktop-only` / `@mobile-only` and are not scheduled on the other platform (`grepInvert` per project; agent folders via `testIgnore`), so runs report no skips.
+
+**Shared behavior.** kumparan serves two different front-ends. Page objects take the platform
 (from the Playwright project) and hide the differences: header button vs burger menu, inline share
 icons vs share modal, header search vs `/search` page. A spec states the business behavior once
 and runs on desktop Chrome, Pixel 7 and (for `@smoke`) iPhone 15 WebKit.

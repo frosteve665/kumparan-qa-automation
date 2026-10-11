@@ -12,8 +12,8 @@ test.describe('Navigation and preferences', { tag: '@navigation' }, () => {
     await expect(page.getByTestId('channel-title').or(page.getByTestId('news-card')).first()).toBeVisible();
   });
 
-  test('[TC-NAV-002] mobile side menu opens and closes', { tag: ['@p2', '@positive'] }, async ({ home, header, page, platform }) => {
-    test.skip(platform !== 'mobile', 'The side menu exists on the mobile site only');
+  // The side menu exists on the mobile site only.
+  test('[TC-NAV-002] mobile side menu opens and closes', { tag: ['@p2', '@positive', '@mobile-only'] }, async ({ home, header, page }) => {
     await home.open();
 
     await header.openSideMenu();
@@ -37,8 +37,8 @@ test.describe('Navigation and preferences', { tag: '@navigation' }, () => {
     await expect(page.locator('body')).toHaveCSS('background-color', DARK_BODY);
   });
 
-  test('[TC-NAV-004] "Lihat lainnya" on trending opens the Trending page', { tag: ['@p2', '@positive'] }, async ({ home, page, platform }) => {
-    test.skip(platform === 'mobile', 'Mobile reaches Trending through the top-nav strip (covered by TC-NAV-006)');
+  // Desktop only: mobile reaches Trending through the top-nav strip (TC-NAV-006).
+  test('[TC-NAV-004] "Lihat lainnya" on trending opens the Trending page', { tag: ['@p2', '@positive', '@desktop-only'] }, async ({ home, page }) => {
     await home.open();
 
     await home.clickUntilUrl(page.getByTestId('trending-section').getByTestId('ft-loadmore'), /\/trending/);
@@ -62,8 +62,8 @@ test.describe('Navigation and preferences', { tag: '@navigation' }, () => {
     expect(errors, 'uncaught errors on the homepage').toEqual([]);
   });
 
-  test('[TC-NAV-006] mobile top-nav strip opens Trending', { tag: ['@p2', '@positive'] }, async ({ home, page, platform }) => {
-    test.skip(platform !== 'mobile', 'The nb-* top-nav strip exists on the mobile site only');
+  // The nb-* top-nav strip exists on the mobile site only.
+  test('[TC-NAV-006] mobile top-nav strip opens Trending', { tag: ['@p2', '@positive', '@mobile-only'] }, async ({ home, page }) => {
     await home.open();
 
     await home.clickUntilUrl(page.getByTestId('nb-trending'), /\/trending/);

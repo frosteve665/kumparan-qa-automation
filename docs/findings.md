@@ -3,19 +3,18 @@
 Test plan: [test-plan.md](test-plan.md) · Cases and per-case status: [test-cases.md](test-cases.md) ·
 Evidence: `reports/index.html` (each execution has a video).
 
-## Execution summary (final regression, run 2026-10-11-10-22-38)
+## Execution summary (final regression, run 2026-10-11-10-31-08)
 
 | Project | PASS | DEFECT (known, reproduced) | FLAKY | FAIL | SKIPPED |
 |---|---|---|---|---|---|
-| desktop-chrome (kumparan.com) | 70 | 4 | 0 | 0 | 6 |
-| mobile-chrome (m.kumparan.com, Pixel 7) | 68 | 1 | 0 | 0 | 11 |
+| desktop-chrome (kumparan.com) | 70 | 4 | 0 | 0 | 0 |
+| mobile-chrome (m.kumparan.com, Pixel 7) | 68 | 1 | 0 | 0 | 0 |
 | mobile-safari (iPhone 15 WebKit, `@smoke`) | 7 | 0 | 0 | 0 | 0 |
 | api-graphql (GraphQLZero) | 17 | 2 | 0 | 0 | 0 |
-| **Total: 186 executions** | **162** | **7** | **0** | **0** | **17** |
+| **Total: 169 executions** | **162** | **7** | **0** | **0** | **0** |
 
-- **No FAIL and no FLAKY** in the final run.
+- **No FAIL, no FLAKY, no SKIPPED.** Platform-specific tests are scheduled only on the platform they belong to (`@desktop-only` / `@mobile-only` tags and per-project agent folders), so nothing is skipped at run time.
 - **DEFECT** rows are known product defects asserted with `test.fail()`, each still reproducing: BUG-001 (desktop and mobile), BUG-002 (desktop keyboard path), BUG-003, BUG-004, BUG-005, BUG-006.
-- **SKIPPED (17)** by design: tests for the other platform only (desktop-only or mobile-only features, agent cycles, the desktop keyboard path) and the Chromium-only clipboard check on WebKit.
 - An earlier run had one FLAKY result: TC-ART-004 on mobile received HTTP **505** instead of 404 on a first attempt; 18 follow-up requests all returned 404 (OBS-003).
 
 Logged-in flows are out of scope: they need a person to pass Cloudflare's "Verify you are human"

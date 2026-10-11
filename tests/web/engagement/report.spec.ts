@@ -129,12 +129,11 @@ test.describe('Report a story', { tag: '@report' }, () => {
   });
 
   test('[TC-RPT-012] keyboard user opening the report form keeps the form URL in the address bar', {
-    tag: ['@p3', '@edge', '@defect', '@a11y'],
+    tag: ['@p3', '@edge', '@defect', '@a11y', '@desktop-only'],
     annotation: { type: 'issue', description: 'BUG-002: address bar switches back to the story (/full) while the report form is shown (keyboard path)' },
-  }, async ({ article, articlePath, report, page, platform }) => {
+  }, async ({ article, articlePath, report, page }) => {
     // Verified 2026-10-11 in Google Chrome: 3/3 via keyboard on desktop, 0/6 with
-    // mouse-wheel or End-key scrolling. Mobile has no keyboard path to test.
-    test.skip(platform !== 'desktop', 'Keyboard navigation path: desktop only');
+    // mouse-wheel or End-key scrolling. Desktop only: mobile has no keyboard path.
     test.fail(true, 'Known defect BUG-002 still reproduces');
     await article.open(articlePath);
     const reportLink = article.reportButton;

@@ -3,7 +3,6 @@
 import { test, expect } from '../../../src/fixtures';
 
 test.describe('Mobile-specific navigation, share and guest login entry (agent)', { tag: ['@agent', '@mobile'] }, () => {
-  test.skip(({ platform }) => platform !== 'mobile', 'Generated for m.kumparan.com');
 
   test('[TC-AGT-010] Burger side menu: open, check items, close', async ({ page, home, header }) => {
     // 1. Start from the seed state: home as guest, burger visible and drawer off-screen

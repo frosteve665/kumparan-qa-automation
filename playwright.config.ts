@@ -51,6 +51,9 @@ export default defineConfig<TestOptions>({
     {
       name: 'desktop-chrome',
       testMatch: WEB_SPECS,
+      // Platform-specific tests are not scheduled on the other platform (no "skipped" noise).
+      testIgnore: /tests[\\/]agent[\\/]mobile[\\/]/,
+      grepInvert: /@mobile-only/,
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1440, height: 900 },
@@ -62,12 +65,15 @@ export default defineConfig<TestOptions>({
     {
       name: 'mobile-chrome',
       testMatch: WEB_SPECS,
+      testIgnore: /tests[\\/]agent[\\/](search|share|navigation)[\\/]/,
+      grepInvert: /@desktop-only/,
       use: { ...devices['Pixel 7'], baseURL: env.mobileBaseUrl, platform: 'mobile' },
     },
     {
       name: 'mobile-safari',
       testMatch: /tests[\/]web[\/].*\.spec\.ts$/,
       grep: /@smoke/,
+      grepInvert: /@desktop-only/,
       use: { ...devices['iPhone 15'], baseURL: env.mobileBaseUrl, platform: 'mobile' },
     },
     {

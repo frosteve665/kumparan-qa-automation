@@ -3,8 +3,8 @@
 import { test, expect } from '../../../src/fixtures';
 
 test.describe('Navigation (agent)', { tag: ['@agent', '@navigation'] }, () => {
-  // Review: planned and generated for kumparan.com (desktop); mobile agent specs are in tests/agent/mobile/.
-  test.skip(({ platform }) => platform !== 'desktop', 'Generated for the desktop site');
+  // Review: planned and generated for kumparan.com (desktop); runs in the desktop project only
+  // (see testIgnore in playwright.config.ts). Mobile agent specs are in tests/agent/mobile/.
 
   test('[TC-AGT-007] header and sub-menu routes', async ({ home, page }) => {
     await home.open();

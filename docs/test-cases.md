@@ -1,7 +1,7 @@
 # Test cases
 
 Generated from `test-design/catalog.ts` by `npm run docs:test-cases`. Do not edit by hand.
-Execution status from run `2026-10-11-10-22-38` (reports/results.json) and the manual log (test-design/manual-results.ts).
+Execution status from run `2026-10-11-10-31-08` (reports/results.json) and the manual log (test-design/manual-results.ts).
 Also available as a spreadsheet: [test-cases.xlsx](test-cases.xlsx).
 
 **Legend.** Type: Positive / Negative / Boundary / Edge. Priority: P1 (blocks a core business function), P2 (degrades it), P3 (cosmetic or rare).
@@ -83,7 +83,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
 | [TC-RPT-009](#tc-rpt-009) | "Batal" on a report link opened in a new tab takes the reader out of the form (BUG-001) | Edge | P2 | Desktop, Mobile | Automated | desktop: DEFECT<br>mobile: DEFECT |
 | [TC-RPT-010](#tc-rpt-010) | "Lainnya" with an empty reason cannot be submitted | Boundary | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
 | [TC-RPT-011](#tc-rpt-011) | "Lainnya" becomes submittable once a reason is written | Boundary | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-RPT-012](#tc-rpt-012) | Keyboard user opening the report form keeps the form URL in the address bar (BUG-002) | Edge | P3 | Desktop | Automated | desktop: DEFECT<br>mobile: SKIPPED |
+| [TC-RPT-012](#tc-rpt-012) | Keyboard user opening the report form keeps the form URL in the address bar (BUG-002) | Edge | P3 | Desktop | Automated | desktop: DEFECT |
 
 ## Share
 
@@ -116,29 +116,29 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
 | [TC-NAV-001](#tc-nav-001) | Channel menu opens the News channel | Positive | P2 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-NAV-002](#tc-nav-002) | Mobile side menu opens and closes | Positive | P2 | Mobile | Automated | desktop: SKIPPED<br>mobile: PASS |
+| [TC-NAV-002](#tc-nav-002) | Mobile side menu opens and closes | Positive | P2 | Mobile | Automated | mobile: PASS |
 | [TC-NAV-003](#tc-nav-003) | Dark mode switches the theme and survives a reload | Positive | P3 | Desktop, Mobile | Automated | desktop: PASS<br>mobile: PASS |
-| [TC-NAV-004](#tc-nav-004) | "Lihat lainnya" on trending opens the Trending page | Positive | P2 | Desktop | Automated | desktop: PASS<br>mobile: SKIPPED |
+| [TC-NAV-004](#tc-nav-004) | "Lihat lainnya" on trending opens the Trending page | Positive | P2 | Desktop | Automated | desktop: PASS |
 | [TC-NAV-005](#tc-nav-005) | Homepage loads without first-party JavaScript errors (BUG-003) | Edge | P2 | Desktop, Mobile | Automated | desktop: DEFECT<br>mobile: PASS |
-| [TC-NAV-006](#tc-nav-006) | Mobile top-nav strip opens Trending | Positive | P2 | Mobile | Automated | desktop: SKIPPED<br>mobile: PASS |
+| [TC-NAV-006](#tc-nav-006) | Mobile top-nav strip opens Trending | Positive | P2 | Mobile | Automated | mobile: PASS |
 
 ## Agent-generated (Task C)
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-AGT-001](#tc-agt-001) | Search a common term and switch every result tab | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-002](#tc-agt-002) | No-result term shows the empty state | Negative | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-003](#tc-agt-003) | Boundary queries: empty, 1 char, 300 chars, special characters | Boundary | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-004](#tc-agt-004) | Sort Terbaru/Relevansi and clear the query with x-circle | Edge | P3 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-005](#tc-agt-005) | Share bar: WhatsApp popup and copy link from a headline story | Positive | P1 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-006](#tc-agt-006) | Share menu lists channels, closes, and works for a non-ASCII headline | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-007](#tc-agt-007) | Header and sub-menu routes (Trending, Breaking News, Audio Story, More) | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-008](#tc-agt-008) | Guest notification, theme persistence across pages, invalid route | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS<br>mobile: SKIPPED |
-| [TC-AGT-009](#tc-agt-009) | Share modal closes with Escape like an accessible dialog (BUG-006) | Negative | P2 | Desktop | Automated (agent-generated) | desktop: DEFECT<br>mobile: SKIPPED |
-| [TC-AGT-010](#tc-agt-010) | Mobile burger side menu: open, every item and link, close (x3) | Positive | P2 | Mobile | Automated (agent-generated) | desktop: SKIPPED<br>mobile: PASS |
-| [TC-AGT-011](#tc-agt-011) | Mobile top-nav strip routes | Positive | P2 | Mobile | Automated (agent-generated) | desktop: SKIPPED<br>mobile: PASS |
-| [TC-AGT-012](#tc-agt-012) | Mobile share bar and share modal | Positive | P1 | Mobile | Automated (agent-generated) | desktop: SKIPPED<br>mobile: PASS |
-| [TC-AGT-013](#tc-agt-013) | Mobile guest login entry from the side menu (form only, never submitted) | Positive | P1 | Mobile | Automated (agent-generated) | desktop: SKIPPED<br>mobile: PASS |
+| [TC-AGT-001](#tc-agt-001) | Search a common term and switch every result tab | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-002](#tc-agt-002) | No-result term shows the empty state | Negative | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-003](#tc-agt-003) | Boundary queries: empty, 1 char, 300 chars, special characters | Boundary | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-004](#tc-agt-004) | Sort Terbaru/Relevansi and clear the query with x-circle | Edge | P3 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-005](#tc-agt-005) | Share bar: WhatsApp popup and copy link from a headline story | Positive | P1 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-006](#tc-agt-006) | Share menu lists channels, closes, and works for a non-ASCII headline | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-007](#tc-agt-007) | Header and sub-menu routes (Trending, Breaking News, Audio Story, More) | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-008](#tc-agt-008) | Guest notification, theme persistence across pages, invalid route | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-009](#tc-agt-009) | Share modal closes with Escape like an accessible dialog (BUG-006) | Negative | P2 | Desktop | Automated (agent-generated) | desktop: DEFECT |
+| [TC-AGT-010](#tc-agt-010) | Mobile burger side menu: open, every item and link, close (x3) | Positive | P2 | Mobile | Automated (agent-generated) | mobile: PASS |
+| [TC-AGT-011](#tc-agt-011) | Mobile top-nav strip routes | Positive | P2 | Mobile | Automated (agent-generated) | mobile: PASS |
+| [TC-AGT-012](#tc-agt-012) | Mobile share bar and share modal | Positive | P1 | Mobile | Automated (agent-generated) | mobile: PASS |
+| [TC-AGT-013](#tc-agt-013) | Mobile guest login entry from the side menu (form only, never submitted) | Positive | P1 | Mobile | Automated (agent-generated) | mobile: PASS |
 
 ## GraphQL API (Task D)
 

@@ -4,8 +4,8 @@ import { test, expect } from '../../../src/fixtures';
 import { ArticlePage } from '../../../src/pages/article.page';
 
 test.describe('Share (agent)', { tag: ['@agent', '@share'] }, () => {
-  // Review: planned and generated for kumparan.com (desktop); mobile agent specs are in tests/agent/mobile/.
-  test.skip(({ platform }) => platform !== 'desktop', 'Generated for the desktop site');
+  // Review: planned and generated for kumparan.com (desktop); runs in the desktop project only
+  // (see testIgnore in playwright.config.ts). Mobile agent specs are in tests/agent/mobile/.
 
   test('[TC-AGT-005] share bar whatsapp popup and copy link', async ({ home, article, page, context, browserName }) => {
     test.skip(browserName !== 'chromium', 'Clipboard permissions are Chromium-only in Playwright');

@@ -14,14 +14,14 @@ Agents, and GraphQL API testing, delivered as one framework.
 | | |
 |---|---|
 | **Test cases** | **85** designed, all automated ([docs/test-cases.md](docs/test-cases.md) · [xlsx](docs/test-cases.xlsx)), risk-based, Positive / Negative / Boundary / Edge |
-| **Automated** | 85 cases → **186 executions** per full run across desktop Chrome, Pixel 7, iPhone 15 (smoke) and GraphQL |
+| **Automated** | 85 cases → **169 executions** per full run across desktop Chrome, Pixel 7, iPhone 15 (smoke) and GraphQL |
 | **Defects found** | **6** with reproducible evidence ([docs/bugs](docs/bugs)): 3 on kumparan web, 1 accessibility (found by an AI agent), 2 on the API; plus 6 documented observations |
 | **Site knowledge** | A crawler clicked **183** `data-qa-id` actions on both sites; an explorer agent turned them into [feature maps](docs/features) |
 | **Agents** | Playwright planner / generator / healer wrote **13** tests on desktop and mobile; every one reviewed ([REVIEW.md](tests/agent/REVIEW.md)) |
 | **Evidence** | A video of **every** test with an on-screen caption (test ID · platform · step), dashboard with inline playback |
 | **Safety** | A network write guard makes it impossible to publish a comment or report, even for an AI agent exploring production |
 
-> Latest full regression (3.8 min): **162 PASS · 7 DEFECT** (known bugs, still reproducing) **· 0 FLAKY · 0 FAIL · 17 SKIPPED** by design. Details: [docs/findings.md](docs/findings.md).
+> Latest full regression (3.4 min): **162 PASS · 7 DEFECT** (known bugs, still reproducing) **· 0 FLAKY · 0 FAIL · 0 SKIPPED**. Details: [docs/findings.md](docs/findings.md).
 
 ## What makes it different
 
