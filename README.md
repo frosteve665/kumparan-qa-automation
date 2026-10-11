@@ -15,7 +15,7 @@ in one repository.
 |---|---|
 | **Test cases designed** | **85**, prioritised P1–P3 ([test-cases.md](docs/test-cases.md) · [Excel](docs/test-cases.xlsx)) |
 | **Automated** | All 85: 53 website cases (Task B), 13 agent-generated (Task C), 19 GraphQL (Task D) |
-| **Latest full run** | **169 runs · 162 passed · 7 known defects reproduced · 0 failed · 0 flaky · 0 skipped** (3.4 min) |
+| **Latest full run** | **169 runs · 162 passed · 7 known defects reproduced · 0 failed · 0 flaky · 0 skipped** (about 4 min) |
 | **Defects found** | **6**, each with steps, expected vs actual and video/screenshot/JSON evidence ([docs/bugs](docs/bugs)) |
 | **Re-verified** | Every defect re-tested in Google Chrome without ad blocking or test tooling |
 
@@ -35,7 +35,7 @@ in one repository.
 |---|---|
 | Active accounts can log in and log out; invalid accounts are rejected with a clear message | Login entry, form and validation messages are automated: empty form blocked, malformed email shows *"Harus diisi dengan format email"*, empty password shows *"Tidak boleh kosong"* (TC-AUTH-001 to 007). **A real sign-in and logout are out of scope:** kumparan protects login with Cloudflare's "Verify you are human" check, which needs a person and must not be bypassed. The check itself is asserted (TC-AUTH-005). Details and a recommendation in the [test plan](docs/test-plan.md#out-of-scope). |
 | View, share, like, comment and report; never submit comments or reports | View (TC-ART), share (TC-SHR: WhatsApp, Facebook, X, LINE, copy link), like (TC-LIKE), comment (TC-CMT), report (TC-RPT). Comment and report are checked up to the submit button only. A **network guard** also blocks any comment or report request and fails the test, so a submission is impossible even by mistake. |
-| Core functions must work on desktop and mobile, even with different layouts | Every website test runs on **kumparan.com (desktop)** and **m.kumparan.com (Pixel 7)**; smoke tests also run on **iPhone 15 (Safari engine)**. Page objects hide the layout differences (header button vs burger menu, inline share icons vs share pop-up). |
+| Core functions must work on desktop and mobile, even with different layouts | Each website test file runs on **kumparan.com (desktop)** and **m.kumparan.com (Pixel 7)**; smoke tests also run on **iPhone 15 (Safari engine)**. Page objects hide the layout differences (header button vs burger menu, inline share icons vs share pop-up). The few features that exist on one site only (mobile side menu, desktop keyboard path) are tested where they exist. |
 
 ### Task A: test cases and risk analysis
 | Requirement | Where |
@@ -43,11 +43,11 @@ in one repository.
 | Test cases for desktop and mobile, with priority | [test-cases.md](docs/test-cases.md): 85 cases, P1 (core function) to P3 (cosmetic), each with the risk it covers |
 | Happy paths, negative, boundaries | Every module mixes Positive / Negative / Boundary / Edge cases (summary table at the top of test-cases.md) |
 | Exploratory | 5 exploratory charters in the [test plan](docs/test-plan.md), plus a crawler that clicked **183** buttons and links on both sites and recorded where each one leads ([flow digest](knowledge/flow-digest.md), [feature maps](docs/features)) |
-| Authorization | Guest vs signed-in rules: a guest who taps like is sent to login and nothing is counted (TC-LIKE-004); a guest typing a comment publishes nothing (TC-CMT-004); a guest reaching the report form (TC-RPT-007) |
+| Authorization | What a guest (not logged in) can and cannot do: a guest who taps like is sent to login and nothing is counted (TC-LIKE-004); a guest typing a comment publishes nothing (TC-CMT-004); the guest bell goes to login (TC-AGT-008); a guest can reach an enabled report form (TC-RPT-007, observation) |
 | Error handling | Missing story returns 404 with navigation intact (TC-ART-004); missing story in the report form (TC-RPT-008); invalid route (TC-AGT-008); API errors (TC-API-012 to 015) |
 | State changes | Report reason selection and submit enabling (TC-RPT-002/003/010/011), dark mode surviving a reload (TC-NAV-003), search sort (TC-SRCH-003), side menu open/close (TC-NAV-002) |
 | Data validation | Counters are numbers and match between article and comments (TC-ART-002, TC-CMT-002), share links carry the right story (TC-SHR-001/004/005), search input encoding and HTML escaping (TC-SRCH-008 to 010), API response contracts (zod) |
-| Assumptions, out of scope, dependencies, data needs, exit criteria | [test-plan.md](docs/test-plan.md), sections 1–9 |
+| Assumptions, out of scope, dependencies, data needs, exit criteria | [test-plan.md](docs/test-plan.md): sections 1 (scope), 4 (assumptions), 5 (dependencies), 6 (data), 9 (exit criteria) |
 | Execute and report findings | [findings.md](docs/findings.md) and [6 bug reports](docs/bugs) |
 
 ### Task B: Playwright website tests

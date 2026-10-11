@@ -42,9 +42,9 @@ function x likelihood:
 | P3 | Cosmetic, rare, or convenience | Theme, breadcrumb, unicode queries |
 
 Coverage per module deliberately mixes **Positive, Negative, Boundary and Edge** cases (see the
-summary table in test-cases.md), plus authorization (guest vs signed-in), error handling (404,
-missing story, API errors), state changes (like/unlike, theme, sort, login/logout) and data
-validation (counters, encoding, contracts).
+summary table in test-cases.md), plus authorization (what a guest can and cannot do), error
+handling (404, missing story, API errors), state changes (report reason and submit state, theme,
+sort, side menu) and data validation (counters, share links, encoding, API contracts).
 
 **Exploration first.** A deterministic crawler (`npm run explore`) clicked every `data-qa-id`
 element on each page type on both platforms and recorded where it lands, whether login is required

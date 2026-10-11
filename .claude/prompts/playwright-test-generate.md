@@ -1,8 +1,18 @@
 ---
 agent: playwright-test-generator
-description: Generate test plan
+description: Generate tests from the kumparan desktop plan
 ---
 
-Generate tests for the test plan's bullet 1.1 Add item to card.
+Use the playwright-test-generator agent.
 
-Test plan: `specs/coverage.plan.md`
+Generate one Playwright test per scenario in specs/search-share-navigation.plan.md.
+Seed file: tests/seed.spec.ts.
+Write the tests under tests/agent/<feature>/<feature>.agent.spec.ts (feature = search, share or navigation).
+
+Rules for every generated file:
+- Import { test, expect } from '../../../src/fixtures' (the project fixtures, never '@playwright/test'),
+  so the ad blocker, promo handler, write guard and video caption apply.
+- Test titles start with the scenario ID in brackets, e.g. "[TC-AGT-001] search returns results".
+- Locators: getByTestId (data-qa-id) first; role or text only when no data-qa-id exists.
+- Every test ends with assertions on the outcome (URL, visible element, text or count), never actions only.
+- Never click a submit, report, comment-send, login or logout button.

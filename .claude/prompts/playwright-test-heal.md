@@ -1,6 +1,13 @@
 ---
 agent: playwright-test-healer
-description: Fix tests
+description: Run and heal the kumparan agent tests
 ---
 
-Run all my tests and fix the failing ones.
+Use the playwright-test-healer agent.
+
+Run the tests in tests/agent/ on the desktop-chrome project and fix any failing test.
+Rules:
+- Fix the test, not the expectation: never delete an assertion to make a test pass.
+- If a failure is a real product defect, keep the assertion and mark the test with
+  test.fixme(true, '<what is wrong>') instead of weakening it, and say so in your summary.
+- Keep using getByTestId (data-qa-id) locators and the project fixtures import.

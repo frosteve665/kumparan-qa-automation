@@ -36,7 +36,7 @@ Every defect was re-tested in **Google Chrome with no ad blocking and none of th
 on desktop and mobile, with user-like interactions (scripts in `scripts/repro/`, raw results in
 `docs/bugs/evidence/verification/`). All six are confirmed. Two reports were corrected:
 - **BUG-001:** "about:blank" was an automation artifact (a Playwright tab starts at about:blank). The real impact is a dead "Batal" button on shared links and an exit from the site for readers arriving from elsewhere.
-- **BUG-002:** narrowed from "intermittent" to a deterministic keyboard path (3/3); normal scrolling does not trigger it (0/12).
+- **BUG-002:** narrowed from "intermittent for every reader" to the keyboard path, where it shows on about 9 in 10 openings (20/22); normal scrolling never triggers it (0/12). The automated check repeats the keyboard path 3 times.
 
 Real Chrome also surfaced three interruptions that the suite's ad blocking hides from tests: a
 OneSignal notification prompt, a full-screen mobile ad ("TUTUP") and the "Video Story" promo. Each

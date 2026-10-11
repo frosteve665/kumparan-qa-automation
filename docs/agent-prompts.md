@@ -22,6 +22,13 @@ claude -p "$(cat docs/agent-prompts/2-generate.txt)" --mcp-config .mcp.json --st
 claude -p "$(cat docs/agent-prompts/3-heal.txt)"     --mcp-config .mcp.json --strict-mcp-config --model sonnet ...
 ```
 
+### Running the agents yourself
+
+The same prompts are saved as Claude Code prompt files in `.claude/prompts/`
+(`playwright-test-plan.md`, `playwright-test-generate.md`, `playwright-test-heal.md`), and as plain
+text in `docs/agent-prompts/`. `.mcp.json` was generated on Windows (`cmd /c npx ...`); on macOS or
+Linux run `npx playwright init-agents --loop=claude` once to regenerate it for your platform.
+
 ## 1. Planner: explore and write the plan
 
 ```text

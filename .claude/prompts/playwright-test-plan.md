@@ -1,9 +1,21 @@
 ---
 agent: playwright-test-planner
-description: Create test plan
+description: Plan kumparan desktop tests (search, share, navigation)
 ---
 
-Create test plan for "add to cart" functionality of my app.
+Use the playwright-test-planner agent.
 
-- Seed file: `tests\seed.spec.ts`
-- Test plan: `specs/coverage.plan.md`
+Goal: a test plan for three kumparan.com features: Search, Share and Navigation, on the desktop site.
+
+Before exploring, read the feature maps docs/features/search.md, docs/features/share.md and
+docs/features/navigation.md. They describe flows already recorded by the project's crawler; use them
+to explore faster, and look for behavior they do not cover.
+
+Seed file: tests/seed.spec.ts (it opens the homepage with the project fixtures).
+Save the plan to: specs/search-share-navigation.plan.md
+
+Rules:
+- Read-only on production: never submit a comment, a report, a login, or any form that publishes.
+- Prefer data-qa-id locators (the config sets testIdAttribute to data-qa-id, so use getByTestId).
+- Name each scenario with an ID TC-AGT-001, TC-AGT-002, ... in the scenario title.
+- At most 8 scenarios: mix positive, negative and edge cases; each states its expected result.
