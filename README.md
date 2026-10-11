@@ -117,26 +117,121 @@ access this website"). In GitHub Actions the API tests run fully and the website
 with that reason instead of failing misleadingly. Run the website tests locally, as above, or on a
 self-hosted runner.
 
-## How it is built
+## How the framework works
+
+The framework is built in layers. A test only says **what** a reader does; the layers underneath
+handle **how**: locators, waiting, desktop vs mobile, safety and evidence.
 
 ```
-src/pages/        page objects: locators at the top, then actions and verify… methods;
-                  one interface, desktop and mobile layouts behind it
-src/flows/        multi-step journeys reused by tests (e.g. a report link opened in a new tab)
-src/data/         test data per feature (no literals in tests)
-src/fixtures/     test setup: isolation, network guard, ad blocking, pop-up handling, video caption
+tests/web/<feature>/TC-XXX-NNN_*.spec.ts   WHAT: the test case steps
+        | uses
+src/flows/                                 multi-step journeys (e.g. a report link opened in a new tab)
+src/pages/                                 HOW: locators, actions, verify... methods, desktop vs mobile
+src/data/                                  test data (emails, search terms, report reasons)
+        | runs inside
+src/fixtures/                              SETUP: fresh browser, safety guard, ads, pop-ups, caption
+        | configured by
+playwright.config.ts                       WHERE: desktop / mobile / iPhone / API projects
+        | results go to
+src/reporters/  ->  reports/index.html     EVIDENCE: result per platform, video per test
+```
+
+### A test case is just its steps
+
+Every website test case has its own file, named by its ID
+(`tests/web/like/TC-LIKE-004_Guest_Like_Redirects_To_Login.spec.ts`):
+
+```ts
+const CASE = '[TC-LIKE-004] Guest who taps like is sent to login and the count does not change';
+
+test(CASE, { tag: ['@p1'] }, async ({ article, articlePath, login }) => {
+  await article.open(articlePath);
+  const likesBefore = await article.likeCount();
+
+  await article.tapLikeAsGuest();
+  await login.verifyShown();
+
+  await article.open(articlePath);
+  await article.verifyLikeCount(likesBefore);
+});
+```
+
+### What happens when a test runs
+
+1. **Playwright picks the projects.** The same file runs on **desktop-chrome** (kumparan.com) and
+   **mobile-chrome** (m.kumparan.com); `@smoke` tests also run on **mobile-safari** (iPhone 15).
+2. **The setup in `src/fixtures/` runs automatically** before the test body:
+   - a **fresh browser** with no cookies or history (isolation);
+   - a **site check**: if kumparan blocks the network (as in GitHub CI), the test is skipped with that reason;
+   - the **write guard**: any comment or report submission request is blocked and fails the test;
+   - **ad blocking**, and local stand-ins for the WhatsApp/Facebook/X/LINE share pop-ups;
+   - a **pop-up handler** that closes the "Video Story" promo whenever it appears;
+   - the **video caption** (test ID, platform, current step);
+   - a **live story** picked from the homepage once per worker, so no test depends on an old URL.
+3. **The test body runs its steps** through page objects.
+4. **The page object does the hard work** (`src/pages/`): it finds elements by `data-qa-id`, waits
+   until kumparan's JavaScript has actually wired a control before using it (`waitForInteractive`),
+   and handles the desktop vs mobile difference internally.
+5. **After the test**, the setup checks the write guard; video and a screenshot are kept for every
+   test, a trace for failures.
+6. **The reporter** labels the result PASS, FLAKY, DEFECT, FAIL or SKIPPED and adds it to
+   `reports/index.html`.
+
+### One test, two different sites
+
+kumparan.com and m.kumparan.com are separate front-ends. Each page object knows its platform:
+
+```ts
+readonly loginEntry = this.isMobile ? this.qa('anchor-login-wrapper') : this.qa('hd-login');
+```
+
+So `header.goToLogin()` clicks the header button on desktop and opens the burger menu first on
+mobile, while the test stays the same. Tests that exist on one platform only are tagged
+`@desktop-only` or `@mobile-only` and are not scheduled on the other platform.
+
+### Known bugs live inside the suite
+
+A bug's test is marked `test.fail()` with its bug ID. While the bug exists, the test "fails as
+expected": the run stays green and the dashboard shows **DEFECT**. When kumparan fixes it, the test
+passes unexpectedly and turns red, the signal to remove the marker.
+
+### The other parts
+
+| Part | How it works |
+|---|---|
+| **GraphQL (Task D)** | [graphql-client.ts](src/api/graphql-client.ts) wraps Playwright's `request`. Queries are constants in [operations.ts](src/api/operations.ts); inputs are always variables. Each test checks status, `data` and `errors`; zod checks the response shape. |
+| **Playwright agents (Task C)** | The planner explores the site and writes a plan ([specs/](specs)), the generator writes tests ([tests/agent/](tests/agent)), the healer runs and fixes them. They start from [tests/seed.spec.ts](tests/seed.spec.ts), so they inherit the same write guard. |
+| **Site crawler** | `npm run explore` clicks every `data-qa-id` on both sites and records where it leads ([knowledge/](knowledge)). Re-running it after a UI change shows exactly what changed. |
+| **Test case documents** | [test-design/catalog.ts](test-design/catalog.ts) is the single source; `npm run docs:test-cases` generates [test-cases.md](docs/test-cases.md) and the Excel file with the latest results. |
+| **Bug re-check scripts** | [scripts/repro/](scripts/repro) re-test each bug in real Chrome without any of the test setup. |
+
+### Adding a test case
+
+1. Add the case to `test-design/catalog.ts`.
+2. Create `tests/web/<feature>/TC-XXX-NNN_Short_Title.spec.ts` with the steps.
+3. If a step is missing, add a method to the page object (`src/pages/`).
+4. Run it on both sites: `npx playwright test -g "TC-XXX-NNN"`.
+5. Update the documents: `npm run docs:test-cases`.
+
+### Folder map
+
+```
+src/pages/        page objects: locators at the top, then actions and verify... methods
+src/flows/        multi-step journeys reused by tests
+src/data/         test data per feature (no literal values in tests)
+src/fixtures/     test setup: isolation, write guard, ad blocking, pop-ups, video caption
 src/api/          GraphQL client (variables only) and response contracts
 src/reporters/    evidence dashboard (results per platform, video per test)
-tests/web/        Task B: one file per test case, e.g. tests/web/search/TC-SRCH-004_Nonsense_Keyword_Not_Found.spec.ts
+tests/web/        Task B: one file per test case
 tests/agent/      Task C: Playwright-agent tests + review notes
 tests/api/        Task D: GraphQL tests
-test-design/      the test case catalog that generates docs/test-cases.md and .xlsx
-scripts/          site crawler, bug re-verification scripts, docs and CI helpers
+test-design/      test case catalog that generates docs/test-cases.md and .xlsx
+scripts/          site crawler, bug re-check scripts, docs and CI helpers
 docs/             test plan, test cases, findings, bug reports, strategy, agent prompts
 ```
 
 Key decisions (full explanation in [automation-strategy.md](docs/automation-strategy.md)):
-- **Stable without fixed waits:** tests wait until the page's controls are actually interactive, and retry a click only until its effect appears.
+- **Stable without fixed waits:** tests wait until controls are actually interactive, and retry a click only until its effect appears.
 - **Retries are never hidden:** a test that passes on retry is reported as flaky.
 - **Polite to production:** limited parallel workers, ads and share pop-ups handled locally, nothing published.
 - **Easy to maintain:** one test case per file, one page object per screen, Prettier formatting (`npm run format`), and `npm run explore` to re-map the site after a UI change.
