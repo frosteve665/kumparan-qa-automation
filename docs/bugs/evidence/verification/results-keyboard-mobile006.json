@@ -1,0 +1,17 @@
+{
+  "ranAt": "2026-10-11T10:18:49.512Z",
+  "story": "/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+  "BUG-002 desktop keyboard (Tab to \"Laporkan tulisan\" + Enter)": {
+    "reproduced": "0/3",
+    "runs": []
+  },
+  "BUG-006 mobile": {
+    "shareWrappers": 1,
+    "moreButtons": 1,
+    "opened": true,
+    "roleDialog": false,
+    "ariaModal": false,
+    "focusInside": false,
+    "closedByEscape": false
+  }
+}

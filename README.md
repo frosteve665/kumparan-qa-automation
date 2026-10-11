@@ -21,7 +21,7 @@ Agents, and GraphQL API testing, delivered as one framework.
 | **Evidence** | A video of **every** test with an on-screen caption (test ID · platform · step), dashboard with inline playback |
 | **Safety** | A network write guard makes it impossible to publish a comment or report, even for an AI agent exploring production |
 
-> Latest full regression (3.2 min): **161 PASS · 6 DEFECT** (known bugs, still reproducing) **· 1 FLAKY · 0 FAIL · 18 SKIPPED** by design. Details: [docs/findings.md](docs/findings.md).
+> Latest full regression (3.8 min): **162 PASS · 7 DEFECT** (known bugs, still reproducing) **· 0 FLAKY · 0 FAIL · 17 SKIPPED** by design. Details: [docs/findings.md](docs/findings.md).
 
 ## What makes it different
 
@@ -50,14 +50,14 @@ Their output was reviewed like a pull request; the healer also found a real acce
 
 | ID | Finding | Platforms | Severity |
 |---|---|---|---|
-| [BUG-001](docs/bugs/BUG-001.md) | "Batal" on a directly opened report link leaves kumparan for `about:blank` | Desktop, mobile | Medium |
-| [BUG-002](docs/bugs/BUG-002.md) | Address bar flips back to the story while the report form is shown (stale scroll listener) | Desktop, mobile (intermittent) | Low |
+| [BUG-001](docs/bugs/BUG-001.md) | "Batal" on the report form only goes back in history: a dead button on links opened in a new tab | Desktop, mobile | Medium |
+| [BUG-002](docs/bugs/BUG-002.md) | Address bar flips back to the story while the report form is shown (keyboard path) | Desktop | Low |
 | [BUG-003](docs/bugs/BUG-003.md) | React hydration mismatch (#418) on the desktop homepage; late interactivity | Desktop | Medium |
 | [BUG-004](docs/bugs/BUG-004.md) | API: unknown post id returns a ghost object instead of `null` | GraphQL | Medium |
-| [BUG-005](docs/bugs/BUG-005.md) | API: negative page limit accepted, returns 95 rows | GraphQL | Medium |
+| [BUG-005](docs/bugs/BUG-005.md) | API: negative page limit accepted (-5 returns 95 rows); 0 silently becomes 10 | GraphQL | Medium |
 | [BUG-006](docs/bugs/BUG-006.md) | Share modal is not an accessible dialog: Escape ignored, no `role="dialog"` | Desktop, mobile | Medium (a11y) |
 
-Observations, coverage and exit-criteria assessment: [docs/findings.md](docs/findings.md).
+All six were **re-verified in Google Chrome without ad blocking or test fixtures** (2026-10-11); two reports were corrected after that check. Details, observations and exit criteria: [docs/findings.md](docs/findings.md).
 
 ## The four tasks
 

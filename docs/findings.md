@@ -3,20 +3,20 @@
 Test plan: [test-plan.md](test-plan.md) · Cases and per-case status: [test-cases.md](test-cases.md) ·
 Evidence: `reports/index.html` (each execution has a video).
 
-## Execution summary (final regression, run 2026-10-09-17-19-23)
+## Execution summary (final regression, run 2026-10-11-10-22-38)
 
 | Project | PASS | DEFECT (known, reproduced) | FLAKY | FAIL | SKIPPED |
 |---|---|---|---|---|---|
-| desktop-chrome (kumparan.com) | 70 | 3 | 0 | 0 | 7 |
-| mobile-chrome (m.kumparan.com, Pixel 7) | 67 | 1 | 1 | 0 | 11 |
+| desktop-chrome (kumparan.com) | 70 | 4 | 0 | 0 | 6 |
+| mobile-chrome (m.kumparan.com, Pixel 7) | 68 | 1 | 0 | 0 | 11 |
 | mobile-safari (iPhone 15 WebKit, `@smoke`) | 7 | 0 | 0 | 0 | 0 |
 | api-graphql (GraphQLZero) | 17 | 2 | 0 | 0 | 0 |
-| **Total: 186 executions** | **161** | **6** | **1** | **0** | **18** |
+| **Total: 186 executions** | **162** | **7** | **0** | **0** | **17** |
 
-- **No FAIL:** no environment or script errors in the final run.
-- **DEFECT** rows are known product defects asserted with `test.fail()`: each one still reproduces (BUG-001 twice, BUG-003, BUG-004, BUG-005, BUG-006).
-- **FLAKY (1):** TC-ART-004 on mobile received HTTP **505** instead of 404 on its first attempt and passed on retry. 18 follow-up requests all returned 404, so this is recorded as an observation (OBS-003), not a defect.
-- **SKIPPED (18)** by design: tests for the other platform only (desktop-only or mobile-only features and agent cycles), the Chromium-only clipboard check on WebKit, and BUG-002's intermittent reproduction (`test.fixme`).
+- **No FAIL and no FLAKY** in the final run.
+- **DEFECT** rows are known product defects asserted with `test.fail()`, each still reproducing: BUG-001 (desktop and mobile), BUG-002 (desktop keyboard path), BUG-003, BUG-004, BUG-005, BUG-006.
+- **SKIPPED (17)** by design: tests for the other platform only (desktop-only or mobile-only features, agent cycles, the desktop keyboard path) and the Chromium-only clipboard check on WebKit.
+- An earlier run had one FLAKY result: TC-ART-004 on mobile received HTTP **505** instead of 404 on a first attempt; 18 follow-up requests all returned 404 (OBS-003).
 
 Logged-in flows are out of scope: they need a person to pass Cloudflare's "Verify you are human"
 check on every login (see test-plan.md, Out of scope).
@@ -25,12 +25,23 @@ check on every login (see test-plan.md, Out of scope).
 
 | ID | Title | Platforms | Severity | Found by |
 |---|---|---|---|---|
-| [BUG-001](bugs/BUG-001.md) | "Batal" on a directly opened report link leaves kumparan for `about:blank` | Desktop, mobile | Medium | Site crawler, then test |
-| [BUG-002](bugs/BUG-002.md) | Address bar switches back to the story while the report form is shown | Desktop 2/6, mobile 3/7 (intermittent) | Low | Exploratory charter "URL integrity" |
+| [BUG-001](bugs/BUG-001.md) | "Batal" only goes back in history: dead button on a report link opened in a new tab; sends readers from other sites away | Desktop, mobile | Medium | Site crawler; corrected after real-Chrome re-verification |
+| [BUG-002](bugs/BUG-002.md) | Address bar switches back to the story while the report form is shown (keyboard path) | Desktop (3/3 by keyboard; 0/12 with normal scrolling) | Low | Exploratory charter "URL integrity" |
 | [BUG-003](bugs/BUG-003.md) | React hydration mismatch (#418) on the desktop homepage; late interactivity | Desktop | Medium | TC-NAV-005 (quality check) |
 | [BUG-004](bugs/BUG-004.md) | API: unknown post id returns a ghost object instead of `null` | GraphQL | Medium | Boundary case TC-API-018 |
 | [BUG-005](bugs/BUG-005.md) | API: `limit: -5` accepted, returns 95 rows | GraphQL | Medium | Boundary case TC-API-019 |
 | [BUG-006](bugs/BUG-006.md) | Share modal is not an accessible dialog: Escape ignored, no `role="dialog"`, focus not moved | Desktop, mobile | Medium (a11y) | Playwright healer agent, confirmed by hand |
+
+## Re-verification (2026-10-11)
+Every defect was re-tested in **Google Chrome with no ad blocking and none of the suite's fixtures**,
+on desktop and mobile, with user-like interactions (scripts in `scripts/repro/`, raw results in
+`docs/bugs/evidence/verification/`). All six are confirmed. Two reports were corrected:
+- **BUG-001:** "about:blank" was an automation artifact (a Playwright tab starts at about:blank). The real impact is a dead "Batal" button on shared links and an exit from the site for readers arriving from elsewhere.
+- **BUG-002:** narrowed from "intermittent" to a deterministic keyboard path (3/3); normal scrolling does not trigger it (0/12).
+
+Real Chrome also surfaced three interruptions that the suite's ad blocking hides from tests: a
+OneSignal notification prompt, a full-screen mobile ad ("TUTUP") and the "Video Story" promo. Each
+blocks clicks until dismissed; real-user usability with ads on is covered by TC-HOME-003.
 
 ## Observations (not filed as defects)
 
@@ -58,9 +69,9 @@ check on every login (see test-plan.md, Out of scope).
 |---|---|
 | 100% of P1 cases executed on desktop and mobile | Met (logged-in flows are out of scope) |
 | 100% of P1 automated cases pass or fail only as a documented known defect | Met |
-| At least 95% of executed automated cases pass (known defects excluded) | Met: 161 + 1 flaky of 162 non-defect executions (99.4%) |
-| Every FLAKY result has a recorded cause | Met (OBS-003) |
-| Every defect reproduced manually and written up with evidence | Met (docs/bugs, 6 reports with video/screenshots/JSON) |
+| At least 95% of executed automated cases pass (known defects excluded) | Met: 162 of 162 non-defect executions (100%) |
+| Every FLAKY result has a recorded cause | Met (none in the final run; the earlier one is OBS-003) |
+| Every defect reproduced manually and written up with evidence | Met: all six re-verified in Google Chrome without test tooling (2026-10-11); reports in docs/bugs with video, screenshots or JSON |
 | Evidence for every execution of the final run | Met (video + final screenshot for every web test) |
 
 ## Risks and recommendations

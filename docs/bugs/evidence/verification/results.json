@@ -1,0 +1,227 @@
+{
+  "ranAt": "2026-10-11T09:48:01.947Z",
+  "browser": "Google Chrome (channel chrome), no ad blocking, no project fixtures",
+  "story": "/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+  "results": {
+    "BUG-001": [
+      {
+        "platform": "desktop",
+        "entry": "direct-first-page",
+        "historyLength": 2,
+        "before": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "after": "about:blank",
+        "formStillShown": false
+      },
+      {
+        "platform": "desktop",
+        "entry": "link-in-new-tab",
+        "historyLength": 1,
+        "before": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "after": "https://kumparan.com/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "formStillShown": true
+      },
+      {
+        "platform": "desktop",
+        "entry": "from-other-site",
+        "historyLength": 3,
+        "before": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "after": "https://example.com/",
+        "formStillShown": false
+      },
+      {
+        "platform": "desktop",
+        "entry": "control-from-story",
+        "historyLength": 3,
+        "before": "/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX/full",
+        "after": "https://kumparan.com/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "formStillShown": false
+      },
+      {
+        "platform": "mobile",
+        "entry": "direct-first-page",
+        "historyLength": 2,
+        "before": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "after": "about:blank",
+        "formStillShown": false
+      },
+      {
+        "platform": "mobile",
+        "entry": "link-in-new-tab",
+        "historyLength": 1,
+        "before": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "after": "https://m.kumparan.com/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "formStillShown": true
+      },
+      {
+        "platform": "mobile",
+        "entry": "from-other-site",
+        "historyLength": 3,
+        "before": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "after": "https://example.com/",
+        "formStillShown": false
+      },
+      {
+        "platform": "mobile",
+        "entry": "control-from-story",
+        "historyLength": 3,
+        "before": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "after": "https://m.kumparan.com/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+        "formStillShown": false
+      }
+    ],
+    "BUG-002": {
+      "desktop": {
+        "reproduced": "0/4",
+        "runs": [
+          {
+            "void": "report button not clickable (overlay)"
+          },
+          {
+            "void": "report button not clickable (overlay)"
+          },
+          {
+            "void": "report button not clickable (overlay)"
+          },
+          {
+            "void": "report button not clickable (overlay)"
+          }
+        ]
+      },
+      "mobile": {
+        "reproduced": "0/4",
+        "runs": [
+          {
+            "void": "report button not clickable (overlay)"
+          },
+          {
+            "void": "report button not clickable (overlay)"
+          },
+          {
+            "void": "report button not clickable (overlay)"
+          },
+          {
+            "void": "report button not clickable (overlay)"
+          }
+        ]
+      }
+    },
+    "BUG-003": {
+      "desktop": [
+        {
+          "react418": true,
+          "errors": [
+            "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors a"
+          ]
+        },
+        {
+          "react418": true,
+          "errors": [
+            "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors a"
+          ]
+        },
+        {
+          "react418": true,
+          "errors": [
+            "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors a"
+          ]
+        }
+      ],
+      "mobile": [
+        {
+          "react418": false,
+          "errors": []
+        },
+        {
+          "react418": false,
+          "errors": []
+        },
+        {
+          "react418": false,
+          "errors": []
+        }
+      ],
+      "desktop-jakarta-timezone": {
+        "react418": true,
+        "errors": [
+          "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors a"
+        ]
+      }
+    },
+    "BUG-006": {
+      "error": "locator.click: Timeout 15000ms exceeded."
+    },
+    "BUG-004": {
+      "schema": {
+        "postFieldType": {
+          "kind": "OBJECT",
+          "name": "Post"
+        },
+        "postIdType": {
+          "kind": "SCALAR",
+          "name": "ID",
+          "ofType": null
+        }
+      },
+      "runs": [
+        {
+          "id": "999999",
+          "response": {
+            "post": {
+              "id": null,
+              "title": null,
+              "user": {
+                "id": null
+              }
+            }
+          }
+        },
+        {
+          "id": "101",
+          "response": {
+            "post": {
+              "id": null,
+              "title": null,
+              "user": {
+                "id": null
+              }
+            }
+          }
+        },
+        {
+          "id": "0",
+          "response": {
+            "post": {
+              "id": null,
+              "title": null,
+              "user": {
+                "id": null
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BUG-005": [
+      {
+        "limit": -5,
+        "rows": 95,
+        "errors": null
+      },
+      {
+        "limit": -1,
+        "rows": 99,
+        "errors": null
+      },
+      {
+        "limit": 0,
+        "rows": 10,
+        "errors": null
+      },
+      {
+        "limit": 5,
+        "rows": 5,
+        "errors": null
+      }
+    ]
+  }
+}

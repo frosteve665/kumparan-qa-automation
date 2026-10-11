@@ -1,0 +1,62 @@
+{
+  "ranAt": "2026-10-11T09:51:05.065Z",
+  "browser": "Google Chrome (channel chrome), no ad blocking, no project fixtures",
+  "story": "/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+  "results": {
+    "BUG-002": {
+      "desktop": {
+        "reproduced": "0/4",
+        "runs": [
+          {
+            "formVisible": true,
+            "finalUrl": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+            "rewritesAfterReport": 0
+          },
+          {
+            "formVisible": true,
+            "finalUrl": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+            "rewritesAfterReport": 0
+          },
+          {
+            "formVisible": true,
+            "finalUrl": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+            "rewritesAfterReport": 0
+          },
+          {
+            "formVisible": true,
+            "finalUrl": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+            "rewritesAfterReport": 0
+          }
+        ]
+      },
+      "mobile": {
+        "reproduced": "0/4",
+        "runs": [
+          {
+            "formVisible": true,
+            "finalUrl": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+            "rewritesAfterReport": 0
+          },
+          {
+            "formVisible": true,
+            "finalUrl": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+            "rewritesAfterReport": 0
+          },
+          {
+            "formVisible": true,
+            "finalUrl": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+            "rewritesAfterReport": 0
+          },
+          {
+            "formVisible": true,
+            "finalUrl": "/report/story/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+            "rewritesAfterReport": 0
+          }
+        ]
+      }
+    },
+    "BUG-006": {
+      "error": "locator.waitFor: Timeout 30000ms exceeded."
+    }
+  }
+}

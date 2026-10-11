@@ -1,0 +1,27 @@
+{
+  "ranAt": "2026-10-11T09:55:24.310Z",
+  "browser": "Google Chrome, no ad blocking, no project fixtures",
+  "story": "/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
+  "BUG-002": {
+    "desktop / wheel-then-click-immediately": "0/3",
+    "desktop / end-key-then-click": "0/3",
+    "desktop / click-without-scrolling": "3/3",
+    "mobile / wheel-then-click-immediately": "0/3",
+    "mobile / end-key-then-click": "0/3",
+    "mobile / click-without-scrolling": "1/3"
+  },
+  "BUG-006": [
+    {
+      "platform": "desktop",
+      "roleDialog": false,
+      "ariaModal": false,
+      "focusInside": false,
+      "closedByEscape": false,
+      "tabPressesToReachClose": 24
+    },
+    {
+      "platform": "mobile",
+      "error": "share modal did not open"
+    }
+  ]
+}

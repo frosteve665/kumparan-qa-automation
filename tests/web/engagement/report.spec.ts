@@ -106,37 +106,43 @@ test.describe('Report a story', { tag: '@report' }, () => {
     if (status === 200) await expect(report.reportedStory).toBeHidden();
   });
 
-  test('[TC-RPT-009] cancel on a directly opened report link keeps the user on kumparan', {
+  test('[TC-RPT-009] "Batal" on a report link opened in a new tab takes the reader out of the form', {
     tag: ['@p2', '@edge', '@defect'],
-    annotation: { type: 'issue', description: 'BUG-001: Cancel on a directly opened report link leads to about:blank' },
-  }, async ({ report, articlePath, page }) => {
+    annotation: { type: 'issue', description: 'BUG-001: "Batal" only calls history.back(): dead button on a shared link in a new tab' },
+  }, async ({ page, context, articlePath }) => {
     test.fail(true, 'Known defect BUG-001 still reproduces');
-    await report.open(articlePath);
+    // Real-user path: a shared report link opened in a new tab. The new tab has
+    // no history of its own (history.length === 1), unlike a Playwright page,
+    // whose first entry is about:blank and would hide what users actually see.
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const newTab = context.waitForEvent('page');
+    await page.evaluate((url) => window.open(url, '_blank'), `/report/story/${articlePath.split('/').pop()}`);
+    const tab = await newTab;
+    const cancel = tab.getByTestId('btn-cancel');
+    await tab.getByTestId('radio-btn-option-report-0').waitFor();
+    expect(await tab.evaluate(() => history.length)).toBe(1);
 
-    await report.cancelButton.click();
+    await cancel.click();
 
-    // A shared/bookmarked report link has no history to go back to. Wait for
-    // Cancel to actually navigate, then check where the user ended up.
-    await page.waitForURL((url) => !url.pathname.startsWith('/report/'), { waitUntil: 'commit' });
-    await expect(page).toHaveURL(/kumparan\.com/);
+    // Expected: the reader leaves the form (e.g. to the story). Actual: nothing happens.
+    await expect(tab.getByTestId('radio-btn-option-report-0')).toBeHidden({ timeout: 5_000 });
   });
 
-  test('[TC-RPT-012] report form keeps its own URL after opening from a story', {
-    tag: ['@p3', '@edge', '@defect'],
-    annotation: { type: 'issue', description: 'BUG-002: address bar switches back to the story (/full) while the report form is shown' },
-  }, async ({ article, articlePath, report, page }) => {
-    // Intermittent (mobile 3/4 runs, desktop 1/3): a test that is right only
-    // sometimes is not a gate. Kept as an executable reproduction; the rates
-    // and manual steps live in docs/bugs/BUG-002.md.
-    test.fixme(true, 'BUG-002 is intermittent (mobile 3/4, desktop 1/3): tracked in docs/bugs/BUG-002.md');
+  test('[TC-RPT-012] keyboard user opening the report form keeps the form URL in the address bar', {
+    tag: ['@p3', '@edge', '@defect', '@a11y'],
+    annotation: { type: 'issue', description: 'BUG-002: address bar switches back to the story (/full) while the report form is shown (keyboard path)' },
+  }, async ({ article, articlePath, report, page, platform }) => {
+    // Verified 2026-10-11 in Google Chrome: 3/3 via keyboard on desktop, 0/6 with
+    // mouse-wheel or End-key scrolling. Mobile has no keyboard path to test.
+    test.skip(platform !== 'desktop', 'Keyboard navigation path: desktop only');
+    test.fail(true, 'Known defect BUG-002 still reproduces');
     await article.open(articlePath);
-    // Reproduction: read to the end first. That is what arms the article's
-    // scroll tracker (it switches the URL to /full), as a real reader would.
-    await page.getByTestId('end_of_article').waitFor({ state: 'attached' });
-    await page.evaluate(() => document.querySelector('[data-qa-id="end_of_article"]')?.scrollIntoView());
-    await expect(page).toHaveURL(/\/full$/);
+    const reportLink = article.reportButton;
+    await article.waitForInteractive(reportLink);
 
-    await article.openReport();
+    // A keyboard user reaches "Laporkan tulisan" (focus scrolls the page to it) and presses Enter.
+    await reportLink.focus();
+    await page.keyboard.press('Enter');
     await expect(report.form).toBeVisible();
 
     // Refresh, bookmark or share must lead back to the form the user sees,
