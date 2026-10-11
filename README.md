@@ -93,29 +93,76 @@ in one repository.
 Each known defect also has an automated check marked as expected-to-fail: the run stays green while
 the bug exists, and turns red the day it is fixed, so the check can be removed.
 
-## Run it yourself
+## How to run
 
-No account or credentials are needed.
+### 1. Set up (once)
+
+You need **Node.js 22 or newer** and **git**. No kumparan account or credentials are needed.
 
 ```bash
-npm ci
-npx playwright install chromium webkit
-
-npm test                 # everything (about 4 minutes)
-npm run test:desktop     # kumparan.com
-npm run test:mobile      # m.kumparan.com + iPhone smoke tests
-npm run test:api         # GraphQL only (about 5 seconds)
-npm run test:agent       # Playwright-agent tests
+git clone https://github.com/frosteve665/kumparan-qa-automation.git
+cd kumparan-qa-automation
+npm ci                                  # install dependencies
+npx playwright install chromium webkit  # install the test browsers
 ```
 
-Then open **`reports/index.html`**: every test has a video with a caption showing the test ID,
-platform and current step, plus a result table per platform. `npm run report` opens Playwright's
-own HTML report.
+### 2. Run the tests
 
-**About CI.** kumparan's firewall blocks GitHub's servers ("Sorry, you don't have permission to
-access this website"). In GitHub Actions the API tests run fully and the website tests are skipped
-with that reason instead of failing misleadingly. Run the website tests locally, as above, or on a
-self-hosted runner.
+| What you want | Command | Time |
+|---|---|---|
+| **Everything** (web on all platforms + API) | `npm test` | ~4 min |
+| Desktop site only (kumparan.com) | `npm run test:desktop` | ~2 min |
+| Mobile site only (m.kumparan.com + iPhone smoke) | `npm run test:mobile` | ~2 min |
+| GraphQL API only | `npm run test:api` | ~5 s |
+| Playwright-agent tests only | `npm run test:agent` | ~1.5 min |
+| Smoke tests only | `npx playwright test --grep "@smoke"` | ~1 min |
+| **One test case by ID** | `npx playwright test -g "TC-LIKE-004"` | seconds |
+| One feature folder | `npx playwright test tests/web/search` | ~30 s |
+| One test case on one platform | `npx playwright test -g "TC-SHR-001" --project=mobile-chrome` | seconds |
+
+Projects: `desktop-chrome`, `mobile-chrome`, `mobile-safari`, `api-graphql`.
+
+### 3. Watch the browser while it runs
+
+| What you want | Command |
+|---|---|
+| **Interactive UI mode** (pick tests, watch every step, time-travel through it) | `npx playwright test --ui` |
+| See the browser window | `npx playwright test -g "TC-SHR-001" --project=desktop-chrome --headed` |
+| Step through slowly with the debugger | `npx playwright test -g "TC-RPT-001" --project=desktop-chrome --debug` |
+
+UI mode is the easiest way to explore the suite: every test is listed, and clicking one runs it
+with a screenshot for each step.
+
+### 4. See the results
+
+| Report | How to open |
+|---|---|
+| **Evidence dashboard**: result per platform, video of every test with a caption (test ID, platform, current step) | Open `reports/index.html`, then the newest run |
+| Playwright's own HTML report | `npm run report` |
+| Test case documents with the latest results | `npm run docs:test-cases`, then open `docs/test-cases.md` or `docs/test-cases.xlsx` |
+
+**Reading the results:** PASS = passed first time · FLAKY = passed only on retry (never hidden) ·
+DEFECT = a known kumparan bug that still reproduces (expected: these are the 7 bug checks) ·
+FAIL = a network or test problem to look at · SKIPPED = not run, reason shown.
+
+### 5. Other useful commands
+
+| What | Command |
+|---|---|
+| Re-check the bugs in real Chrome, without any test setup | `npx tsx scripts/repro/verify-bugs.ts` (BUG-001, 003, 004, 005) and `npx tsx scripts/repro/verify-keyboard.ts` (BUG-002, BUG-006 mobile) |
+| Re-map the site after a UI change | `npm run explore && npm run explore:digest` (then read `knowledge/drift.md`) |
+| Type check | `npm run typecheck` |
+| Format the code | `npm run format` |
+
+### Troubleshooting
+
+- **Every web test is SKIPPED with "the site's firewall blocks this network"**: kumparan blocks
+  data-center networks such as GitHub's CI servers. Run from a normal home or office connection.
+  In GitHub Actions the API tests still run fully.
+- **A test FAILs**: open its row in `reports/index.html`. The video shows the step it was on, and
+  the note says whether it was the network, the test, or a product bug.
+- **Results vary slightly between runs**: the tests use the live site and a fresh story each run;
+  retries absorb network noise and are always reported as FLAKY.
 
 ## How the framework works
 
