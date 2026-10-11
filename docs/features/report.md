@@ -15,10 +15,10 @@ flowchart LR
   F -->|radio-btn-option-report-0..4| S[Reason selected, submit enabled]
   F -->|radio-btn-option-report-5 Lainnya| O[input-report appears, submit needs text]
   F -->|btn-cancel from story| A
-  F -->|btn-cancel on direct link| B[about:blank, BUG-001]
+  F -->|btn-cancel, link opened in a new tab| B[nothing happens, BUG-001]
   F -.->|btn-report submit: never clicked| X[Protected]
 ```
-Signed-in path: pending signed-in crawl.
+Signed-in path: out of scope (signing in needs a person at Cloudflare's "Verify you are human" check).
 
 ## Expected results (proof it worked)
 - The form shows the reported story (`news-item`) and six reasons `radio-btn-option-report-0..5`.
@@ -44,7 +44,7 @@ Boundary
 - Only one reason selectable at a time: TC-RPT-005.
 
 Edge
-- Report link for a missing story: TC-RPT-008. Cancel on a direct link (BUG-001): TC-RPT-009. URL stays on the form (BUG-002): TC-RPT-012.
+- Report link for a missing story: TC-RPT-008. Cancel on a report link opened in a new tab (BUG-001): TC-RPT-009. Keyboard user keeps the form URL (BUG-002): TC-RPT-012.
 
 ## Gotchas
 - NEVER click the submit `btn-report`, and never report anything.
@@ -54,4 +54,4 @@ Edge
 
 ## Gaps
 - Server response after submit (not allowed by the assignment).
-- Signed-in differences, if any (pending signed-in crawl).
+- Signed-in differences, if any: out of scope (signing in needs a person at Cloudflare's "Verify you are human" check).

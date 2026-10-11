@@ -1,6 +1,6 @@
 # Feature maps
 
-Built from `knowledge/flow-digest.md` (guest crawl 2026-10-09, desktop kumparan.com + mobile m.kumparan.com). Signed-in paths are "pending signed-in crawl".
+Built from `knowledge/flow-digest.md` (guest crawl 2026-10-09, desktop kumparan.com + mobile m.kumparan.com). Signed-in paths are out of scope: signing in needs a person at Cloudflare's check. Test-idea sections list the automated case IDs (updated 2026-10-11).
 
 - [auth.md](auth.md): login form, alternative sign-in, recovery and register links, bot challenge.
 - [article.md](article.md): story page, breadcrumb, channel, author, topic, editors, organisation info.

@@ -13,7 +13,7 @@ flowchart LR
   A[Article] -->|btn-comment| T["/kumparannews/response/:story-slug"]
   T -->|type in input-comment, guest| D[Draft, no login prompt OBS-001]
   T -->|btn-send-comment guest| N[No visible effect, protected]
-  T -.->|signed-in: pending signed-in crawl| P[Comment posted]
+  T -.->|signed-in: out of scope| P[Comment posted]
 ```
 
 ## Expected results (proof it worked)
@@ -27,15 +27,15 @@ flowchart LR
 - Page object: `CommentPage` (`commentedStory`, `section`, `inputCard`, `input`, `editor`, `sendButton`, `emptyState`).
 
 ## Test ideas
-Positive
-- Comment button opens thread: TC-CMT-001. Count matches thread: TC-CMT-002.
-Negative
-- Guest typing publishes nothing: TC-CMT-004. Send is never clicked in this project.
-Boundary
-- Empty and very long drafts, signed-in: TC-CMT-003/005/006 (planned; assert only, no submit).
-Edge
-- OBS-001: guest can draft a full comment with no login prompt; assert current behavior and flag if it changes.
-- Replies, edit, delete, sort: TC-CMT-007/008/009 (planned, signed-in).
+Automated
+- Comment button opens the thread: TC-CMT-001. Count matches the thread: TC-CMT-002.
+- Guest typing publishes nothing (no comment request is sent): TC-CMT-004. Send is never clicked in this project.
+
+Observation
+- OBS-001: a guest can draft a full comment with no login prompt.
+
+Out of scope
+- Signed-in drafting (empty, whitespace-only, very long, emoji) and replies/edit/delete: out of scope (signing in needs a person at Cloudflare's "Verify you are human" check).
 
 ## Gotchas
 - Never click `btn-send-comment`; the assignment forbids submitting.

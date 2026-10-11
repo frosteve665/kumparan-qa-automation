@@ -35,16 +35,14 @@ flowchart LR
 - Page object: `SearchPage`, `Header.searchEntry`, `Header.search(term)`.
 
 ## Test ideas
-Positive
-- Search a common term and see results: TC-SRCH-001..003 (planned). Tabs switch URL and content: TC-SRCH (planned) / NEW.
-- Sort Terbaru then Relevansi: NEW.
-Negative
-- No-result term shows an empty state: TC-SRCH (planned); exact empty-state text NEW.
-Boundary
-- Empty query, 1 character, very long query, special characters: NEW.
-Edge
-- Clear with `x-circle`; term with spaces appears URL-encoded in the path: NEW.
-- Result card opens quickpost vs article: NEW.
+Automated
+- Keyword returns relevant stories: TC-SRCH-001, TC-AGT-001. Tabs switch URL and content (5 data rows): TC-SRCH-002, TC-AGT-001.
+- Sort "Terbaru": TC-SRCH-003, TC-AGT-004. Clear with `x-circle`: TC-AGT-004.
+- No-result term shows "Story tidak ditemukan": TC-SRCH-004, TC-AGT-002.
+- Empty query: TC-SRCH-005. One character: TC-SRCH-006. 200 characters: TC-SRCH-007. HTML shown as text: TC-SRCH-008. Emoji: TC-SRCH-009. "&" encoded: TC-SRCH-010. Mixed boundaries: TC-AGT-003.
+
+Ideas, not automated
+- A result card opens a quickpost vs a full article.
 
 ## Gotchas
 - The crawl used the term "banjir"; the URL shape is `/search/<term>/<tab>`.
@@ -54,4 +52,4 @@ Edge
 ## Gaps
 - Empty-result state and suggestions while typing not recorded.
 - Pagination or infinite scroll of results not exercised.
-- Signed-in search history: pending signed-in crawl.
+- Signed-in search history: out of scope (Cloudflare human check on login).

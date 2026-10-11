@@ -46,15 +46,11 @@ flowchart LR
 - Page objects: `Header` (`logo`, `searchEntry`, `themeToggle`, `burgerMenu`, `loginEntry`, `openSideMenu()`), `HomePage`.
 
 ## Test ideas
-Positive
-- Homepage loads with header: TC-HOME-001; headline opens article: TC-HOME-002. Header and menu routes: TC-NAV-001..006 (planned).
-- Each `nb-*` and `topnav` link lands on its route: NEW.
-Negative
-- `hd-notification` as guest goes to `/login`: NEW.
-Boundary
-- Burger menu opens and closes repeatedly: NEW.
-Edge
-- Dark mode toggle persists across navigation: NEW. Homepage with ads enabled: TC-HOME-003.
+Automated
+- Homepage loads: TC-HOME-001. Headline opens the article: TC-HOME-002. Usable with ads on: TC-HOME-003.
+- Channel menu opens News: TC-NAV-001. Mobile side menu opens and closes: TC-NAV-002, TC-AGT-010. Dark mode survives a reload: TC-NAV-003, TC-AGT-008.
+- Trending from "Lihat lainnya" (desktop): TC-NAV-004, TC-AGT-007. Mobile top-nav strip: TC-NAV-006, TC-AGT-011.
+- No first-party JavaScript errors: TC-NAV-005 (fails on desktop: BUG-003). Guest bell goes to `/login`: TC-AGT-008.
 
 ## Gotchas
 - Mobile `ft-loadmore`, `chevron-next`, `arrow-right` and `close` timed out in the crawl (covered or animated); use targeted specs.
@@ -63,6 +59,6 @@ Edge
 - Interstitial ads may block clicks.
 
 ## Gaps
-- Signed-in menu (profile, bookmarks, logout): pending signed-in crawl.
+- Signed-in menu (profile, bookmarks, logout): out of scope (Cloudflare human check on login).
 - "Tentang kumparan" and "Mode Gelap" outcomes not visible to the crawler.
 - Carousel controls, footer links and breaking-news destinations beyond landing not covered.

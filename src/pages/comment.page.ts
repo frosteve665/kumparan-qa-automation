@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test';
+import { expect, type Request } from '@playwright/test';
 import { BasePage } from './base.page';
 
 /** /<channel>/response/<slug>: the comment thread of a story. */
@@ -36,7 +36,7 @@ export class CommentPage extends BasePage {
   /** Records comment mutations sent while the returned stop function is pending. */
   watchCommentWrites(): () => string[] {
     const writes: string[] = [];
-    const onRequest = (r: import('@playwright/test').Request) => {
+    const onRequest = (r: Request) => {
       const body = r.postData() ?? '';
       const op = /"operationName"\s*:\s*"(\w+)"/.exec(body)?.[1];
       if (op && /comment|response/i.test(op) && /\bmutation\b/.test(body)) writes.push(op);

@@ -8,7 +8,6 @@ export class Header extends BasePage {
   readonly logo = this.qa('hd-logo').first();
   readonly burgerMenu = this.qa('burger-menu');
   readonly sideMenuClose = this.qa('close-sidebar');
-  readonly searchEntry = this.isMobile ? this.qa('hd-search') : this.qa('input-search');
   readonly searchInput = this.qa('input-search').first();
   readonly loginEntry = this.isMobile ? this.qa('anchor-login-wrapper') : this.qa('hd-login');
   readonly darkModeLabel = this.page.getByText('Mode Gelap');

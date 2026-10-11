@@ -22,7 +22,7 @@ flowchart LR
   A -->|btn-report| R["/report/story/:story-slug"]
   A -->|btn-like guest| L["/login"]
 ```
-Signed-in path: pending signed-in crawl.
+Signed-in path: out of scope (signing in needs a person at Cloudflare's "Verify you are human" check).
 
 ## Expected results (proof it worked)
 - `home-breadcrumb` "Beranda" lands on `/` with `headline-card`, `carousel-pane` (FindAllActiveSnaps, FindTrendingStories).
@@ -40,16 +40,14 @@ Signed-in path: pending signed-in crawl.
 - Page object: `ArticlePage` (`title`, `author`, `channel`, `topicTags`, `breadcrumbHome`, `likeButton`, `commentButton`, `reportButton`, `shareBar`).
 
 ## Test ideas
-Positive
-- Title, byline, date, body: TC-ART-001. Engagement bar: TC-ART-002. Title and canonical: TC-ART-003. Breadcrumb Home: TC-ART-005.
-- Channel, author, topic and organisation-info navigation: NEW.
-Negative
+Automated
+- Title, byline, date, body: TC-ART-001. Engagement bar with numeric counters: TC-ART-002. Title and canonical: TC-ART-003. Breadcrumb Home: TC-ART-005.
 - Unknown story URL returns 404 with navigation kept: TC-ART-004.
-Boundary
-- Like/comment counts of "0" and abbreviated counts (rb, jt) parse correctly: NEW.
-Edge
-- "Tim Editor" dropdown differs by platform: NEW.
-- Story with no topic tag or no editors: NEW.
+
+Ideas, not automated
+- Channel, author, topic and organisation-info navigation.
+- Abbreviated counters ("1,2rb", "1jt") parse correctly (handled by `parseCount`, no live story to pin it to).
+- "Tim Editor" dropdown differences between platforms; stories without topic tags or editors.
 
 ## Gotchas
 - Interstitial ad (`otp-ads-close-modal-btn`) may cover the page; `BasePage.dismissInterstitial` handles it.

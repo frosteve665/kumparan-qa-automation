@@ -18,7 +18,7 @@ flowchart LR
   M[Mobile] -->|burger-menu, anchor-login-wrapper| L
   L -->|btn-forgot-password| F["/forgot-password"]
   L -->|btn-register| R["/register"]
-  L -.->|btn-save, Cloudflare check| S[signed-in: pending signed-in crawl]
+  L -.->|btn-save, Cloudflare check| S[signed-in: out of scope]
 ```
 
 ## Expected results (proof it worked)
@@ -27,7 +27,7 @@ flowchart LR
 - `btn-forgot-password` goes to `/forgot-password`; `btn-register` goes to `/register`.
 - Header `hd-login`/`hd-notification` on `/login` itself: no visible effect.
 - Social buttons (`btn-login-fb`, `btn-login-google`, `btn-login-phone`) and `btn-save` are present; the crawler did not activate them (protected).
-- Signed-in outcome: pending signed-in crawl.
+- Signed-in outcome: out of scope (signing in needs a person at Cloudflare's "Verify you are human" check).
 
 ## Desktop vs mobile differences
 - Desktop has `hd-login` "Masuk"; mobile reaches login through the burger menu (`anchor-login-wrapper`) or `hd-notification`.
@@ -35,17 +35,17 @@ flowchart LR
 - Page objects: `LoginPage` (`email`, `password`, `submit`, `togglePasswordVisibility`, `socialLogins`, `hasBotChallenge`), `Header.goToLogin()`.
 
 ## Test ideas
-Positive
-- Login entry opens form: TC-AUTH-001. Password toggle: TC-AUTH-006. Alternative methods and recovery links: TC-AUTH-007.
-- Forgot-password and register URL asserts: NEW.
-Negative
-- Submit disabled with empty fields: TC-AUTH-002 (planned). Malformed email message: TC-AUTH-003 (planned). Cleared password message: TC-AUTH-004 (planned).
+Automated
+- Login entry opens the form: TC-AUTH-001, TC-AGT-013 (mobile). Password toggle: TC-AUTH-006. Alternative methods and recovery links: TC-AUTH-007.
+- Submit disabled with empty fields: TC-AUTH-002. Malformed email message (4 data rows): TC-AUTH-003. Cleared password message: TC-AUTH-004.
 - Bot challenge before submit: TC-AUTH-005.
-Boundary
-- Very long email, whitespace-only password: NEW.
-Edge
-- Signed-in landing, session persistence, logout: TC-AUTH-017/018 (planned, pending signed-in crawl).
-- `hd-login` clicked while already on `/login`: NEW.
+
+Ideas, not automated
+- Very long email and whitespace-only password.
+- Forgot-password and register pages (links are covered by TC-AUTH-007).
+
+Out of scope
+- Valid login, server-side wrong-password message, logout and session: out of scope (signing in needs a person at Cloudflare's "Verify you are human" check).
 
 ## Gotchas
 - Login submit is behind a Cloudflare human check: never automate a real submit.
@@ -53,6 +53,6 @@ Edge
 - `btn-save` is "Masuk" (submit), not a save action.
 
 ## Gaps
-- Signed-in header, profile menu and logout: pending signed-in crawl.
+- Signed-in header, profile menu and logout: out of scope (Cloudflare human check on login).
 - Destination of social buttons and phone login, and validation messages: not exercised.
 - `/forgot-password` and `/register` contents were not recorded.

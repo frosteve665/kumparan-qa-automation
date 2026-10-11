@@ -34,7 +34,8 @@ automation for kumparan.com (desktop), m.kumparan.com (mobile) and a GraphQL API
 - **Test data** comes from `src/data/*.data.ts`, never literals in a test.
   Every automated case also appears in `test-design/catalog.ts`; run `npm run docs:test-cases` after changing either.
 - **Tags:** priority (`@p1`...`@p3`), `@smoke`, `@defect`, and `@desktop-only` / `@mobile-only` for platform-specific
-  cases (those are not scheduled on the other platform, so runs report no skips).
+  cases (those are not scheduled on the other platform, so runs report no skips). Agent and API specs also carry
+  suite tags (`@agent`, `@api`, `@graphql`) and kind tags (`@positive`, `@negative`, `@boundary`, `@security`).
 - **Locators:** `getByTestId` (data-qa-id) first; role/name next; any other anchor is documented in the page object with the reason.
 - **Waiting:** web-first assertions, `waitForInteractive`, `clickUntilUrl`/`clickUntilVisible`. No `waitForTimeout` in specs.
 - **Known defects:** `test.fail()` plus an `issue` annotation `BUG-NNN: ...`, and a report in `docs/bugs/`.

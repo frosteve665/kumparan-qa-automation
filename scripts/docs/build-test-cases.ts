@@ -45,7 +45,7 @@ const md: string[] = [
   'Also available as a spreadsheet: [test-cases.xlsx](test-cases.xlsx).',
   '',
   '**Legend.** Type: Positive / Negative / Boundary / Edge. Priority: P1 (blocks a core business function), P2 (degrades it), P3 (cosmetic or rare).',
-  'Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/bugs) · FAIL (environment/script) · SKIPPED · NOT RUN · PLANNED (designed; waits on the human-captured signed-in session).',
+  'Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/bugs) · FAIL (environment/script) · SKIPPED · NOT RUN.',
   '',
   '## Summary',
   '',

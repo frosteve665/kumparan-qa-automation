@@ -3,7 +3,7 @@ import { BasePage } from './base.page';
 import { Header } from './header.component';
 
 /** Parses counters like "12", "1,2rb" or "1.2K" into numbers. */
-export function parseCount(text: string): number {
+function parseCount(text: string): number {
   const clean = text.trim().toLowerCase().replace(',', '.');
   const n = Number.parseFloat(clean.replace(/[^\d.]/g, ''));
   if (Number.isNaN(n)) return 0;

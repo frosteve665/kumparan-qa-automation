@@ -25,14 +25,11 @@ flowchart LR
 - Not established by the crawl. Page object: `ArticlePage.shareBar`, `shareWhatsApp`, `shareCopyLink`, `shareMore`, `shareModal`, `copiedToast`, `openShareMenu()`, `shareVia()`.
 
 ## Test ideas
-Positive
-- WhatsApp share: TC-SHR-001. Menu channels: TC-SHR-002. Copy link: TC-SHR-003. Each channel carries the link: TC-SHR-004.
-Negative
-- Menu closes with its close button: TC-SHR-006.
-Boundary
-- Absolute https kumparan.com link: TC-SHR-005.
-Edge
-- Story with a long or non-ASCII headline in the share text: NEW.
+Automated
+- WhatsApp share: TC-SHR-001, TC-AGT-005. Menu channels: TC-SHR-002, TC-AGT-006, TC-AGT-012 (mobile). Copy link: TC-SHR-003, TC-AGT-005.
+- Each menu channel carries the story link (3 data rows): TC-SHR-004. Absolute https link: TC-SHR-005.
+- Menu closes with its close button: TC-SHR-006. Non-ASCII headline in the share text: TC-AGT-006.
+- Escape closes the menu: TC-AGT-009 (fails: BUG-006).
 
 ## Gotchas
 - Share opens popups to external sites; read the popup URL, do not interact with the external site.
