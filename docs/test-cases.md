@@ -126,19 +126,19 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
 
 | ID | Test case | Type | Pri | Platforms | Automation | Status |
 |---|---|---|---|---|---|---|
-| [TC-AGT-001](#tc-agt-001) | Search a common term and switch every result tab | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
-| [TC-AGT-002](#tc-agt-002) | No-result term shows the empty state | Negative | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
-| [TC-AGT-003](#tc-agt-003) | Boundary queries: empty, 1 char, 300 chars, special characters | Boundary | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
-| [TC-AGT-004](#tc-agt-004) | Sort Terbaru/Relevansi and clear the query with x-circle | Edge | P3 | Desktop | Automated (agent-generated) | desktop: PASS |
-| [TC-AGT-005](#tc-agt-005) | Share bar: WhatsApp popup and copy link from a headline story | Positive | P1 | Desktop | Automated (agent-generated) | desktop: PASS |
-| [TC-AGT-006](#tc-agt-006) | Share menu lists channels, closes, and works for a non-ASCII headline | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
-| [TC-AGT-007](#tc-agt-007) | Header and sub-menu routes (Trending, Breaking News, Audio Story, More) | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
-| [TC-AGT-008](#tc-agt-008) | Guest notification, theme persistence across pages, invalid route | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
-| [TC-AGT-009](#tc-agt-009) | Share modal closes with Escape like an accessible dialog (BUG-006) | Negative | P2 | Desktop | Automated (agent-generated) | desktop: DEFECT |
-| [TC-AGT-010](#tc-agt-010) | Mobile burger side menu: open, every item and link, close (x3) | Positive | P2 | Mobile | Automated (agent-generated) | mobile: PASS |
-| [TC-AGT-011](#tc-agt-011) | Mobile top-nav strip routes | Positive | P2 | Mobile | Automated (agent-generated) | mobile: PASS |
-| [TC-AGT-012](#tc-agt-012) | Mobile share bar and share modal | Positive | P1 | Mobile | Automated (agent-generated) | mobile: PASS |
-| [TC-AGT-013](#tc-agt-013) | Mobile guest login entry from the side menu (form only, never submitted) | Positive | P1 | Mobile | Automated (agent-generated) | mobile: PASS |
+| [TC-AGT-001](#tc-agt-001) | Search a common term and switch every result tab<br>*Automates Task A: TC-SRCH-001, TC-SRCH-002* | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-002](#tc-agt-002) | No-result term shows the empty state<br>*Automates Task A: TC-SRCH-004* | Negative | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-003](#tc-agt-003) | Boundary queries: empty, 1 char, 300 chars, special characters<br>*Automates Task A: TC-SRCH-005, TC-SRCH-006, TC-SRCH-007, TC-SRCH-008* | Boundary | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-004](#tc-agt-004) | Sort Terbaru/Relevansi and clear the query with x-circle<br>*Automates Task A: TC-SRCH-003* | Edge | P3 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-005](#tc-agt-005) | Share bar: WhatsApp popup and copy link from a headline story<br>*Automates Task A: TC-SHR-001, TC-SHR-003* | Positive | P1 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-006](#tc-agt-006) | Share menu lists channels, closes, and works for a non-ASCII headline<br>*Automates Task A: TC-SHR-002, TC-SHR-006* | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-007](#tc-agt-007) | Header and sub-menu routes (Trending, Breaking News, Audio Story, More)<br>*Automates Task A: TC-NAV-004* | Positive | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-008](#tc-agt-008) | Guest notification, theme persistence across pages, invalid route<br>*Automates Task A: TC-NAV-003, TC-ART-004* | Edge | P2 | Desktop | Automated (agent-generated) | desktop: PASS |
+| [TC-AGT-009](#tc-agt-009) | Share modal closes with Escape like an accessible dialog (BUG-006)<br>*Automates Task A: TC-SHR-006* | Negative | P2 | Desktop | Automated (agent-generated) | desktop: DEFECT |
+| [TC-AGT-010](#tc-agt-010) | Mobile burger side menu: open, every item and link, close (x3)<br>*Automates Task A: TC-NAV-002* | Positive | P2 | Mobile | Automated (agent-generated) | mobile: PASS |
+| [TC-AGT-011](#tc-agt-011) | Mobile top-nav strip routes<br>*Automates Task A: TC-NAV-001, TC-NAV-006* | Positive | P2 | Mobile | Automated (agent-generated) | mobile: PASS |
+| [TC-AGT-012](#tc-agt-012) | Mobile share bar and share modal<br>*Automates Task A: TC-SHR-002, TC-SHR-006* | Positive | P1 | Mobile | Automated (agent-generated) | mobile: PASS |
+| [TC-AGT-013](#tc-agt-013) | Mobile guest login entry from the side menu (form only, never submitted)<br>*Automates Task A: TC-AUTH-001, TC-AUTH-006, TC-AUTH-007* | Positive | P1 | Mobile | Automated (agent-generated) | mobile: PASS |
 
 ## GraphQL API (Task D)
 
@@ -163,6 +163,28 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
 | [TC-API-017](#tc-api-017) | GET without a CSRF-safe header is blocked | Negative | P2 | API | Automated | api: PASS |
 | [TC-API-018](#tc-api-018) | unknown post id returns null (BUG-004) | Boundary | P2 | API | Automated | api: DEFECT |
 | [TC-API-019](#tc-api-019) | negative page limit is rejected (BUG-005) | Boundary | P2 | API | Automated | api: DEFECT |
+
+## Task C traceability: Task A cases automated by Playwright Agent
+
+Each agent-generated test (planner -> generator -> healer, reviewed) and the Task A cases it automates.
+
+| Agent test | Platform | Automates Task A cases |
+|---|---|---|
+| TC-AGT-001: Search a common term and switch every result tab | Desktop | TC-SRCH-001, TC-SRCH-002 |
+| TC-AGT-002: No-result term shows the empty state | Desktop | TC-SRCH-004 |
+| TC-AGT-003: Boundary queries: empty, 1 char, 300 chars, special characters | Desktop | TC-SRCH-005, TC-SRCH-006, TC-SRCH-007, TC-SRCH-008 |
+| TC-AGT-004: Sort Terbaru/Relevansi and clear the query with x-circle | Desktop | TC-SRCH-003 |
+| TC-AGT-005: Share bar: WhatsApp popup and copy link from a headline story | Desktop | TC-SHR-001, TC-SHR-003 |
+| TC-AGT-006: Share menu lists channels, closes, and works for a non-ASCII headline | Desktop | TC-SHR-002, TC-SHR-006 |
+| TC-AGT-007: Header and sub-menu routes (Trending, Breaking News, Audio Story, More) | Desktop | TC-NAV-004 |
+| TC-AGT-008: Guest notification, theme persistence across pages, invalid route | Desktop | TC-NAV-003, TC-ART-004 |
+| TC-AGT-009: Share modal closes with Escape like an accessible dialog | Desktop | TC-SHR-006 |
+| TC-AGT-010: Mobile burger side menu: open, every item and link, close (x3) | Mobile | TC-NAV-002 |
+| TC-AGT-011: Mobile top-nav strip routes | Mobile | TC-NAV-001, TC-NAV-006 |
+| TC-AGT-012: Mobile share bar and share modal | Mobile | TC-SHR-002, TC-SHR-006 |
+| TC-AGT-013: Mobile guest login entry from the side menu (form only, never submitted) | Mobile | TC-AUTH-001, TC-AUTH-006, TC-AUTH-007 |
+
+21 distinct Task A cases are automated a second time by the agent, on desktop and mobile.
 
 ## Case details
 
@@ -813,6 +835,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   2. Click each result tab
 - **Expected:** Each tab has its own URL and result card type
 - **Automation:** `tests/agent/search/search.agent.spec.ts`
+- **Automates Task A cases:** TC-SRCH-001, TC-SRCH-002
 
 ### TC-AGT-002
 
@@ -824,6 +847,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   1. Search a nonsense term
 - **Expected:** story-not-found "Story tidak ditemukan"; no cards; tabs still shown
 - **Automation:** `tests/agent/search/search.agent.spec.ts`
+- **Automates Task A cases:** TC-SRCH-004
 
 ### TC-AGT-003
 
@@ -835,6 +859,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   1. Submit an empty query, "a", 300 x "x", and a script-tag string with & and %20
 - **Expected:** No crash, no dialog; results or empty state each time
 - **Automation:** `tests/agent/search/search.agent.spec.ts`
+- **Automates Task A cases:** TC-SRCH-005, TC-SRCH-006, TC-SRCH-007, TC-SRCH-008
 
 ### TC-AGT-004
 
@@ -848,6 +873,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   3. Click x-circle
 - **Expected:** Toggles swap active state; clear returns to /search with an empty box
 - **Automation:** `tests/agent/search/search.agent.spec.ts`
+- **Automates Task A cases:** TC-SRCH-003
 
 ### TC-AGT-005
 
@@ -861,6 +887,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   3. Copy link
 - **Expected:** Popup text has the headline and link; clipboard has /<channel>/<story-id>
 - **Automation:** `tests/agent/share/share.agent.spec.ts`
+- **Automates Task A cases:** TC-SHR-001, TC-SHR-003
 
 ### TC-AGT-006
 
@@ -874,6 +901,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   3. Share a story found by searching an accented word
 - **Expected:** Five channels; closes cleanly; share text keeps the accented headline
 - **Automation:** `tests/agent/share/share.agent.spec.ts`
+- **Automates Task A cases:** TC-SHR-002, TC-SHR-006
 
 ### TC-AGT-007
 
@@ -889,6 +917,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   5. More menu
 - **Expected:** Each route loads its content; More shows Galeri Foto, Kabar Daerah, Polling
 - **Automation:** `tests/agent/navigation/navigation.agent.spec.ts`
+- **Automates Task A cases:** TC-NAV-004
 
 ### TC-AGT-008
 
@@ -902,6 +931,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   3. Open an invalid route
 - **Expected:** Bell redirects to /login; dark persists everywhere; invalid route has no 5xx and the logo returns home
 - **Automation:** `tests/agent/navigation/navigation.agent.spec.ts`
+- **Automates Task A cases:** TC-NAV-003, TC-ART-004
 
 ### TC-AGT-009
 
@@ -913,6 +943,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   1. Press Escape
 - **Expected:** Modal closes
 - **Automation:** `tests/agent/share/share.agent.spec.ts`
+- **Automates Task A cases:** TC-SHR-006
 
 ### TC-AGT-010
 
@@ -926,6 +957,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   3. Close; repeat 3 times
 - **Expected:** All rows with correct hrefs; drawer opens and closes reliably
 - **Automation:** `tests/agent/mobile/mobile.agent.spec.ts`
+- **Automates Task A cases:** TC-NAV-002
 
 ### TC-AGT-011
 
@@ -937,6 +969,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   1. Tap Breaking News, Audio Story, Trending, News
 - **Expected:** Each route loads with the mobile header
 - **Automation:** `tests/agent/mobile/mobile.agent.spec.ts`
+- **Automates Task A cases:** TC-NAV-001, TC-NAV-006
 
 ### TC-AGT-012
 
@@ -950,6 +983,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   3. Close and reopen twice
 - **Expected:** Inline icons; six channels; modal closes without leaving the story
 - **Automation:** `tests/agent/mobile/mobile.agent.spec.ts`
+- **Automates Task A cases:** TC-SHR-002, TC-SHR-006
 
 ### TC-AGT-013
 
@@ -963,6 +997,7 @@ Status: PASS · FLAKY (passed after retry) · DEFECT (product defect, see docs/b
   3. Toggle password visibility
 - **Expected:** Empty login form with all options; nothing submitted
 - **Automation:** `tests/agent/mobile/mobile.agent.spec.ts`
+- **Automates Task A cases:** TC-AUTH-001, TC-AUTH-006, TC-AUTH-007
 
 ### TC-API-001
 

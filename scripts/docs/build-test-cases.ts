@@ -67,11 +67,15 @@ for (const [key, name] of Object.entries(MODULES)) {
   for (const tc of cs) {
     const r = result(tc);
     const status = MANUAL_RESULTS[tc.id] ? r.cells.manual : PROJECTS.filter((p) => r.cells[p]).map((p) => `${p.replace('-chrome', '').replace('-safari', ' safari').replace('api-graphql', 'api')}: ${r.cells[p]}`).join('<br>') || r.overall;
-    md.push(`| [${tc.id}](#${tc.id.toLowerCase()}) | ${tc.title}${tc.defect ? ` (${tc.defect})` : ''} | ${tc.type} | ${tc.priority} | ${tc.platforms.join(', ')} | ${tc.automation} | ${status} |`);
+    md.push(`| [${tc.id}](#${tc.id.toLowerCase()}) | ${tc.title}${tc.defect ? ` (${tc.defect})` : ''}${tc.covers ? `<br>*Automates Task A: ${tc.covers.join(', ')}*` : ''} | ${tc.type} | ${tc.priority} | ${tc.platforms.join(', ')} | ${tc.automation} | ${status} |`);
   }
   md.push('');
 }
 
+md.push('## Task C traceability: Task A cases automated by Playwright Agent', '', 'Each agent-generated test (planner -> generator -> healer, reviewed) and the Task A cases it automates.', '', '| Agent test | Platform | Automates Task A cases |', '|---|---|---|');
+for (const tc of CATALOG.filter((c) => c.covers)) md.push(`| ${tc.id}: ${tc.title} | ${tc.platforms.join(', ')} | ${tc.covers!.join(', ')} |`);
+const covered = new Set(CATALOG.flatMap((c) => c.covers ?? []));
+md.push('', `${covered.size} distinct Task A cases are automated a second time by the agent, on desktop and mobile.`, '');
 md.push('## Case details', '');
 for (const tc of CATALOG) {
   md.push(`### ${tc.id}`, '', `**${tc.title}** · ${tc.type} · ${tc.priority} · ${tc.platforms.join(', ')} · ${tc.automation}${tc.defect ? ` · linked defect ${tc.defect}` : ''}`, '');
@@ -79,6 +83,7 @@ for (const tc of CATALOG) {
   if (tc.data) md.push(`- **Test data:** ${tc.data}`);
   md.push('- **Steps:**', ...tc.steps.map((s, i) => `  ${i + 1}. ${s}`), `- **Expected:** ${tc.expected}`);
   if (tc.spec) md.push(`- **Automation:** \`${tc.spec}\``);
+  if (tc.covers) md.push(`- **Automates Task A cases:** ${tc.covers.join(', ')}`);
   const manual = MANUAL_RESULTS[tc.id];
   if (manual) md.push(`- **Manual execution:** ${manual.status} on ${manual.date}. ${manual.actual}${manual.evidence ? ` Evidence: ${manual.evidence}` : ''}`);
   md.push('');
@@ -95,7 +100,7 @@ async function xlsx(): Promise<void> {
     { header: 'Automation', key: 'automation', width: 30 }, { header: 'Risk', key: 'risk', width: 36 }, { header: 'Preconditions', key: 'pre', width: 28 },
     { header: 'Test data', key: 'data', width: 24 }, { header: 'Steps', key: 'steps', width: 50 }, { header: 'Expected result', key: 'expected', width: 50 },
     { header: 'Desktop', key: 'desktop-chrome', width: 11 }, { header: 'Mobile', key: 'mobile-chrome', width: 11 }, { header: 'Mobile Safari', key: 'mobile-safari', width: 12 },
-    { header: 'API', key: 'api-graphql', width: 9 }, { header: 'Overall', key: 'overall', width: 12 }, { header: 'Defect', key: 'defect', width: 10 }, { header: 'Spec', key: 'spec', width: 44 },
+    { header: 'API', key: 'api-graphql', width: 9 }, { header: 'Overall', key: 'overall', width: 12 }, { header: 'Defect', key: 'defect', width: 10 }, { header: 'Automates Task A', key: 'covers', width: 26 }, { header: 'Spec', key: 'spec', width: 44 },
   ];
   const fill = (argb: string) => ({ type: 'pattern' as const, pattern: 'solid' as const, fgColor: { argb } });
   const COLORS: Record<string, string> = { PLANNED: 'FFF2F4F7', PASS: 'FFD1FADF', FLAKY: 'FFFEF0C7', DEFECT: 'FFFEE4E2', FAIL: 'FFEBE9FE', SKIPPED: 'FFF2F4F7', 'NOT RUN': 'FFF2F4F7' };
@@ -104,7 +109,7 @@ async function xlsx(): Promise<void> {
     const row = ws.addRow({
       id: tc.id, module: MODULES[tc.module], title: tc.title, type: tc.type, priority: tc.priority, platforms: tc.platforms.join(', '),
       automation: tc.automation, risk: tc.risk, pre: tc.preconditions, data: tc.data ?? '', steps: tc.steps.map((s, i) => `${i + 1}. ${s}`).join('\n'),
-      expected: tc.expected, ...r.cells, overall: r.overall, defect: tc.defect ?? '', spec: tc.spec ?? '',
+      expected: tc.expected, ...r.cells, overall: r.overall, defect: tc.defect ?? '', covers: tc.covers?.join(', ') ?? '', spec: tc.spec ?? '',
     });
     row.alignment = { vertical: 'top', wrapText: true };
     for (const key of [...PROJECTS, 'overall']) {
@@ -117,7 +122,7 @@ async function xlsx(): Promise<void> {
   header.font = { bold: true, color: { argb: 'FFFFFFFF' } };
   header.fill = fill('FF1F2937');
   header.alignment = { vertical: 'middle', wrapText: true };
-  ws.autoFilter = { from: 'A1', to: 'S1' };
+  ws.autoFilter = { from: 'A1', to: 'T1' };
   await wb.xlsx.writeFile('docs/test-cases.xlsx');
 }
 

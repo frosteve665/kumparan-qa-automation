@@ -1,133 +1,139 @@
-# kumparan QA Automation: an AI-assisted Playwright suite that maps the site, then proves 6 real defects
+# kumparan QA Engineer Skill Test: Playwright + TypeScript
 
 [![QA automation](https://github.com/frosteve665/kumparan-qa-automation/actions/workflows/e2e.yml/badge.svg)](https://github.com/frosteve665/kumparan-qa-automation/actions/workflows/e2e.yml)
 ![Playwright](https://img.shields.io/badge/Playwright-1.64-2EAD33?logo=playwright&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
-![Platforms](https://img.shields.io/badge/platforms-desktop%20%C2%B7%20mobile%20%C2%B7%20GraphQL-555)
-![Agents](https://img.shields.io/badge/Playwright%20Agents-planner%20%C2%B7%20generator%20%C2%B7%20healer-8A2BE2)
+![Sites](https://img.shields.io/badge/tested-kumparan.com%20%C2%B7%20m.kumparan.com%20%C2%B7%20GraphQL-555)
 
-kumparan QA Engineer skill test: test design, Playwright desktop + mobile automation, Playwright
-Agents, and GraphQL API testing, delivered as one framework.
+Risk-based test design, Playwright automation for the **desktop and mobile** kumparan sites,
+tests generated with **Playwright Agents**, and **GraphQL** API tests. All four tasks of the brief,
+in one repository.
 
-## At a glance
+## Results at a glance
 
 | | |
 |---|---|
-| **Test cases** | **85** designed, all automated ([docs/test-cases.md](docs/test-cases.md) · [xlsx](docs/test-cases.xlsx)), risk-based, Positive / Negative / Boundary / Edge |
-| **Automated** | 85 cases → **169 executions** per full run across desktop Chrome, Pixel 7, iPhone 15 (smoke) and GraphQL |
-| **Defects found** | **6** with reproducible evidence ([docs/bugs](docs/bugs)): 3 on kumparan web, 1 accessibility (found by an AI agent), 2 on the API; plus 6 documented observations |
-| **Site knowledge** | A crawler clicked **183** `data-qa-id` actions on both sites; an explorer agent turned them into [feature maps](docs/features) |
-| **Agents** | Playwright planner / generator / healer wrote **13** tests on desktop and mobile; every one reviewed ([REVIEW.md](tests/agent/REVIEW.md)) |
-| **Evidence** | A video of **every** test with an on-screen caption (test ID · platform · step), dashboard with inline playback |
-| **Safety** | A network write guard makes it impossible to publish a comment or report, even for an AI agent exploring production |
+| **Test cases designed** | **85**, prioritised P1–P3 ([test-cases.md](docs/test-cases.md) · [Excel](docs/test-cases.xlsx)) |
+| **Automated** | All 85: 53 website cases (Task B), 13 agent-generated (Task C), 19 GraphQL (Task D) |
+| **Latest full run** | **169 runs · 162 passed · 7 known defects reproduced · 0 failed · 0 flaky · 0 skipped** (3.4 min) |
+| **Defects found** | **6**, each with steps, expected vs actual and video/screenshot/JSON evidence ([docs/bugs](docs/bugs)) |
+| **Re-verified** | Every defect re-tested in Google Chrome without ad blocking or test tooling |
 
-> Latest full regression (3.4 min): **162 PASS · 7 DEFECT** (known bugs, still reproducing) **· 0 FLAKY · 0 FAIL · 0 SKIPPED**. Details: [docs/findings.md](docs/findings.md).
+## Review in 10 minutes
 
-## What makes it different
+1. **[Test plan](docs/test-plan.md):** scope, risks, assumptions, out of scope, dependencies, test data, exit criteria.
+2. **[Test cases](docs/test-cases.md):** every case with priority, type, steps and latest result.
+3. **[Findings](docs/findings.md):** execution summary, the 6 defects, observations, exit criteria check.
+4. **One test file:** [report.spec.ts](tests/web/engagement/report.spec.ts) shows the style (one spec, both sites, never submits).
+5. **[Agent prompts](docs/agent-prompts.md)** and the **[review of the agent's code](tests/agent/REVIEW.md)**.
+6. **One API test file:** [negative.spec.ts](tests/api/graphql/negative.spec.ts).
 
-**1. It learns the site before testing it.** `npm run explore` clicks every `data-qa-id` element on
-every page type, on desktop and mobile, in a fresh browser each time, and records where it lands,
-whether login is required, what appears, and which GraphQL operation fires. The result
-([knowledge/flow-digest.md](knowledge/flow-digest.md)) is the locator inventory, the input for the
-AI agents, and a **UI-drift detector**: re-crawl and `knowledge/drift.md` lists every changed
-button before a test breaks.
+## How each requirement is met
 
-**2. One spec, two different sites.** kumparan.com and m.kumparan.com are separate front-ends.
-Platform-aware page objects hide the differences (header vs burger menu, inline share vs share
-modal), so each business rule is written once and proven on both.
-
-**3. Evidence a reviewer can watch.** Every execution is recorded. A caption inside the video says
-which test case, platform and step you are watching. The dashboard shows a coverage matrix
-(case × platform) and a triage note for anything not green: environment, script error or product
-defect. Known defects stay visible as DEFECT without breaking CI.
-
-**4. AI agents with guardrails.** Playwright's planner, generator and healer explored the live
-site from a seed that inherits the project fixtures (ad blocker, promo handler, **write guard**).
-Their output was reviewed like a pull request; the healer also found a real accessibility defect
-(BUG-006), which a human then confirmed.
-
-## Findings
-
-| ID | Finding | Platforms | Severity |
-|---|---|---|---|
-| [BUG-001](docs/bugs/BUG-001.md) | "Batal" on the report form only goes back in history: a dead button on links opened in a new tab | Desktop, mobile | Medium |
-| [BUG-002](docs/bugs/BUG-002.md) | Address bar flips back to the story while the report form is shown (keyboard path) | Desktop | Low |
-| [BUG-003](docs/bugs/BUG-003.md) | React hydration mismatch (#418) on the desktop homepage; late interactivity | Desktop | Medium |
-| [BUG-004](docs/bugs/BUG-004.md) | API: unknown post id returns a ghost object instead of `null` | GraphQL | Medium |
-| [BUG-005](docs/bugs/BUG-005.md) | API: negative page limit accepted (-5 returns 95 rows); 0 silently becomes 10 | GraphQL | Medium |
-| [BUG-006](docs/bugs/BUG-006.md) | Share modal is not an accessible dialog: Escape ignored, no `role="dialog"` | Desktop, mobile | Medium (a11y) |
-
-All six were **re-verified in Google Chrome without ad blocking or test fixtures** (2026-10-11); two reports were corrected after that check. Details, observations and exit criteria: [docs/findings.md](docs/findings.md).
-
-## The four tasks
-
-| Task | Where |
+### Scenario rules
+| Rule in the brief | How it is covered |
 |---|---|
-| **A. Test cases and risk analysis** | [Test plan](docs/test-plan.md) (scope, assumptions, out of scope, dependencies, data, entry/exit criteria) · [Test cases](docs/test-cases.md) · [xlsx](docs/test-cases.xlsx) · [Findings](docs/findings.md) · [Bug reports](docs/bugs) · [Feature maps](docs/features) |
-| **B. Playwright website tests** | `tests/web/` · [Automation strategy](docs/automation-strategy.md) (parallelism, cleanup, timeouts, retries, flaky tests, locators) |
-| **C. Playwright Agent tests** | `tests/agent/` · [Prompts used](docs/agent-prompts.md) · [Plans](specs/) · [Review](tests/agent/REVIEW.md) |
-| **D. GraphQL API tests** | `tests/api/graphql/` · 19 cases: 7 queries, 3 mutations, negative, boundary and security, all with variables |
+| Active accounts can log in and log out; invalid accounts are rejected with a clear message | Login entry, form and validation messages are automated: empty form blocked, malformed email shows *"Harus diisi dengan format email"*, empty password shows *"Tidak boleh kosong"* (TC-AUTH-001 to 007). **A real sign-in and logout are out of scope:** kumparan protects login with Cloudflare's "Verify you are human" check, which needs a person and must not be bypassed. The check itself is asserted (TC-AUTH-005). Details and a recommendation in the [test plan](docs/test-plan.md#out-of-scope). |
+| View, share, like, comment and report; never submit comments or reports | View (TC-ART), share (TC-SHR: WhatsApp, Facebook, X, LINE, copy link), like (TC-LIKE), comment (TC-CMT), report (TC-RPT). Comment and report are checked up to the submit button only. A **network guard** also blocks any comment or report request and fails the test, so a submission is impossible even by mistake. |
+| Core functions must work on desktop and mobile, even with different layouts | Every website test runs on **kumparan.com (desktop)** and **m.kumparan.com (Pixel 7)**; smoke tests also run on **iPhone 15 (Safari engine)**. Page objects hide the layout differences (header button vs burger menu, inline share icons vs share pop-up). |
 
-## Quick start
+### Task A: test cases and risk analysis
+| Requirement | Where |
+|---|---|
+| Test cases for desktop and mobile, with priority | [test-cases.md](docs/test-cases.md): 85 cases, P1 (core function) to P3 (cosmetic), each with the risk it covers |
+| Happy paths, negative, boundaries | Every module mixes Positive / Negative / Boundary / Edge cases (summary table at the top of test-cases.md) |
+| Exploratory | 5 exploratory charters in the [test plan](docs/test-plan.md), plus a crawler that clicked **183** buttons and links on both sites and recorded where each one leads ([flow digest](knowledge/flow-digest.md), [feature maps](docs/features)) |
+| Authorization | Guest vs signed-in rules: a guest who taps like is sent to login and nothing is counted (TC-LIKE-004); a guest typing a comment publishes nothing (TC-CMT-004); a guest reaching the report form (TC-RPT-007) |
+| Error handling | Missing story returns 404 with navigation intact (TC-ART-004); missing story in the report form (TC-RPT-008); invalid route (TC-AGT-008); API errors (TC-API-012 to 015) |
+| State changes | Report reason selection and submit enabling (TC-RPT-002/003/010/011), dark mode surviving a reload (TC-NAV-003), search sort (TC-SRCH-003), side menu open/close (TC-NAV-002) |
+| Data validation | Counters are numbers and match between article and comments (TC-ART-002, TC-CMT-002), share links carry the right story (TC-SHR-001/004/005), search input encoding and HTML escaping (TC-SRCH-008 to 010), API response contracts (zod) |
+| Assumptions, out of scope, dependencies, data needs, exit criteria | [test-plan.md](docs/test-plan.md), sections 1–9 |
+| Execute and report findings | [findings.md](docs/findings.md) and [6 bug reports](docs/bugs) |
+
+### Task B: Playwright website tests
+| Requirement | Where |
+|---|---|
+| Automate the Task A cases for desktop and mobile | [tests/web/](tests/web): 53 cases; each test ID matches test-cases.md |
+| Fixtures or setup to isolate data and state | [src/fixtures](src/fixtures/index.ts): fresh browser per test, page objects injected, a live story resolved per worker, automatic network guard, ad blocking and pop-up handling |
+| Strategy for parallel execution, data cleanup, timeouts, retries, flaky tests | [automation-strategy.md](docs/automation-strategy.md) |
+| `data-qa-id` locators; creative when missing | `testIdAttribute: 'data-qa-id'` in the config. Where no `data-qa-id` exists, a stable alternative is documented in the page object (for example the comment box `textarea#comment-editor`, the password toggle found next to the password field) |
+
+### Task C: Playwright Agent
+| Requirement | Where |
+|---|---|
+| Automate the Task A cases with Playwright Agent, desktop and mobile | [tests/agent/](tests/agent): 13 tests from Playwright's **planner → generator → healer** agents. They automate **21 Task A cases** ([traceability table](docs/test-cases.md#task-c-traceability-task-a-cases-automated-by-playwright-agent)) |
+| Agent explores the site and helps generate the cases | Plans written by the planner after exploring the live site: [specs/](specs) |
+| Prompts used | [docs/agent-prompts.md](docs/agent-prompts.md) (also as plain files in [docs/agent-prompts/](docs/agent-prompts)) |
+| `data-qa-id` preferred, stable fallbacks | Required in every prompt; checked in review |
+| Proper assertions, not only actions | Every test ends with outcome checks; reviewed and stress-tested ([REVIEW.md](tests/agent/REVIEW.md)). The healer agent also found a real accessibility defect (BUG-006). |
+| Easy to run and maintain | Same fixtures and page objects as Task B; run with `npm run test:agent`; conventions in [AGENTS.md](AGENTS.md) |
+
+### Task D: Playwright API (GraphQL)
+| Requirement | Where |
+|---|---|
+| At least 5 queries | **7** queries in [queries.spec.ts](tests/api/graphql/queries.spec.ts) (GraphQLZero) |
+| Playwright's `request` / APIRequestContext | [graphql-client.ts](src/api/graphql-client.ts) wraps Playwright's `request` fixture |
+| Queries and negative tests | 8 negative, boundary and security tests in [negative.spec.ts](tests/api/graphql/negative.spec.ts) |
+| Authorization and mutations (only if the endpoint has authentication) | GraphQLZero has no authentication, so authorization does not apply. Mutations are covered anyway: create, update, delete and a rejected create in [mutations.spec.ts](tests/api/graphql/mutations.spec.ts) |
+| Inputs as GraphQL variables, no string concatenation | Every operation is a constant in [operations.ts](src/api/operations.ts); inputs are always variables. TC-API-016 proves an injection-shaped value stays plain data |
+| Validate HTTP status, `data` and `errors` | Every test asserts all three; response shapes are checked with zod contracts |
+| Clear tests | One behaviour per test, named `[TC-API-NNN] <what it proves>` |
+
+## Defects found
+
+| ID | What happens | Where | Severity |
+|---|---|---|---|
+| [BUG-001](docs/bugs/BUG-001.md) | "Batal" on the report form does nothing when the report link was opened in a new tab; readers arriving from another site are sent back there | Desktop, mobile | Medium |
+| [BUG-002](docs/bugs/BUG-002.md) | Opening the report form with the keyboard leaves the article URL in the address bar while the form is shown | Desktop | Low |
+| [BUG-003](docs/bugs/BUG-003.md) | React hydration error (#418) on every desktop homepage load; the page responds to clicks late | Desktop | Medium |
+| [BUG-004](docs/bugs/BUG-004.md) | API: a post that does not exist comes back as an empty post instead of `null` | GraphQL | Medium |
+| [BUG-005](docs/bugs/BUG-005.md) | API: negative page limits are accepted (-5 returns 95 rows); 0 silently becomes 10 | GraphQL | Medium |
+| [BUG-006](docs/bugs/BUG-006.md) | Share pop-up ignores Escape and is not announced as a dialog; a keyboard user needs 24 Tab presses to close it | Desktop, mobile | Medium (accessibility) |
+
+Each known defect also has an automated check marked as expected-to-fail: the run stays green while
+the bug exists, and turns red the day it is fixed, so the check can be removed.
+
+## Run it yourself
+
+No account or credentials are needed.
 
 ```bash
 npm ci
 npx playwright install chromium webkit
 
-npm test                        # everything
-npm run test:desktop            # kumparan.com
-npm run test:mobile             # m.kumparan.com (Pixel 7) + iPhone 15 smoke
-npm run test:api                # GraphQL
-npm run test:agent              # agent-generated tests
-npx playwright test --grep @smoke
+npm test                 # everything (about 4 minutes)
+npm run test:desktop     # kumparan.com
+npm run test:mobile      # m.kumparan.com + iPhone smoke tests
+npm run test:api         # GraphQL only (about 5 seconds)
+npm run test:agent       # Playwright-agent tests
 ```
 
-Then open **`reports/index.html`** (run history → dashboard → video per test) or `npm run report`
-for Playwright's own HTML report.
+Then open **`reports/index.html`**: every test has a video with a caption showing the test ID,
+platform and current step, plus a result table per platform. `npm run report` opens Playwright's
+own HTML report.
 
-**CI and kumparan's firewall.** kumparan blocks GitHub-hosted runners ("Sorry, you don't have
-permission to access this website", verified from the first CI run's evidence). An environment
-preflight detects this once per worker and **skips the web tests with that reason** instead of
-reporting misleading failures; the GraphQL suite runs fully in CI. Run the web suite locally (as in
-the results above) or on a self-hosted runner, where the same workflow runs it unchanged.
-
-**Out of scope: logged-in flows.** kumparan's login is protected by a Cloudflare Turnstile
-"Verify you are human" check. Passing it needs a person, and automating around it would defeat
-its purpose, so every case that needs a logged-in account is out of scope (see
-[test-plan.md](docs/test-plan.md#out-of-scope)). The suite covers everything reachable without
-human intervention: login form validation, the bot challenge itself, and every guest-side
-authorization rule (like, comment and report as a guest).
+**About CI.** kumparan's firewall blocks GitHub's servers ("Sorry, you don't have permission to
+access this website"). In GitHub Actions the API tests run fully and the website tests are skipped
+with that reason instead of failing misleadingly. Run the website tests locally, as above, or on a
+self-hosted runner.
 
 ## How it is built
 
 ```
-src/
-  pages/        platform-aware page objects (desktop + mobile behind one interface)
-  fixtures/     auto fixtures: write guard, ad block, share stubs, promo handler, caption; API client
-  support/      network rules, interruptions, caption, live test data, assertions
-  api/          typed GraphQL client (variables only) + zod response contracts
-  reporters/    evidence dashboard + failure classifier
-tests/
-  web/          hand-written specs (Task B)
-  agent/        Playwright-agent specs (Task C) + REVIEW.md
-  api/graphql/  GraphQL specs (Task D)
-  seed.spec.ts  seed for the Playwright agents
-test-design/    test case catalog → docs/test-cases.md + .xlsx
-scripts/        site explorer, session capture, bug reproductions, docs and CI helpers
-knowledge/      crawler output: flow map, digest, drift, screenshots
-docs/           plan, cases, features, findings, bugs, strategy, agent prompts
-.claude/        Playwright agents, site-explorer agent, kumparan-qa skill
+src/pages/        page objects: one interface, desktop and mobile layouts behind it
+src/fixtures/     test setup: isolation, network guard, ad blocking, pop-up handling, video caption
+src/api/          GraphQL client (variables only) and response contracts
+src/reporters/    evidence dashboard (results per platform, video per test)
+tests/web/        Task B: hand-written website tests
+tests/agent/      Task C: Playwright-agent tests + review notes
+tests/api/        Task D: GraphQL tests
+test-design/      the test case catalog that generates docs/test-cases.md and .xlsx
+scripts/          site crawler, bug re-verification scripts, docs and CI helpers
+docs/             test plan, test cases, findings, bug reports, strategy, agent prompts
 ```
 
-Key decisions (details in [automation-strategy.md](docs/automation-strategy.md)):
-- **Locators:** `data-qa-id` via `testIdAttribute`; documented anchors only where none exists.
-- **Stability without sleeps:** wait for React to wire an element (`waitForInteractive`), retry a click until its effect appears, auto-dismiss the promo with `addLocatorHandler`, block ad hosts (one ads-on test keeps that honest).
-- **Retries are reported, not hidden:** a pass after retry is FLAKY on the dashboard.
-- **Known defects** use `test.fail()` + an issue annotation: CI stays green while the bug reproduces and turns red when it is fixed.
-- **Parallel but polite:** fully parallel, 4 workers locally, 2 in CI, against someone else's production.
-
-## Tooling used to build it
-Claude Code: Playwright probe scripts and the crawler for exploration, Playwright's test MCP
-server for the planner/generator/healer agents, a custom `site-explorer` agent that wrote the
-feature maps, and the `kumparan-qa` skill in `.claude/`. Everything an agent produced was reviewed
-and re-verified under parallel load before it was kept.
+Key decisions (full explanation in [automation-strategy.md](docs/automation-strategy.md)):
+- **Stable without fixed waits:** tests wait until the page's controls are actually interactive, and retry a click only until its effect appears.
+- **Retries are never hidden:** a test that passes on retry is reported as flaky.
+- **Polite to production:** limited parallel workers, ads and share pop-ups handled locally, nothing published.
+- **Easy to maintain:** one page object per screen, test IDs that match the documentation, and `npm run explore` to re-map the site after a UI change.
