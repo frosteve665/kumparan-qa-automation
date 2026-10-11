@@ -39,26 +39,34 @@ interface WorkerFixtures {
   siteAccess: { blocked: boolean; detail: string };
 }
 
-interface AccessGate { accessGate: void }
+interface AccessGate {
+  accessGate: void;
+}
 
 export const test = base.extend<Fixtures & TestOptions & AccessGate, WorkerFixtures>({
   platform: ['desktop', { option: true }],
   allowAds: [false, { option: true }],
 
-  network: [async ({ context, allowAds }, use) => {
-    const blockedWrites: BlockedWrite[] = [];
-    if (!allowAds) await blockAds(context);
-    await guardWrites(context, blockedWrites);
-    await stubShareTargets(context);
-    await use({ blockedWrites });
-    expect(blockedWrites, 'A comment/report submission was attempted and blocked by the write guard').toEqual([]);
-  }, { auto: true }],
+  network: [
+    async ({ context, allowAds }, use) => {
+      const blockedWrites: BlockedWrite[] = [];
+      if (!allowAds) await blockAds(context);
+      await guardWrites(context, blockedWrites);
+      await stubShareTargets(context);
+      await use({ blockedWrites });
+      expect(blockedWrites, 'A comment/report submission was attempted and blocked by the write guard').toEqual([]);
+    },
+    { auto: true },
+  ],
 
-  interruptions: [async ({ page }, use, testInfo) => {
-    await autoDismissPromos(page);
-    await installCaption(page, testInfo);
-    await use();
-  }, { auto: true }],
+  interruptions: [
+    async ({ page }, use, testInfo) => {
+      await autoDismissPromos(page);
+      await installCaption(page, testInfo);
+      await use();
+    },
+    { auto: true },
+  ],
 
   home: async ({ page, platform }, use) => use(new HomePage(page, platform)),
   header: async ({ page, platform }, use) => use(new Header(page, platform)),
@@ -74,33 +82,45 @@ export const test = base.extend<Fixtures & TestOptions & AccessGate, WorkerFixtu
    * this website". That is an environment limitation, not a product or test
    * failure: every web test is skipped with that reason instead of failing.
    */
-  siteAccess: [async ({ playwright }, use, workerInfo) => {
-    const { baseURL, userAgent } = workerInfo.project.use;
-    const api = await playwright.request.newContext(userAgent ? { userAgent } : {});
-    let result = { blocked: false, detail: 'reachable' };
-    try {
-      const res = await api.get(baseURL ?? env.desktopBaseUrl, { timeout: 30_000 });
-      const body = await res.text();
-      if (res.status() === 403 || /don't have permission to access this website/i.test(body)) {
-        result = { blocked: true, detail: `HTTP ${res.status()} from ${baseURL}: the site's firewall blocks this network` };
+  siteAccess: [
+    async ({ playwright }, use, workerInfo) => {
+      const { baseURL, userAgent } = workerInfo.project.use;
+      const api = await playwright.request.newContext(userAgent ? { userAgent } : {});
+      let result = { blocked: false, detail: 'reachable' };
+      try {
+        const res = await api.get(baseURL ?? env.desktopBaseUrl, { timeout: 30_000 });
+        const body = await res.text();
+        if (res.status() === 403 || /don't have permission to access this website/i.test(body)) {
+          result = {
+            blocked: true,
+            detail: `HTTP ${res.status()} from ${baseURL}: the site's firewall blocks this network`,
+          };
+        }
+      } catch (err) {
+        result = { blocked: true, detail: `unreachable: ${(err as Error).message.split('\n')[0]}` };
       }
-    } catch (err) {
-      result = { blocked: true, detail: `unreachable: ${(err as Error).message.split('\n')[0]}` };
-    }
-    await api.dispose();
-    await use(result);
-  }, { scope: 'worker' }],
+      await api.dispose();
+      await use(result);
+    },
+    { scope: 'worker' },
+  ],
 
-  accessGate: [async ({ siteAccess }, use, testInfo) => {
-    testInfo.skip(siteAccess.blocked, `environment: ${siteAccess.detail}. Run locally or on a self-hosted runner.`);
-    await use();
-  }, { auto: true }],
+  accessGate: [
+    async ({ siteAccess }, use, testInfo) => {
+      testInfo.skip(siteAccess.blocked, `environment: ${siteAccess.detail}. Run locally or on a self-hosted runner.`);
+      await use();
+    },
+    { auto: true },
+  ],
 
-  articlePath: [async ({}, use) => {
-    const api = await playwrightRequest.newContext();
-    await use(await findFreshArticlePath(api));
-    await api.dispose();
-  }, { scope: 'worker' }],
+  articlePath: [
+    async ({}, use) => {
+      const api = await playwrightRequest.newContext();
+      await use(await findFreshArticlePath(api));
+      await api.dispose();
+    },
+    { scope: 'worker' },
+  ],
 });
 
 export { expect };

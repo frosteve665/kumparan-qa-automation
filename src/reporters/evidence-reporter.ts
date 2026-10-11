@@ -90,7 +90,8 @@ export default class EvidenceReporter implements Reporter {
   onTestEnd(test: TestCase, result: TestResult): void {
     // Final when the outcome is what the test expects (a known defect's
     // expected status is "failed", so it is never retried) or retries are spent.
-    const isFinalAttempt = result.status === 'skipped' || result.status === test.expectedStatus || result.retry >= test.retries;
+    const isFinalAttempt =
+      result.status === 'skipped' || result.status === test.expectedStatus || result.retry >= test.retries;
     if (!isFinalAttempt) return;
 
     const project = test.parent.project()?.name ?? 'default';
@@ -142,7 +143,10 @@ export default class EvidenceReporter implements Reporter {
       runId: this.runId,
       status: result.status,
       durationMs: result.duration,
-      counts: Object.fromEntries(STATUSES.map((s) => [s, this.rows.filter((r) => r.status === s).length])) as Record<Status, number>,
+      counts: Object.fromEntries(STATUSES.map((s) => [s, this.rows.filter((r) => r.status === s).length])) as Record<
+        Status,
+        number
+      >,
     };
     const data = JSON.stringify({ ...summary, startedAt: this.startedAt, rows: this.rows }, null, 2);
     writeFileSync(join(this.outputDir, 'results.json'), data);
@@ -150,7 +154,9 @@ export default class EvidenceReporter implements Reporter {
     // Latest run's data at a stable path, for CI summaries and scripts.
     writeFileSync(join(this.rootDir, 'results.json'), data);
     this.writeHistory();
-    console.log(`\nEvidence dashboard: ${join(this.outputDir, 'index.html')}  (run history: ${join(this.rootDir, 'index.html')})`);
+    console.log(
+      `\nEvidence dashboard: ${join(this.outputDir, 'index.html')}  (run history: ${join(this.rootDir, 'index.html')})`,
+    );
   }
 
   private triage(test: TestCase, result: TestResult): { status: Status; category?: FailureCategory; note: string } {
@@ -166,29 +172,54 @@ export default class EvidenceReporter implements Reporter {
     if (test.expectedStatus === 'failed') {
       return result.status === 'failed'
         ? { status: 'DEFECT', category: 'bug', note: withBug('Known defect still reproduces') }
-        : { status: 'FAIL', note: withBug('Known defect no longer reproduces: verify the fix, then remove test.fail()') };
+        : {
+            status: 'FAIL',
+            note: withBug('Known defect no longer reproduces: verify the fix, then remove test.fail()'),
+          };
     }
     if (result.status === 'passed') {
-      return { status: result.retry > 0 ? 'FLAKY' : 'PASS', note: withBug(result.retry > 0 ? `Passed on retry #${result.retry}` : '') };
+      return {
+        status: result.retry > 0 ? 'FLAKY' : 'PASS',
+        note: withBug(result.retry > 0 ? `Passed on retry #${result.retry}` : ''),
+      };
     }
     const c = classifyFailure(result.errors.map((e) => e.message ?? '').join('\n'));
-    return { status: c.category === 'bug' ? 'DEFECT' : 'FAIL', category: c.category, note: withBug(`${c.category}: ${c.reason}`) };
+    return {
+      status: c.category === 'bug' ? 'DEFECT' : 'FAIL',
+      category: c.category,
+      note: withBug(`${c.category}: ${c.reason}`),
+    };
   }
 
   /** Keeps the last N runs and writes reports/index.html, the run history. */
   private writeHistory(): void {
     const runsDir = join(this.rootDir, 'runs');
-    const runs = readdirSync(runsDir).filter((d) => existsSync(join(runsDir, d, 'results.json'))).sort().reverse();
+    const runs = readdirSync(runsDir)
+      .filter((d) => existsSync(join(runsDir, d, 'results.json')))
+      .sort()
+      .reverse();
     for (const old of runs.slice(this.keepRuns)) rmSync(join(runsDir, old), { recursive: true, force: true });
-    const kept = runs.slice(0, this.keepRuns).map((d) => JSON.parse(readFileSync(join(runsDir, d, 'results.json'), 'utf8')) as RunSummary);
-    const rows = kept.map((r, i) => `<tr><td><a href="runs/${r.runId}/index.html">${r.runId}</a>${i === 0 ? ' <span class="pill s-PASS">latest</span>' : ''}</td>
-<td>${r.status.toUpperCase()}</td><td>${(r.durationMs / 1000).toFixed(0)}s</td>${STATUSES.map((s) => `<td><span class="pill s-${s}">${r.counts[s] ?? 0}</span></td>`).join('')}</tr>`).join('');
-    writeFileSync(join(this.rootDir, 'index.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    const kept = runs
+      .slice(0, this.keepRuns)
+      .map((d) => JSON.parse(readFileSync(join(runsDir, d, 'results.json'), 'utf8')) as RunSummary);
+    const rows = kept
+      .map(
+        (
+          r,
+          i,
+        ) => `<tr><td><a href="runs/${r.runId}/index.html">${r.runId}</a>${i === 0 ? ' <span class="pill s-PASS">latest</span>' : ''}</td>
+<td>${r.status.toUpperCase()}</td><td>${(r.durationMs / 1000).toFixed(0)}s</td>${STATUSES.map((s) => `<td><span class="pill s-${s}">${r.counts[s] ?? 0}</span></td>`).join('')}</tr>`,
+      )
+      .join('');
+    writeFileSync(
+      join(this.rootDir, 'index.html'),
+      `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>kumparan QA Runs</title><style>${STYLE}</style></head><body><main>
 <h1>kumparan QA run history</h1>
 <div class="muted">Last ${kept.length} runs; older runs are pruned (REPORT_KEEP_RUNS). Each run has its own dashboard with per-test video evidence.</div>
 <h2>Runs</h2><div class="wrap"><table><thead><tr><th>Run</th><th>Result</th><th>Duration</th>${STATUSES.map((s) => `<th>${s}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>
-</main></body></html>`);
+</main></body></html>`,
+    );
   }
 
   private render(result: FullResult): string {
@@ -200,23 +231,31 @@ export default class EvidenceReporter implements Reporter {
     const rowsSorted = [...this.rows].sort((a, b) => a.id.localeCompare(b.id) || a.project.localeCompare(b.project));
 
     const tiles = STATUSES.map((s) => `<div class="tile s-${s}"><b>${count(s)}</b><span>${s}</span></div>`).join('');
-    const matrix = ids.map((id) => {
-      const title = this.rows.find((r) => r.id === id)?.title ?? '';
-      const cells = projects.map((p) => {
-        const runs = this.rows.filter((x) => x.id === id && x.project === p);
-        if (!runs.length) return '<td class="na">n/a</td>';
-        const worst = SEVERITY.find((s) => runs.some((r) => r.status === s))!;
-        const target = runs.find((r) => r.status === worst)!;
-        const times = runs.length > 1 ? ` ×${runs.length}` : '';
-        return `<td><a class="pill s-${worst}" href="#${target.anchor}" title="${esc(target.note)}">${worst}${times}</a></td>`;
-      }).join('');
-      return `<tr><td class="id">${id}</td><td>${esc(title)}</td>${cells}</tr>`;
-    }).join('');
-    const details = rowsSorted.map((r) => `
+    const matrix = ids
+      .map((id) => {
+        const title = this.rows.find((r) => r.id === id)?.title ?? '';
+        const cells = projects
+          .map((p) => {
+            const runs = this.rows.filter((x) => x.id === id && x.project === p);
+            if (!runs.length) return '<td class="na">n/a</td>';
+            const worst = SEVERITY.find((s) => runs.some((r) => r.status === s))!;
+            const target = runs.find((r) => r.status === worst)!;
+            const times = runs.length > 1 ? ` ×${runs.length}` : '';
+            return `<td><a class="pill s-${worst}" href="#${target.anchor}" title="${esc(target.note)}">${worst}${times}</a></td>`;
+          })
+          .join('');
+        return `<tr><td class="id">${id}</td><td>${esc(title)}</td>${cells}</tr>`;
+      })
+      .join('');
+    const details = rowsSorted
+      .map(
+        (r) => `
 <tr id="${r.anchor}"><td class="id">${r.id}</td>
 <td>${esc(r.title)}<div class="muted">${esc(r.file)} ${r.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div></td>
 <td>${r.project}</td><td><span class="pill s-${r.status}">${r.status}</span></td><td>${(r.durationMs / 1000).toFixed(1)}s</td>
-<td class="note">${esc(r.note)}</td><td>${evidenceCell(r)}</td></tr>`).join('');
+<td class="note">${esc(r.note)}</td><td>${evidenceCell(r)}</td></tr>`,
+      )
+      .join('');
 
     return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>kumparan QA Evidence</title><style>${STYLE}</style></head><body><main>
@@ -235,7 +274,12 @@ export default class EvidenceReporter implements Reporter {
 /** Video plays inline (loaded on demand); other evidence is linked. */
 function evidenceCell(r: Row): string {
   const video = r.evidence.find((e) => e.name === 'video');
-  const links = r.evidence.filter((e) => e.name !== 'video').map((e) => `<a href="${e.href}">${esc(e.name)}</a>`).join(' · ');
-  const player = video ? `<details><summary>▶ Play video</summary><video controls preload="none" src="${video.href}"></video></details>` : '';
+  const links = r.evidence
+    .filter((e) => e.name !== 'video')
+    .map((e) => `<a href="${e.href}">${esc(e.name)}</a>`)
+    .join(' · ');
+  const player = video
+    ? `<details><summary>▶ Play video</summary><video controls preload="none" src="${video.href}"></video></details>`
+    : '';
   return player + (links ? `<div>${links}</div>` : '') || '<span class="muted">none</span>';
 }

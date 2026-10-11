@@ -25,7 +25,10 @@ export interface Operation<TData, TVariables extends Record<string, unknown> = R
   readonly __variables?: TVariables;
 }
 
-export function operation<TData, TVariables extends Record<string, unknown> = Record<string, never>>(name: string, document: string): Operation<TData, TVariables> {
+export function operation<TData, TVariables extends Record<string, unknown> = Record<string, never>>(
+  name: string,
+  document: string,
+): Operation<TData, TVariables> {
   return { name, document };
 }
 
@@ -37,13 +40,20 @@ export function operation<TData, TVariables extends Record<string, unknown> = Re
  * equivalent of a parameterised SQL statement).
  */
 export class GraphQLClient {
-  constructor(private readonly request: APIRequestContext, private readonly endpoint = '') {}
+  constructor(
+    private readonly request: APIRequestContext,
+    private readonly endpoint = '',
+  ) {}
 
   async execute<TData, TVariables extends Record<string, unknown>>(
     op: Operation<TData, TVariables>,
     ...variables: keyof TVariables extends never ? [] : [TVariables]
   ): Promise<GraphQLResult<TData>> {
-    return this.send<TData>({ operationName: op.name, query: op.document, ...(variables[0] ? { variables: variables[0] } : {}) });
+    return this.send<TData>({
+      operationName: op.name,
+      query: op.document,
+      ...(variables[0] ? { variables: variables[0] } : {}),
+    });
   }
 
   /**
@@ -62,6 +72,11 @@ export class GraphQLClient {
     });
     const durationMs = Date.now() - started;
     const json = (await response.json().catch(() => ({}))) as { data?: TData | null; errors?: GraphQLError[] };
-    return { status: response.status(), durationMs, ...('data' in json ? { data: json.data } : {}), ...(json.errors ? { errors: json.errors } : {}) };
+    return {
+      status: response.status(),
+      durationMs,
+      ...('data' in json ? { data: json.data } : {}),
+      ...(json.errors ? { errors: json.errors } : {}),
+    };
   }
 }

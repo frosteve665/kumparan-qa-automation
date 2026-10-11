@@ -14,7 +14,9 @@
     "test:api": "playwright test --project=api-graphql",
     "test:smoke": "playwright test --grep @smoke",
     "test:agent": "playwright test tests/agent",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [],
   "author": "",
@@ -25,6 +27,7 @@
     "@types/node": "^26.6.4",
     "dotenv": "^18.0.7",
     "exceljs": "^4.4.0",
+    "prettier": "^3.9.10",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "zod": "^4.6.5"

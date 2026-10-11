@@ -11,3 +11,6 @@ blob-report/
 .playwright-mcp/
 # Crawler screenshots (regenerate with npm run explore)
 knowledge/shots/
+
+# Office lock files (a workbook open in Excel)
+~$*

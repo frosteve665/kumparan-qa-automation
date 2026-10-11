@@ -1,7 +1,7 @@
 # Test cases
 
 Generated from `test-design/catalog.ts` by `npm run docs:test-cases`. Do not edit by hand.
-Execution status from run `2026-10-11-10-31-08` (reports/results.json) and the manual log (test-design/manual-results.ts).
+Execution status from run `2026-10-11-11-02-05` (reports/results.json) and the manual log (test-design/manual-results.ts).
 Also available as a spreadsheet: [test-cases.xlsx](test-cases.xlsx).
 
 **Legend.** Type: Positive / Negative / Boundary / Edge. Priority: P1 (blocks a core business function), P2 (degrades it), P3 (cosmetic or rare).
@@ -197,7 +197,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Open the homepage
 - **Expected:** Logo and login entry visible; at least 3 headline cards; story titles not empty
-- **Automation:** `tests/web/home/home.spec.ts`
+- **Automation:** `tests/web/home/TC-HOME-001_Homepage_Loads.spec.ts`
 
 ### TC-HOME-002
 
@@ -209,7 +209,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open the homepage
   2. Click the first headline title
 - **Expected:** Story page opens; its title matches the card title
-- **Automation:** `tests/web/home/home.spec.ts`
+- **Automation:** `tests/web/home/TC-HOME-002_Headline_Opens_Article.spec.ts`
 
 ### TC-HOME-003
 
@@ -221,7 +221,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open the homepage with ads on
   2. Close the interstitial if shown
 - **Expected:** Logo and headlines visible and reachable
-- **Automation:** `tests/web/home/home.spec.ts`
+- **Automation:** `tests/web/home/TC-HOME-003_Usable_With_Ads_On.spec.ts`
 
 ### TC-AUTH-001
 
@@ -233,7 +233,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open the homepage
   2. Desktop: click "Masuk" in the header. Mobile: open the burger menu, tap "Masuk"
 - **Expected:** /login shows email, password (masked) and the submit button
-- **Automation:** `tests/web/auth/login.spec.ts`
+- **Automation:** `tests/web/auth/TC-AUTH-001_Login_Entry_Opens_Form.spec.ts`
 
 ### TC-AUTH-002
 
@@ -244,7 +244,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Leave both fields empty
 - **Expected:** Fields empty; "Masuk" disabled
-- **Automation:** `tests/web/auth/login.spec.ts`
+- **Automation:** `tests/web/auth/TC-AUTH-002_Submit_Disabled_When_Empty.spec.ts`
 
 ### TC-AUTH-003
 
@@ -258,7 +258,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   2. Type any password
   3. Leave the password field
 - **Expected:** "Harus diisi dengan format email" shown; submit disabled
-- **Automation:** `tests/web/auth/login.spec.ts`
+- **Automation:** `tests/web/auth/TC-AUTH-003_Malformed_Email_Rejected.spec.ts`
 
 ### TC-AUTH-004
 
@@ -271,7 +271,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   2. Type then clear the password
   3. Leave the field
 - **Expected:** "Tidak boleh kosong" under password; submit disabled
-- **Automation:** `tests/web/auth/login.spec.ts`
+- **Automation:** `tests/web/auth/TC-AUTH-004_Cleared_Password_Required.spec.ts`
 
 ### TC-AUTH-005
 
@@ -283,7 +283,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Fill a correctly formatted email and password
   2. Do not solve the challenge
 - **Expected:** Cloudflare Turnstile present; submit stays disabled
-- **Automation:** `tests/web/auth/login.spec.ts`
+- **Automation:** `tests/web/auth/TC-AUTH-005_Bot_Challenge_Before_Submit.spec.ts`
 
 ### TC-AUTH-006
 
@@ -296,7 +296,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   2. Click the eye icon
   3. Click it again
 - **Expected:** Field type text then password; value unchanged
-- **Automation:** `tests/web/auth/login.spec.ts`
+- **Automation:** `tests/web/auth/TC-AUTH-006_Password_Visibility_Toggle.spec.ts`
 
 ### TC-AUTH-007
 
@@ -307,7 +307,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Inspect the login page
 - **Expected:** Facebook, Google, phone sign-in, "Lupa Password" and "Daftar Sekarang!" visible
-- **Automation:** `tests/web/auth/login.spec.ts`
+- **Automation:** `tests/web/auth/TC-AUTH-007_Alternative_Sign_In_Options.spec.ts`
 
 ### TC-ART-001
 
@@ -319,7 +319,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Open a story
 - **Expected:** Title, author, channel, publish date and more than one paragraph present
-- **Automation:** `tests/web/article/article.spec.ts`
+- **Automation:** `tests/web/article/TC-ART-001_Story_Content_Shown.spec.ts`
 
 ### TC-ART-002
 
@@ -331,7 +331,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Open a story
 - **Expected:** Like, comment, share and report present; counters are numbers
-- **Automation:** `tests/web/article/article.spec.ts`
+- **Automation:** `tests/web/article/TC-ART-002_Engagement_Bar_Shown.spec.ts`
 
 ### TC-ART-003
 
@@ -343,7 +343,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Open a story
 - **Expected:** <title> starts with the headline and ends "| kumparan.com"; canonical ends with the story slug
-- **Automation:** `tests/web/article/article.spec.ts`
+- **Automation:** `tests/web/article/TC-ART-003_Title_And_Canonical_Match_Story.spec.ts`
 
 ### TC-ART-004
 
@@ -354,7 +354,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Open /kumparannews/<non-existent slug>
 - **Expected:** HTTP 404; header still usable
-- **Automation:** `tests/web/article/article.spec.ts`
+- **Automation:** `tests/web/article/TC-ART-004_Unknown_Story_Returns_404.spec.ts`
 
 ### TC-ART-005
 
@@ -367,7 +367,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open a story
   2. Click "Beranda" in the breadcrumb
 - **Expected:** Homepage with headlines
-- **Automation:** `tests/web/article/article.spec.ts`
+- **Automation:** `tests/web/article/TC-ART-005_Breadcrumb_Returns_Home.spec.ts`
 
 ### TC-LIKE-004
 
@@ -381,7 +381,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   2. Tap like
   3. Return to the story
 - **Expected:** Redirect to /login; like count unchanged
-- **Automation:** `tests/web/engagement/like.spec.ts`
+- **Automation:** `tests/web/like/TC-LIKE-004_Guest_Like_Redirects_To_Login.spec.ts`
 
 ### TC-CMT-001
 
@@ -394,7 +394,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open a story
   2. Click the comment button
 - **Expected:** /<channel>/response/<slug> with the story card, editor "Tulis komentar..." and send button
-- **Automation:** `tests/web/engagement/comment.spec.ts`
+- **Automation:** `tests/web/comment/TC-CMT-001_Comment_Button_Opens_Thread.spec.ts`
 
 ### TC-CMT-002
 
@@ -407,7 +407,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Note the comment count on a story
   2. Open the thread
 - **Expected:** Thread header shows "<same count> Komentar"; empty state when 0
-- **Automation:** `tests/web/engagement/comment.spec.ts`
+- **Automation:** `tests/web/comment/TC-CMT-002_Comment_Count_Matches_Thread.spec.ts`
 
 ### TC-CMT-004
 
@@ -420,7 +420,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open a thread
   2. Type a comment
 - **Expected:** No comment mutation sent; still on the thread. Observation OBS-001: no login prompt while drafting
-- **Automation:** `tests/web/engagement/comment.spec.ts`
+- **Automation:** `tests/web/comment/TC-CMT-004_Guest_Draft_Publishes_Nothing.spec.ts`
 
 ### TC-RPT-001
 
@@ -433,7 +433,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open a story
   2. Click "Laporkan tulisan"
 - **Expected:** Form shows the story and the six reasons
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-001_Report_Form_Shows_Six_Reasons.spec.ts`
 
 ### TC-RPT-002
 
@@ -445,7 +445,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Select the reason
 - **Expected:** Reason checked; "Laporkan" enabled. Not clicked
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-002_Each_Reason_Enables_Submit.spec.ts`
 
 ### TC-RPT-003
 
@@ -456,7 +456,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Do not select a reason
 - **Expected:** "Laporkan" disabled
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-003_Submit_Disabled_Without_Reason.spec.ts`
 
 ### TC-RPT-004
 
@@ -468,7 +468,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Select a reason
   2. Click "Batal"
 - **Expected:** Back on the story
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-004_Cancel_Returns_To_Story.spec.ts`
 
 ### TC-RPT-005
 
@@ -480,7 +480,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Select reason 1
   2. Select reason 4
 - **Expected:** Only reason 4 checked
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-005_Only_One_Reason_Selected.spec.ts`
 
 ### TC-RPT-006
 
@@ -491,7 +491,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Select "Lainnya"
 - **Expected:** Free-text field appears
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-006_Other_Reveals_Text_Field.spec.ts`
 
 ### TC-RPT-007
 
@@ -503,7 +503,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open the form as a guest
   2. Select a reason
 - **Expected:** "Laporkan" enabled for a guest (server behavior on submit not verifiable: submitting is forbidden)
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-007_Guest_Reaches_Enabled_Submit.spec.ts`
 
 ### TC-RPT-008
 
@@ -514,7 +514,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Open /report/story/<non-existent slug>
 - **Expected:** No 5xx; no blank page; no story card
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-008_Missing_Story_Handled.spec.ts`
 
 ### TC-RPT-009
 
@@ -526,7 +526,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open /report/story/<slug> in a new tab
   2. Click "Batal"
 - **Expected:** Reader leaves the form (e.g. back to the story)
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-009_Cancel_In_New_Tab_Leaves_Form.spec.ts`
 
 ### TC-RPT-010
 
@@ -538,7 +538,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Select "Lainnya"
   2. Leave the text empty
 - **Expected:** "Laporkan" disabled
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-010_Other_Empty_Cannot_Submit.spec.ts`
 
 ### TC-RPT-011
 
@@ -551,7 +551,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Select "Lainnya"
   2. Type a reason
 - **Expected:** "Laporkan" enabled. Not clicked
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-011_Other_With_Text_Can_Submit.spec.ts`
 
 ### TC-RPT-012
 
@@ -564,7 +564,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   2. Press Enter
   3. Watch the address bar for 4 s
 - **Expected:** URL stays /report/story/<slug>
-- **Automation:** `tests/web/engagement/report.spec.ts`
+- **Automation:** `tests/web/report/TC-RPT-012_Keyboard_Report_Keeps_Form_Url.spec.ts`
 
 ### TC-SHR-001
 
@@ -577,7 +577,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open a story
   2. Click the WhatsApp icon
 - **Expected:** api.whatsapp.com popup whose text has the headline and kumparan.com/<channel>/<story-id>
-- **Automation:** `tests/web/engagement/share.spec.ts`
+- **Automation:** `tests/web/share/TC-SHR-001_WhatsApp_Share_Carries_Story.spec.ts`
 
 ### TC-SHR-002
 
@@ -590,7 +590,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open a story
   2. Click the "more" share icon
 - **Expected:** WhatsApp, Facebook, X, LINE and copy-link options visible
-- **Automation:** `tests/web/engagement/share.spec.ts`
+- **Automation:** `tests/web/share/TC-SHR-002_Share_Menu_Lists_Channels.spec.ts`
 
 ### TC-SHR-003
 
@@ -603,7 +603,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open a story
   2. Click the copy icon
 - **Expected:** "URL berhasil disalin" shown; clipboard holds https://kumparan.com/<channel>/<story-id>?…
-- **Automation:** `tests/web/engagement/share.spec.ts`
+- **Automation:** `tests/web/share/TC-SHR-003_Copy_Link_Copies_Story.spec.ts`
 
 ### TC-SHR-004
 
@@ -614,7 +614,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Click the channel
 - **Expected:** Popup to the channel host containing the story id
-- **Automation:** `tests/web/engagement/share.spec.ts`
+- **Automation:** `tests/web/share/TC-SHR-004_Menu_Shares_Carry_Story.spec.ts`
 
 ### TC-SHR-005
 
@@ -625,7 +625,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Trigger the WhatsApp share
 - **Expected:** Link starts with https://kumparan.com/
-- **Automation:** `tests/web/engagement/share.spec.ts`
+- **Automation:** `tests/web/share/TC-SHR-005_Shared_Links_Are_Absolute.spec.ts`
 
 ### TC-SHR-006
 
@@ -636,7 +636,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Click the close button
 - **Expected:** Menu hidden; still on the story
-- **Automation:** `tests/web/engagement/share.spec.ts`
+- **Automation:** `tests/web/share/TC-SHR-006_Share_Menu_Closes.spec.ts`
 
 ### TC-SRCH-001
 
@@ -648,7 +648,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Search "banjir" from the header
 - **Expected:** /search/banjir with results; top titles mention the keyword
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-001_Keyword_Returns_Relevant_Stories.spec.ts`
 
 ### TC-SRCH-002
 
@@ -659,7 +659,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Click a tab
 - **Expected:** URL /search/banjir/<video|collection|topik|user|publisher> with that card type
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-002_Tabs_Switch_Result_Type.spec.ts`
 
 ### TC-SRCH-003
 
@@ -670,7 +670,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Click "Terbaru"
 - **Expected:** Terbaru active, Relevansi inactive, results shown
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-003_Sort_By_Newest.spec.ts`
 
 ### TC-SRCH-004
 
@@ -682,7 +682,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Search a nonsense keyword
 - **Expected:** 0 results; "Story tidak ditemukan"
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-004_Nonsense_Keyword_Not_Found.spec.ts`
 
 ### TC-SRCH-005
 
@@ -693,7 +693,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Press Enter in an empty search box
 - **Expected:** /search with no results
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-005_Empty_Query_Stays_On_Landing.spec.ts`
 
 ### TC-SRCH-006
 
@@ -705,7 +705,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Open /search/a
 - **Expected:** Results or the not-found state; no error
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-006_One_Character_Query.spec.ts`
 
 ### TC-SRCH-007
 
@@ -717,7 +717,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Open /search/<200 x>
 - **Expected:** No 5xx; results or not-found state
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-007_Long_Query_Handled.spec.ts`
 
 ### TC-SRCH-008
 
@@ -729,7 +729,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Search <b>qaprobe</b>
 - **Expected:** URL-encoded query; no <b> element with the probe text in the page
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-008_Html_Shown_As_Text.spec.ts`
 
 ### TC-SRCH-009
 
@@ -741,7 +741,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Search "🙂 banjir"
 - **Expected:** URL contains %F0%9F%99%82; results or not-found
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-009_Emoji_Query_Encoded.spec.ts`
 
 ### TC-SRCH-010
 
@@ -753,7 +753,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Search "food & travel"
 - **Expected:** /search/food%20%26%20travel with results
-- **Automation:** `tests/web/search/search.spec.ts`
+- **Automation:** `tests/web/search/TC-SRCH-010_Ampersand_Query_Encoded.spec.ts`
 
 ### TC-NAV-001
 
@@ -764,7 +764,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Desktop: click "News" in the menu bar. Mobile: tap "News" in the top-nav
 - **Expected:** /channel/news with channel content
-- **Automation:** `tests/web/navigation/navigation.spec.ts`
+- **Automation:** `tests/web/navigation/TC-NAV-001_Channel_Menu_Opens_News.spec.ts`
 
 ### TC-NAV-002
 
@@ -776,7 +776,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Tap the burger menu
   2. Tap close
 - **Expected:** Drawer slides in with "Mode Gelap", then out
-- **Automation:** `tests/web/navigation/navigation.spec.ts`
+- **Automation:** `tests/web/navigation/TC-NAV-002_Mobile_Side_Menu_Opens_Closes.spec.ts`
 
 ### TC-NAV-003
 
@@ -788,7 +788,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Toggle dark mode
   2. Reload
 - **Expected:** Body background rgb(24,24,24); localStorage theme=dark; still dark after reload
-- **Automation:** `tests/web/navigation/navigation.spec.ts`
+- **Automation:** `tests/web/navigation/TC-NAV-003_Dark_Mode_Survives_Reload.spec.ts`
 
 ### TC-NAV-004
 
@@ -799,7 +799,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Click "Lihat lainnya" under Trending
 - **Expected:** /trending with trending stories
-- **Automation:** `tests/web/navigation/navigation.spec.ts`
+- **Automation:** `tests/web/navigation/TC-NAV-004_Trending_From_Load_More.spec.ts`
 
 ### TC-NAV-005
 
@@ -811,7 +811,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
   1. Open the homepage
   2. Collect uncaught page errors
 - **Expected:** No uncaught errors
-- **Automation:** `tests/web/navigation/navigation.spec.ts`
+- **Automation:** `tests/web/navigation/TC-NAV-005_No_JavaScript_Errors.spec.ts`
 
 ### TC-NAV-006
 
@@ -822,7 +822,7 @@ Each agent-generated test (planner -> generator -> healer, reviewed) and the Tas
 - **Steps:**
   1. Tap "Trending" in the top-nav strip
 - **Expected:** /trending with trending stories
-- **Automation:** `tests/web/navigation/navigation.spec.ts`
+- **Automation:** `tests/web/navigation/TC-NAV-006_Mobile_Top_Nav_Opens_Trending.spec.ts`
 
 ### TC-AGT-001
 

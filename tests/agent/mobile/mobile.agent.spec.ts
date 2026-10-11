@@ -3,7 +3,6 @@
 import { test, expect } from '../../../src/fixtures';
 
 test.describe('Mobile-specific navigation, share and guest login entry (agent)', { tag: ['@agent', '@mobile'] }, () => {
-
   test('[TC-AGT-010] Burger side menu: open, check items, close', async ({ page, home, header }) => {
     // 1. Start from the seed state: home as guest, burger visible and drawer off-screen
     await home.open();
@@ -128,7 +127,11 @@ test.describe('Mobile-specific navigation, share and guest login entry (agent)',
 
     // 6. Back to home, click the News channel in the top nav
     await home.open();
-    await page.getByTestId('topnav').filter({ hasText: /^News$/ }).first().click();
+    await page
+      .getByTestId('topnav')
+      .filter({ hasText: /^News$/ })
+      .first()
+      .click();
     await expect(page).toHaveURL('https://m.kumparan.com/channel/news');
     // Review: the channel feed is fetched client-side after navigation (two GraphQL
     // calls); under parallel load it took >10 s once in 6 runs. Allow 20 s here.
@@ -162,7 +165,14 @@ test.describe('Mobile-specific navigation, share and guest login entry (agent)',
     await expect(page.getByTestId('btn-close-modal')).toBeVisible();
 
     // 4. Assert the six channels and the report link (not clicked)
-    for (const id of ['share-ig', 'share-whatsapp', 'share-fb', 'share-twitter', 'share-line', 'share-copy-clipboard']) {
+    for (const id of [
+      'share-ig',
+      'share-whatsapp',
+      'share-fb',
+      'share-twitter',
+      'share-line',
+      'share-copy-clipboard',
+    ]) {
       await expect(modal.getByTestId(id)).toBeVisible();
     }
     for (const label of ['Stories', 'WhatsApp', 'Facebook', 'X', 'Line', 'Salin']) {
@@ -190,7 +200,11 @@ test.describe('Mobile-specific navigation, share and guest login entry (agent)',
     expect(page.context().pages()).toHaveLength(1);
   });
 
-  test('[TC-AGT-013] Guest login entry from the side menu (open form only, never submit)', async ({ page, home, header }) => {
+  test('[TC-AGT-013] Guest login entry from the side menu (open form only, never submit)', async ({
+    page,
+    home,
+    header,
+  }) => {
     // 1. As a guest, open the burger menu (review: interactive-safe open, see TC-AGT-010)
     await home.open();
     await header.openSideMenu();

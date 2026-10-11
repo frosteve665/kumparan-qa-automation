@@ -11,8 +11,15 @@ import type { Page } from '@playwright/test';
  */
 export async function autoDismissPromos(page: Page): Promise<void> {
   const promoCta = page.getByRole('button', { name: 'Jelajahi Sekarang' });
-  const promo = page.locator('div').filter({ has: promoCta }).filter({ has: page.getByTestId('close') }).last();
+  const promo = page
+    .locator('div')
+    .filter({ has: promoCta })
+    .filter({ has: page.getByTestId('close') })
+    .last();
   await page.addLocatorHandler(promoCta, async () => {
-    await promo.getByRole('button').filter({ has: page.getByTestId('close') }).click();
+    await promo
+      .getByRole('button')
+      .filter({ has: page.getByTestId('close') })
+      .click();
   });
 }

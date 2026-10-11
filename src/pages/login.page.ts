@@ -1,35 +1,79 @@
-import type { Locator } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class LoginPage extends BasePage {
-  get email(): Locator { return this.qa('input-email'); }
-  get password(): Locator { return this.qa('input-password'); }
-  get submit(): Locator { return this.qa('btn-save'); }
-  get forgotPassword(): Locator { return this.qa('btn-forgot-password'); }
-  get register(): Locator { return this.qa('btn-register'); }
-  get passwordError(): Locator { return this.qa('input-password-errorMessage'); }
-  get emailError(): Locator { return this.qa('input-email-errorMessage'); }
-  /**
-   * The show/hide button has no data-qa-id and its icon id flips between
-   * "eye" and "eye-off", so anchor on the password field instead: the first
-   * button that follows it in the DOM (documented fallback, see docs/automation-strategy.md).
-   */
-  get togglePasswordVisibility(): Locator { return this.password.locator('xpath=following::button[1]'); }
-  get socialLogins(): Locator[] { return ['btn-login-fb', 'btn-login-google', 'btn-login-phone'].map((id) => this.qa(id)); }
-  /**
-   * Cloudflare Turnstile renders inside a closed shadow root, invisible to
-   * locators, so presence is read from the frame tree. It is asserted, never solved.
-   */
-  hasBotChallenge(): boolean {
-    return this.page.frames().some((f) => f.url().includes('challenges.cloudflare.com'));
-  }
+  readonly email = this.qa('input-email');
+  readonly password = this.qa('input-password');
+  readonly submit = this.qa('btn-save');
+  readonly forgotPassword = this.qa('btn-forgot-password');
+  readonly register = this.qa('btn-register');
+  readonly passwordError = this.qa('input-password-errorMessage');
+  readonly emailFormatError = this.page.getByText('Harus diisi dengan format email');
+  // No data-qa-id, and the icon id flips between "eye" and "eye-off": use the button after the field.
+  readonly passwordToggle = this.password.locator('xpath=following::button[1]');
+  readonly socialLogins = [this.qa('btn-login-fb'), this.qa('btn-login-google'), this.qa('btn-login-phone')];
 
   async open(): Promise<void> {
     await this.goto('/login');
   }
 
+  async verifyShown(): Promise<void> {
+    await expect(this.page).toHaveURL(/\/login/);
+    await expect(this.email).toBeVisible();
+    await expect(this.password).toHaveAttribute('type', 'password');
+    await expect(this.submit).toBeVisible();
+  }
+
   async fill(email: string, password: string): Promise<void> {
     await this.email.fill(email);
     await this.password.fill(password);
+    await this.password.blur();
+  }
+
+  async typePassword(password: string): Promise<void> {
+    await this.password.fill(password);
+  }
+
+  async clearPassword(): Promise<void> {
+    await this.password.clear();
+    await this.password.blur();
+  }
+
+  async togglePasswordVisibility(): Promise<void> {
+    await this.passwordToggle.click();
+  }
+
+  async verifyFormEmpty(): Promise<void> {
+    await expect(this.email).toHaveValue('');
+    await expect(this.password).toHaveValue('');
+  }
+
+  async verifySubmitDisabled(): Promise<void> {
+    await expect(this.submit).toBeDisabled();
+  }
+
+  async verifyEmailFormatError(): Promise<void> {
+    await expect(this.emailFormatError).toBeVisible();
+  }
+
+  async verifyPasswordRequiredError(): Promise<void> {
+    await expect(this.passwordError).toHaveText('Tidak boleh kosong');
+  }
+
+  async verifyPasswordShownAs(type: 'text' | 'password', value: string): Promise<void> {
+    await expect(this.password).toHaveAttribute('type', type);
+    await expect(this.password).toHaveValue(value);
+  }
+
+  /** Cloudflare Turnstile sits in a closed shadow root, so its frame is read from the frame tree. */
+  async verifyBotChallengeShown(): Promise<void> {
+    const hasChallenge = () => this.page.frames().some((f) => f.url().includes('challenges.cloudflare.com'));
+    await expect.poll(hasChallenge, { message: 'Cloudflare challenge frame present' }).toBe(true);
+  }
+
+  async verifyAlternativeSignInOptions(): Promise<void> {
+    for (const option of this.socialLogins) await expect(option).toBeVisible();
+    await expect(this.forgotPassword).toBeVisible();
+    await expect(this.register).toBeVisible();
   }
 }

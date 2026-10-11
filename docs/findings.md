@@ -3,7 +3,7 @@
 Test plan: [test-plan.md](test-plan.md) · Cases and per-case status: [test-cases.md](test-cases.md) ·
 Evidence: `reports/index.html` (each execution has a video).
 
-## Execution summary (final regression, run 2026-10-11-10-31-08)
+## Execution summary (final regression, run 2026-10-11-11-02-05)
 
 | Project | PASS | DEFECT (known, reproduced) | FLAKY | FAIL | SKIPPED |
 |---|---|---|---|---|---|
@@ -14,7 +14,7 @@ Evidence: `reports/index.html` (each execution has a video).
 | **Total: 169 executions** | **162** | **7** | **0** | **0** | **0** |
 
 - **No FAIL, no FLAKY, no SKIPPED.** Platform-specific tests are scheduled only on the platform they belong to (`@desktop-only` / `@mobile-only` tags and per-project agent folders), so nothing is skipped at run time.
-- **DEFECT** rows are known product defects asserted with `test.fail()`, each still reproducing: BUG-001 (desktop and mobile), BUG-002 (desktop keyboard path), BUG-003, BUG-004, BUG-005, BUG-006.
+- **DEFECT** rows are known product defects asserted with `test.fail()`, each still reproducing: BUG-001 (desktop and mobile), BUG-002 (desktop keyboard path, about 9 in 10 openings; the check repeats the path 3 times), BUG-003, BUG-004, BUG-005, BUG-006.
 - An earlier run had one FLAKY result: TC-ART-004 on mobile received HTTP **505** instead of 404 on a first attempt; 18 follow-up requests all returned 404 (OBS-003).
 
 Logged-in flows are out of scope: they need a person to pass Cloudflare's "Verify you are human"

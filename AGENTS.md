@@ -27,14 +27,19 @@ automation for kumparan.com (desktop), m.kumparan.com (mobile) and a GraphQL API
 | `docs/` | Test plan, test cases, feature maps, findings, bug reports, strategy, agent prompts |
 
 ## Conventions
-- **Test IDs:** `TC-<MODULE>-<NNN>` at the start of the title in brackets: `[TC-LIKE-004] guest who taps like is sent to login ...`.
+- **One test case per file**, named by its ID and a short title: `tests/web/<feature>/TC-<MODULE>-<NNN>_<Short_Title>.spec.ts`.
+  The test title is `[TC-<MODULE>-<NNN>] <readable description>`, held in a `CASE` constant.
+- **Tests read as steps:** a test calls page-object actions and `verify…` methods only. Locators, waits and
+  platform differences live in the page object. Journeys used by several tests live in `src/flows/`.
+- **Test data** comes from `src/data/*.data.ts`, never literals in a test.
   Every automated case also appears in `test-design/catalog.ts`; run `npm run docs:test-cases` after changing either.
-- **Tags:** feature (`@search`), priority (`@p1`...), kind (`@positive`, `@negative`, `@boundary`, `@edge`, `@security`), `@smoke`, `@agent`, `@defect`.
+- **Tags:** priority (`@p1`...`@p3`), `@smoke`, `@defect`, and `@desktop-only` / `@mobile-only` for platform-specific
+  cases (those are not scheduled on the other platform, so runs report no skips).
 - **Locators:** `getByTestId` (data-qa-id) first; role/name next; any other anchor is documented in the page object with the reason.
 - **Waiting:** web-first assertions, `waitForInteractive`, `clickUntilUrl`/`clickUntilVisible`. No `waitForTimeout` in specs.
 - **Known defects:** `test.fail()` plus an `issue` annotation `BUG-NNN: ...`, and a report in `docs/bugs/`.
   Intermittent defects use `test.fixme()` with the measured rate (they must not be gates).
-- **Files:** kebab-case `<feature>.spec.ts`, `<screen>.page.ts`, `<feature>.data.ts`; classes PascalCase.
+- **Files:** `<screen>.page.ts`, `<feature>.data.ts`, `<journey>.flow.ts`; classes PascalCase. Formatting: Prettier (`npm run format`).
 
 ## Definition of done
 A change is done when a reviewer does not have to redo any of it:

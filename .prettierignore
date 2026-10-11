@@ -1,0 +1,9 @@
+node_modules
+reports
+playwright-report
+test-results
+knowledge
+docs
+specs
+*.md
+package-lock.json

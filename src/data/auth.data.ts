@@ -6,7 +6,7 @@ export const INVALID_EMAILS = [
   'user@@kumparan.com', // double @
 ] as const;
 
-export const BOUNDARY = {
+export const LOGIN = {
   /** Syntactically valid but not a real account; never submitted (the bot challenge blocks it). */
   validFormatEmail: 'qa.automation.invalid@example.com',
   anyPassword: 'Not-A-Real-Password-1!',

@@ -41,7 +41,12 @@ test.describe('Share (agent)', { tag: ['@agent', '@share'] }, () => {
     expect(new URL(copied).pathname).toBe(`${articleSegments.join('/')}/${ArticlePage.storyId(articleSlug)}`);
   });
 
-  test('[TC-AGT-006] share more menu lists channels and closes; closing leaves article intact', async ({ article, articlePath, search, page }) => {
+  test('[TC-AGT-006] share more menu lists channels and closes; closing leaves article intact', async ({
+    article,
+    articlePath,
+    search,
+    page,
+  }) => {
     // 1. On an article click more-vertical in share-wrapper.
     await article.open(articlePath);
     const headline = (await article.title.innerText()).trim();
@@ -74,16 +79,20 @@ test.describe('Share (agent)', { tag: ['@agent', '@share'] }, () => {
     expect(text).toMatch(/https:\/\/kumparan\.com\/\S+/);
   });
 
-  test('[TC-AGT-009] share modal closes with Escape like an accessible dialog', {
-    annotation: { type: 'issue', description: 'BUG-006: share modal ignores Escape and lacks dialog semantics' },
-  }, async ({ article, articlePath, page }) => {
-    // Found by the healer agent; confirmed by hand on desktop and mobile (review).
-    test.fail(true, 'Known defect BUG-006 still reproduces');
-    await article.open(articlePath);
-    await article.openShareMenu();
+  test(
+    '[TC-AGT-009] share modal closes with Escape like an accessible dialog',
+    {
+      annotation: { type: 'issue', description: 'BUG-006: share modal ignores Escape and lacks dialog semantics' },
+    },
+    async ({ article, articlePath, page }) => {
+      // Found by the healer agent; confirmed by hand on desktop and mobile (review).
+      test.fail(true, 'Known defect BUG-006 still reproduces');
+      await article.open(articlePath);
+      await article.openShareMenu();
 
-    await page.keyboard.press('Escape');
+      await page.keyboard.press('Escape');
 
-    await expect(article.shareModal).toBeHidden();
-  });
+      await expect(article.shareModal).toBeHidden();
+    },
+  );
 });

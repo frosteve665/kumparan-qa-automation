@@ -24,7 +24,7 @@ in one repository.
 1. **[Test plan](docs/test-plan.md):** scope, risks, assumptions, out of scope, dependencies, test data, exit criteria.
 2. **[Test cases](docs/test-cases.md):** every case with priority, type, steps and latest result.
 3. **[Findings](docs/findings.md):** execution summary, the 6 defects, observations, exit criteria check.
-4. **One test file:** [report.spec.ts](tests/web/engagement/report.spec.ts) shows the style (one spec, both sites, never submits).
+4. **Two test files:** [TC-LIKE-004](tests/web/like/TC-LIKE-004_Guest_Like_Redirects_To_Login.spec.ts) and [TC-RPT-002](tests/web/report/TC-RPT-002_Each_Reason_Enables_Submit.spec.ts) show the style: one test case per file, steps only, the same file runs on both sites.
 5. **[Agent prompts](docs/agent-prompts.md)** and the **[review of the agent's code](tests/agent/REVIEW.md)**.
 6. **One API test file:** [negative.spec.ts](tests/api/graphql/negative.spec.ts).
 
@@ -53,7 +53,7 @@ in one repository.
 ### Task B: Playwright website tests
 | Requirement | Where |
 |---|---|
-| Automate the Task A cases for desktop and mobile | [tests/web/](tests/web): 53 cases; each test ID matches test-cases.md |
+| Automate the Task A cases for desktop and mobile | [tests/web/](tests/web): 53 cases, **one file per test case** named by its ID (e.g. `TC-RPT-003_Submit_Disabled_Without_Reason.spec.ts`); each test reads as its steps |
 | Fixtures or setup to isolate data and state | [src/fixtures](src/fixtures/index.ts): fresh browser per test, page objects injected, a live story resolved per worker, automatic network guard, ad blocking and pop-up handling |
 | Strategy for parallel execution, data cleanup, timeouts, retries, flaky tests | [automation-strategy.md](docs/automation-strategy.md) |
 | `data-qa-id` locators; creative when missing | `testIdAttribute: 'data-qa-id'` in the config. Where no `data-qa-id` exists, a stable alternative is documented in the page object (for example the comment box `textarea#comment-editor`, the password toggle found next to the password field) |
@@ -120,11 +120,14 @@ self-hosted runner.
 ## How it is built
 
 ```
-src/pages/        page objects: one interface, desktop and mobile layouts behind it
+src/pages/        page objects: locators at the top, then actions and verify… methods;
+                  one interface, desktop and mobile layouts behind it
+src/flows/        multi-step journeys reused by tests (e.g. a report link opened in a new tab)
+src/data/         test data per feature (no literals in tests)
 src/fixtures/     test setup: isolation, network guard, ad blocking, pop-up handling, video caption
 src/api/          GraphQL client (variables only) and response contracts
 src/reporters/    evidence dashboard (results per platform, video per test)
-tests/web/        Task B: hand-written website tests
+tests/web/        Task B: one file per test case, e.g. tests/web/search/TC-SRCH-004_Nonsense_Keyword_Not_Found.spec.ts
 tests/agent/      Task C: Playwright-agent tests + review notes
 tests/api/        Task D: GraphQL tests
 test-design/      the test case catalog that generates docs/test-cases.md and .xlsx
@@ -136,4 +139,4 @@ Key decisions (full explanation in [automation-strategy.md](docs/automation-stra
 - **Stable without fixed waits:** tests wait until the page's controls are actually interactive, and retry a click only until its effect appears.
 - **Retries are never hidden:** a test that passes on retry is reported as flaky.
 - **Polite to production:** limited parallel workers, ads and share pop-ups handled locally, nothing published.
-- **Easy to maintain:** one page object per screen, test IDs that match the documentation, and `npm run explore` to re-map the site after a UI change.
+- **Easy to maintain:** one test case per file, one page object per screen, Prettier formatting (`npm run format`), and `npm run explore` to re-map the site after a UI change.

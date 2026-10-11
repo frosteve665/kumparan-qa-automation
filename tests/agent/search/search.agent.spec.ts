@@ -43,9 +43,16 @@ test.describe('Search (agent)', { tag: ['@agent', '@search'] }, () => {
     await expect(page.getByTestId('relevant-active')).toBeVisible();
   });
 
-  test('[TC-AGT-003] boundary queries: empty, single char, very long, special characters', async ({ page, home, header }) => {
+  test('[TC-AGT-003] boundary queries: empty, single char, very long, special characters', async ({
+    page,
+    home,
+    header,
+  }) => {
     const dialogs: string[] = [];
-    page.on('dialog', async (d) => { dialogs.push(d.message()); await d.dismiss(); });
+    page.on('dialog', async (d) => {
+      dialogs.push(d.message());
+      await d.dismiss();
+    });
 
     // 1. Focus input-search and press Enter with an empty value.
     await home.open();
