@@ -1,0 +1,1135 @@
+{
+  "runId": "2026-10-12-13-18-52",
+  "status": "passed",
+  "durationMs": 61298.303,
+  "counts": {
+    "PASS": 43,
+    "FLAKY": 0,
+    "DEFECT": 7,
+    "FAIL": 0,
+    "SKIPPED": 0
+  },
+  "startedAt": "2026-10-12T13:18:52.603Z",
+  "rows": [
+    {
+      "id": "TC-ART-001",
+      "title": "Article shows title, byline, date and body",
+      "project": "desktop-chrome",
+      "file": "web\\article\\TC-ART-001_Story_Content_Shown.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 4261,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-ART-001_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-ART-001_desktop-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-ART-001_desktop-chrome"
+    },
+    {
+      "id": "TC-ART-002",
+      "title": "Engagement bar offers like, comment and share with numeric counters",
+      "project": "desktop-chrome",
+      "file": "web\\article\\TC-ART-002_Engagement_Bar_Shown.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 4750,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-ART-002_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-ART-002_desktop-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-ART-002_desktop-chrome"
+    },
+    {
+      "id": "TC-AUTH-001",
+      "title": "Login entry point opens the login form",
+      "project": "desktop-chrome",
+      "file": "web\\auth\\TC-AUTH-001_Login_Entry_Opens_Form.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 6635,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-AUTH-001_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-AUTH-001_desktop-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-AUTH-001_desktop-chrome"
+    },
+    {
+      "id": "TC-HOME-001",
+      "title": "Homepage loads with header, headlines and story cards",
+      "project": "desktop-chrome",
+      "file": "web\\home\\TC-HOME-001_Homepage_Loads.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 3221,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-HOME-001_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-HOME-001_desktop-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-HOME-001_desktop-chrome"
+    },
+    {
+      "id": "TC-CMT-001",
+      "title": "Comment button opens the story comment thread",
+      "project": "desktop-chrome",
+      "file": "web\\comment\\TC-CMT-001_Comment_Button_Opens_Thread.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 4823,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-CMT-001_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-CMT-001_desktop-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-CMT-001_desktop-chrome"
+    },
+    {
+      "id": "TC-NAV-005",
+      "title": "Homepage loads without first-party JavaScript errors",
+      "project": "desktop-chrome",
+      "file": "web\\navigation\\TC-NAV-005_No_JavaScript_Errors.spec.ts",
+      "tags": [
+        "@p2"
+      ],
+      "status": "DEFECT",
+      "note": "BUG-003: React hydration mismatch (error #418) on the desktop homepage. Known defect still reproduces",
+      "durationMs": 4406,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "DEFECT_TC-NAV-005_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "DEFECT_TC-NAV-005_desktop-chrome/video-video.webm"
+        },
+        {
+          "name": "error-context",
+          "href": "DEFECT_TC-NAV-005_desktop-chrome/error-context-error-context.md"
+        }
+      ],
+      "anchor": "DEFECT_TC-NAV-005_desktop-chrome",
+      "category": "bug"
+    },
+    {
+      "id": "TC-HOME-002",
+      "title": "Opening a headline navigates to its article",
+      "project": "desktop-chrome",
+      "file": "web\\home\\TC-HOME-002_Headline_Opens_Article.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 6178,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-HOME-002_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-HOME-002_desktop-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-HOME-002_desktop-chrome"
+    },
+    {
+      "id": "TC-RPT-001",
+      "title": "Report opens \"Laporkan Konten\" with six reasons",
+      "project": "desktop-chrome",
+      "file": "web\\report\\TC-RPT-001_Report_Form_Shows_Six_Reasons.spec.ts",
+      "tags": [
+        "@p1"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 4257,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-RPT-001_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-RPT-001_desktop-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-RPT-001_desktop-chrome"
+    },
+    {
+      "id": "TC-AGT-009",
+      "title": "share modal closes with Escape like an accessible dialog",
+      "project": "desktop-chrome",
+      "file": "agent\\share\\share.agent.spec.ts",
+      "tags": [
+        "@agent",
+        "@share"
+      ],
+      "status": "DEFECT",
+      "note": "BUG-006: share modal ignores Escape and lacks dialog semantics. Known defect still reproduces",
+      "durationMs": 14813,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "DEFECT_TC-AGT-009_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "DEFECT_TC-AGT-009_desktop-chrome/video-video.webm"
+        },
+        {
+          "name": "error-context",
+          "href": "DEFECT_TC-AGT-009_desktop-chrome/error-context-error-context.md"
+        }
+      ],
+      "anchor": "DEFECT_TC-AGT-009_desktop-chrome",
+      "category": "bug"
+    },
+    {
+      "id": "TC-SRCH-001",
+      "title": "Keyword search from the header returns relevant stories",
+      "project": "desktop-chrome",
+      "file": "web\\search\\TC-SRCH-001_Keyword_Returns_Relevant_Stories.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 6263,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-SRCH-001_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-SRCH-001_desktop-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-SRCH-001_desktop-chrome"
+    },
+    {
+      "id": "TC-RPT-009",
+      "title": "\"Batal\" on a report link opened in a new tab takes the reader out of the form",
+      "project": "desktop-chrome",
+      "file": "web\\report\\TC-RPT-009_Cancel_In_New_Tab_Leaves_Form.spec.ts",
+      "tags": [
+        "@p2",
+        "@defect"
+      ],
+      "status": "DEFECT",
+      "note": "BUG-001: \"Batal\" only calls history.back(): dead button on a shared link in a new tab. Known defect still reproduces",
+      "durationMs": 9199,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "DEFECT_TC-RPT-009_desktop-chrome/screenshot-test-finished-2.png"
+        },
+        {
+          "name": "screenshot",
+          "href": "DEFECT_TC-RPT-009_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "DEFECT_TC-RPT-009_desktop-chrome/video-video-1.webm"
+        },
+        {
+          "name": "video",
+          "href": "DEFECT_TC-RPT-009_desktop-chrome/video-video.webm"
+        },
+        {
+          "name": "error-context",
+          "href": "DEFECT_TC-RPT-009_desktop-chrome/error-context-error-context.md"
+        }
+      ],
+      "anchor": "DEFECT_TC-RPT-009_desktop-chrome",
+      "category": "bug"
+    },
+    {
+      "id": "TC-ART-001",
+      "title": "Article shows title, byline, date and body",
+      "project": "mobile-chrome",
+      "file": "web\\article\\TC-ART-001_Story_Content_Shown.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 2477,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-ART-001_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-ART-001_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-ART-001_mobile-chrome"
+    },
+    {
+      "id": "TC-AGT-010",
+      "title": "Burger side menu: open, check items, close",
+      "project": "mobile-chrome",
+      "file": "agent\\mobile\\mobile.agent.spec.ts",
+      "tags": [
+        "@agent",
+        "@mobile"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 6531,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-AGT-010_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-AGT-010_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-AGT-010_mobile-chrome"
+    },
+    {
+      "id": "TC-ART-002",
+      "title": "Engagement bar offers like, comment and share with numeric counters",
+      "project": "mobile-chrome",
+      "file": "web\\article\\TC-ART-002_Engagement_Bar_Shown.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 3642,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-ART-002_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-ART-002_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-ART-002_mobile-chrome"
+    },
+    {
+      "id": "TC-RPT-012",
+      "title": "Keyboard user opening the report form keeps the form URL in the address bar",
+      "project": "desktop-chrome",
+      "file": "web\\report\\TC-RPT-012_Keyboard_Report_Keeps_Form_Url.spec.ts",
+      "tags": [
+        "@p3",
+        "@defect",
+        "@desktop-only"
+      ],
+      "status": "DEFECT",
+      "note": "BUG-002: address bar switches back to the story while the report form is shown (keyboard path). Known defect still reproduces",
+      "durationMs": 15246,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "DEFECT_TC-RPT-012_desktop-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "DEFECT_TC-RPT-012_desktop-chrome/video-video.webm"
+        },
+        {
+          "name": "error-context",
+          "href": "DEFECT_TC-RPT-012_desktop-chrome/error-context-error-context.md"
+        }
+      ],
+      "anchor": "DEFECT_TC-RPT-012_desktop-chrome",
+      "category": "bug"
+    },
+    {
+      "id": "TC-CMT-001",
+      "title": "Comment button opens the story comment thread",
+      "project": "mobile-chrome",
+      "file": "web\\comment\\TC-CMT-001_Comment_Button_Opens_Thread.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 3868,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-CMT-001_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-CMT-001_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-CMT-001_mobile-chrome"
+    },
+    {
+      "id": "TC-AUTH-001",
+      "title": "Login entry point opens the login form",
+      "project": "mobile-chrome",
+      "file": "web\\auth\\TC-AUTH-001_Login_Entry_Opens_Form.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 4922,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-AUTH-001_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-AUTH-001_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-AUTH-001_mobile-chrome"
+    },
+    {
+      "id": "TC-HOME-001",
+      "title": "Homepage loads with header, headlines and story cards",
+      "project": "mobile-chrome",
+      "file": "web\\home\\TC-HOME-001_Homepage_Loads.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 3720,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-HOME-001_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-HOME-001_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-HOME-001_mobile-chrome"
+    },
+    {
+      "id": "TC-NAV-005",
+      "title": "Homepage loads without first-party JavaScript errors",
+      "project": "mobile-chrome",
+      "file": "web\\navigation\\TC-NAV-005_No_JavaScript_Errors.spec.ts",
+      "tags": [
+        "@p2"
+      ],
+      "status": "PASS",
+      "note": "BUG-003: React hydration mismatch (error #418) on the desktop homepage.",
+      "durationMs": 3475,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-NAV-005_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-NAV-005_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-NAV-005_mobile-chrome"
+    },
+    {
+      "id": "TC-NAV-002",
+      "title": "Mobile side menu opens and closes",
+      "project": "mobile-chrome",
+      "file": "web\\navigation\\TC-NAV-002_Mobile_Side_Menu_Opens_Closes.spec.ts",
+      "tags": [
+        "@p2",
+        "@mobile-only"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 5806,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-NAV-002_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-NAV-002_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-NAV-002_mobile-chrome"
+    },
+    {
+      "id": "TC-RPT-001",
+      "title": "Report opens \"Laporkan Konten\" with six reasons",
+      "project": "mobile-chrome",
+      "file": "web\\report\\TC-RPT-001_Report_Form_Shows_Six_Reasons.spec.ts",
+      "tags": [
+        "@p1"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 6046,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-RPT-001_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-RPT-001_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-RPT-001_mobile-chrome"
+    },
+    {
+      "id": "TC-HOME-002",
+      "title": "Opening a headline navigates to its article",
+      "project": "mobile-chrome",
+      "file": "web\\home\\TC-HOME-002_Headline_Opens_Article.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 7816,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-HOME-002_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-HOME-002_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-HOME-002_mobile-chrome"
+    },
+    {
+      "id": "TC-SRCH-001",
+      "title": "Keyword search from the header returns relevant stories",
+      "project": "mobile-chrome",
+      "file": "web\\search\\TC-SRCH-001_Keyword_Returns_Relevant_Stories.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 6474,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-SRCH-001_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-SRCH-001_mobile-chrome/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-SRCH-001_mobile-chrome"
+    },
+    {
+      "id": "TC-RPT-009",
+      "title": "\"Batal\" on a report link opened in a new tab takes the reader out of the form",
+      "project": "mobile-chrome",
+      "file": "web\\report\\TC-RPT-009_Cancel_In_New_Tab_Leaves_Form.spec.ts",
+      "tags": [
+        "@p2",
+        "@defect"
+      ],
+      "status": "DEFECT",
+      "note": "BUG-001: \"Batal\" only calls history.back(): dead button on a shared link in a new tab. Known defect still reproduces",
+      "durationMs": 10733,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "DEFECT_TC-RPT-009_mobile-chrome/screenshot-test-finished-2.png"
+        },
+        {
+          "name": "screenshot",
+          "href": "DEFECT_TC-RPT-009_mobile-chrome/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "DEFECT_TC-RPT-009_mobile-chrome/video-video-1.webm"
+        },
+        {
+          "name": "video",
+          "href": "DEFECT_TC-RPT-009_mobile-chrome/video-video.webm"
+        },
+        {
+          "name": "error-context",
+          "href": "DEFECT_TC-RPT-009_mobile-chrome/error-context-error-context.md"
+        }
+      ],
+      "anchor": "DEFECT_TC-RPT-009_mobile-chrome",
+      "category": "bug"
+    },
+    {
+      "id": "TC-ART-001",
+      "title": "Article shows title, byline, date and body",
+      "project": "mobile-safari",
+      "file": "web\\article\\TC-ART-001_Story_Content_Shown.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 4608,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-ART-001_mobile-safari/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-ART-001_mobile-safari/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-ART-001_mobile-safari"
+    },
+    {
+      "id": "TC-ART-002",
+      "title": "Engagement bar offers like, comment and share with numeric counters",
+      "project": "mobile-safari",
+      "file": "web\\article\\TC-ART-002_Engagement_Bar_Shown.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 4951,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-ART-002_mobile-safari/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-ART-002_mobile-safari/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-ART-002_mobile-safari"
+    },
+    {
+      "id": "TC-HOME-001",
+      "title": "Homepage loads with header, headlines and story cards",
+      "project": "mobile-safari",
+      "file": "web\\home\\TC-HOME-001_Homepage_Loads.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 5994,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-HOME-001_mobile-safari/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-HOME-001_mobile-safari/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-HOME-001_mobile-safari"
+    },
+    {
+      "id": "TC-AUTH-001",
+      "title": "Login entry point opens the login form",
+      "project": "mobile-safari",
+      "file": "web\\auth\\TC-AUTH-001_Login_Entry_Opens_Form.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 7740,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-AUTH-001_mobile-safari/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-AUTH-001_mobile-safari/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-AUTH-001_mobile-safari"
+    },
+    {
+      "id": "TC-CMT-001",
+      "title": "Comment button opens the story comment thread",
+      "project": "mobile-safari",
+      "file": "web\\comment\\TC-CMT-001_Comment_Button_Opens_Thread.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 7206,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-CMT-001_mobile-safari/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-CMT-001_mobile-safari/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-CMT-001_mobile-safari"
+    },
+    {
+      "id": "TC-API-008",
+      "title": "createPost returns the new post echoing the input",
+      "project": "api-graphql",
+      "file": "api\\graphql\\mutations.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@positive"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 1057,
+      "evidence": [],
+      "anchor": "PASS_TC-API-008_api-graphql"
+    },
+    {
+      "id": "TC-API-010",
+      "title": "deletePost confirms the deletion",
+      "project": "api-graphql",
+      "file": "api\\graphql\\mutations.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@positive"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 827,
+      "evidence": [],
+      "anchor": "PASS_TC-API-010_api-graphql"
+    },
+    {
+      "id": "TC-API-009",
+      "title": "updatePost returns the post with the new title",
+      "project": "api-graphql",
+      "file": "api\\graphql\\mutations.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@positive"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 473,
+      "evidence": [],
+      "anchor": "PASS_TC-API-009_api-graphql"
+    },
+    {
+      "id": "TC-HOME-002",
+      "title": "Opening a headline navigates to its article",
+      "project": "mobile-safari",
+      "file": "web\\home\\TC-HOME-002_Headline_Opens_Article.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 9167,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-HOME-002_mobile-safari/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-HOME-002_mobile-safari/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-HOME-002_mobile-safari"
+    },
+    {
+      "id": "TC-API-011",
+      "title": "createPost without the required title is rejected",
+      "project": "api-graphql",
+      "file": "api\\graphql\\mutations.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@negative"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 748,
+      "evidence": [],
+      "anchor": "PASS_TC-API-011_api-graphql"
+    },
+    {
+      "id": "TC-API-014",
+      "title": "missing required variable is reported as bad input",
+      "project": "api-graphql",
+      "file": "api\\graphql\\negative.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@negative"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 334,
+      "evidence": [],
+      "anchor": "PASS_TC-API-014_api-graphql"
+    },
+    {
+      "id": "TC-API-012",
+      "title": "malformed document is rejected as a parse error",
+      "project": "api-graphql",
+      "file": "api\\graphql\\negative.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@negative"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 785,
+      "evidence": [],
+      "anchor": "PASS_TC-API-012_api-graphql"
+    },
+    {
+      "id": "TC-API-015",
+      "title": "wrong variable type is reported as bad input",
+      "project": "api-graphql",
+      "file": "api\\graphql\\negative.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p2",
+        "@negative"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 343,
+      "evidence": [],
+      "anchor": "PASS_TC-API-015_api-graphql"
+    },
+    {
+      "id": "TC-API-016",
+      "title": "injection-shaped input travels as plain data",
+      "project": "api-graphql",
+      "file": "api\\graphql\\negative.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@security"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 366,
+      "evidence": [],
+      "anchor": "PASS_TC-API-016_api-graphql"
+    },
+    {
+      "id": "TC-API-017",
+      "title": "GET request without a CSRF-safe header is blocked",
+      "project": "api-graphql",
+      "file": "api\\graphql\\negative.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p2",
+        "@security"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 327,
+      "evidence": [],
+      "anchor": "PASS_TC-API-017_api-graphql"
+    },
+    {
+      "id": "TC-API-013",
+      "title": "unknown field is rejected by schema validation",
+      "project": "api-graphql",
+      "file": "api\\graphql\\negative.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@negative"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 402,
+      "evidence": [],
+      "anchor": "PASS_TC-API-013_api-graphql"
+    },
+    {
+      "id": "TC-API-001",
+      "title": "post by id returns the post with its author",
+      "project": "api-graphql",
+      "file": "api\\graphql\\queries.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@smoke",
+        "@p1",
+        "@positive"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 359,
+      "evidence": [],
+      "anchor": "PASS_TC-API-001_api-graphql"
+    },
+    {
+      "id": "TC-API-018",
+      "title": "unknown post id returns null",
+      "project": "api-graphql",
+      "file": "api\\graphql\\negative.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p2",
+        "@boundary",
+        "@defect"
+      ],
+      "status": "DEFECT",
+      "note": "BUG-004: unknown post id returns an object with null fields instead of null. Known defect still reproduces",
+      "durationMs": 822,
+      "evidence": [
+        {
+          "name": "error-context",
+          "href": "DEFECT_TC-API-018_api-graphql/error-context-error-context.md"
+        }
+      ],
+      "anchor": "DEFECT_TC-API-018_api-graphql",
+      "category": "bug"
+    },
+    {
+      "id": "TC-API-019",
+      "title": "negative page limit is rejected",
+      "project": "api-graphql",
+      "file": "api\\graphql\\negative.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p2",
+        "@boundary",
+        "@defect"
+      ],
+      "status": "DEFECT",
+      "note": "BUG-005: paginate.limit = -5 is accepted and returns the whole collection. Known defect still reproduces",
+      "durationMs": 770,
+      "evidence": [
+        {
+          "name": "error-context",
+          "href": "DEFECT_TC-API-019_api-graphql/error-context-error-context.md"
+        }
+      ],
+      "anchor": "DEFECT_TC-API-019_api-graphql",
+      "category": "bug"
+    },
+    {
+      "id": "TC-API-002",
+      "title": "posts are paginated with the requested page size and a total count",
+      "project": "api-graphql",
+      "file": "api\\graphql\\queries.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@positive"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 341,
+      "evidence": [],
+      "anchor": "PASS_TC-API-002_api-graphql"
+    },
+    {
+      "id": "TC-API-003",
+      "title": "user query resolves nested posts for that user only",
+      "project": "api-graphql",
+      "file": "api\\graphql\\queries.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p1",
+        "@positive"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 361,
+      "evidence": [],
+      "anchor": "PASS_TC-API-003_api-graphql"
+    },
+    {
+      "id": "TC-API-004",
+      "title": "album query returns its owner and photos with valid URLs",
+      "project": "api-graphql",
+      "file": "api\\graphql\\queries.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p2",
+        "@positive"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 366,
+      "evidence": [],
+      "anchor": "PASS_TC-API-004_api-graphql"
+    },
+    {
+      "id": "TC-API-005",
+      "title": "keyword search returns only matching posts",
+      "project": "api-graphql",
+      "file": "api\\graphql\\queries.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p2",
+        "@positive"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 375,
+      "evidence": [],
+      "anchor": "PASS_TC-API-005_api-graphql"
+    },
+    {
+      "id": "TC-API-006",
+      "title": "posts can be sorted by id descending",
+      "project": "api-graphql",
+      "file": "api\\graphql\\queries.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p3",
+        "@positive"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 379,
+      "evidence": [],
+      "anchor": "PASS_TC-API-006_api-graphql"
+    },
+    {
+      "id": "TC-SRCH-001",
+      "title": "Keyword search from the header returns relevant stories",
+      "project": "mobile-safari",
+      "file": "web\\search\\TC-SRCH-001_Keyword_Returns_Relevant_Stories.spec.ts",
+      "tags": [
+        "@p1",
+        "@smoke"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 7405,
+      "evidence": [
+        {
+          "name": "screenshot",
+          "href": "PASS_TC-SRCH-001_mobile-safari/screenshot-test-finished-1.png"
+        },
+        {
+          "name": "video",
+          "href": "PASS_TC-SRCH-001_mobile-safari/video-video.webm"
+        }
+      ],
+      "anchor": "PASS_TC-SRCH-001_mobile-safari"
+    },
+    {
+      "id": "TC-API-007",
+      "title": "page boundary: the last page holds the remainder",
+      "project": "api-graphql",
+      "file": "api\\graphql\\queries.spec.ts",
+      "tags": [
+        "@api",
+        "@graphql",
+        "@p2",
+        "@boundary"
+      ],
+      "status": "PASS",
+      "note": "",
+      "durationMs": 801,
+      "evidence": [],
+      "anchor": "PASS_TC-API-007_api-graphql"
+    }
+  ]
+}

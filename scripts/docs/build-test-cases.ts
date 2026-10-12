@@ -127,4 +127,40 @@ async function xlsx(): Promise<void> {
 }
 
 await xlsx();
-console.log(`docs/test-cases.md + docs/test-cases.xlsx written: ${CATALOG.length} cases`);
+
+/** README: one heading per module (so the user-story table can link to it) and a collapsible table. */
+function readmeBlock(): string {
+  const ICON: Record<string, string> = { PASS: '✅', FLAKY: '⚠️', DEFECT: '🐞', FAIL: '❌', SKIPPED: '⏭️' };
+  const LETTER: Record<string, string> = { 'desktop-chrome': 'D', 'mobile-chrome': 'M', 'mobile-safari': 'S', 'api-graphql': 'A' };
+  const out: string[] = [];
+  for (const [key, name] of Object.entries(MODULES)) {
+    const cases = CATALOG.filter((c) => c.module === key);
+    if (!cases.length) continue;
+    const p1 = cases.filter((c) => c.priority === 'P1').length;
+    out.push(`### ${name}`, '', `<details><summary>${cases.length} cases · ${p1} P1</summary>`, '');
+    out.push('| ID | Test case | Type | Priority | Result |', '|---|---|---|---|---|');
+    for (const tc of cases) {
+      const result =
+        PROJECTS.map((p) => (statusOn(tc.id, p) ? `${ICON[statusOn(tc.id, p)] ?? ''} ${LETTER[p]}` : ''))
+          .filter(Boolean)
+          .join(' · ') || 'not run';
+      const id = tc.spec ? `[${tc.id}](${tc.spec})` : tc.id;
+      const bug = tc.defect ? ` ([${tc.defect}](docs/bugs/${tc.defect}.md))` : '';
+      out.push(`| ${id} | ${tc.title}${bug} | ${tc.type} | ${tc.priority} | ${result} |`);
+    }
+    out.push('', '</details>', '');
+  }
+  out.push('Result: ✅ pass · 🐞 known bug reproduced · ⚠️ passed on retry · ❌ fail.');
+  return out.join('\n');
+}
+
+const README = 'README.md';
+const readme = readFileSync(README, 'utf8');
+const start = '<!-- TEST-CASES:START -->';
+const end = '<!-- TEST-CASES:END -->';
+if (readme.includes(start) && readme.includes(end)) {
+  const before = readme.slice(0, readme.indexOf(start) + start.length);
+  const after = readme.slice(readme.indexOf(end));
+  writeFileSync(README, `${before}\n${readmeBlock()}\n${after}`);
+}
+console.log(`docs/test-cases.md, docs/test-cases.xlsx and README.md updated: ${CATALOG.length} cases`);

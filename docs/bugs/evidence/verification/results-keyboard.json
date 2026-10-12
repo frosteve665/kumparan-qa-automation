@@ -1,26 +1,26 @@
 {
-  "ranAt": "2026-10-11T10:18:22.593Z",
+  "ranAt": "2026-10-11T16:05:01.605Z",
   "story": "/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX",
   "BUG-002 desktop keyboard (Tab to \"Laporkan tulisan\" + Enter)": {
-    "reproduced": "3/3",
+    "reproduced": "0/3",
     "runs": [
       {
-        "tabPresses": 0,
-        "reached": true,
-        "formVisible": true,
-        "finalPath": "/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX/full"
+        "tabPresses": 250,
+        "reached": false,
+        "formVisible": false,
+        "finalPath": "/search"
       },
       {
-        "tabPresses": 0,
-        "reached": true,
-        "formVisible": true,
-        "finalPath": "/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX/full"
+        "tabPresses": 250,
+        "reached": false,
+        "formVisible": false,
+        "finalPath": "/search"
       },
       {
-        "tabPresses": 0,
-        "reached": true,
-        "formVisible": true,
-        "finalPath": "/kumparannews/pintu-krl-bogor-line-gangguan-9-perjalanan-terlambat-hingga-32-menit-28LLu5FefNX/full"
+        "tabPresses": 250,
+        "reached": false,
+        "formVisible": false,
+        "finalPath": "/search"
       }
     ]
   },

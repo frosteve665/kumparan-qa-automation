@@ -50,6 +50,10 @@ export class HomePage extends BasePage {
     this.page.on('pageerror', (err) => errors.push(err.message));
     await this.open();
     await expect(this.headlineCards.first()).toBeVisible();
+    if (errors.length) {
+      await this.step(`Page error: ${errors[0]!.slice(0, 70)}`);
+      await this.page.waitForTimeout(1_500); // keep the error readable in the video
+    }
     return errors;
   }
 }

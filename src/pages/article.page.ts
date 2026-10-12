@@ -122,6 +122,7 @@ export class ArticlePage extends BasePage {
   /** Keyboard user: focus "Laporkan tulisan" (the page jumps to it) and press Enter. */
   async openReportWithKeyboard(): Promise<void> {
     await this.waitForInteractive(this.reportButton);
+    await this.step('Keyboard: focus "Laporkan tulisan", press Enter');
     await this.reportButton.focus();
     await this.page.keyboard.press('Enter');
   }

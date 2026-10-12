@@ -1,7 +1,7 @@
 # Test cases
 
 Generated from `test-design/catalog.ts` by `npm run docs:test-cases`. Do not edit by hand.
-Execution status from run `2026-10-11-11-02-05` (reports/results.json) and the manual log (test-design/manual-results.ts).
+Execution status from run `2026-10-12-13-31-06` (reports/results.json) and the manual log (test-design/manual-results.ts).
 Also available as a spreadsheet: [test-cases.xlsx](test-cases.xlsx).
 
 **Legend.** Type: Positive / Negative / Boundary / Edge. Priority: P1 (blocks a core business function), P2 (degrades it), P3 (cosmetic or rare).

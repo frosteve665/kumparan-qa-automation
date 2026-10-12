@@ -16,7 +16,8 @@
     "test:agent": "playwright test tests/agent",
     "report": "playwright show-report",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "docs:media": "tsx scripts/docs/make-media.ts"
   },
   "keywords": [],
   "author": "",

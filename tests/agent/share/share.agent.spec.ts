@@ -90,6 +90,7 @@ test.describe('Share (agent)', { tag: ['@agent', '@share'] }, () => {
       await article.open(articlePath);
       await article.openShareMenu();
 
+      await article.step('Press Escape');
       await page.keyboard.press('Escape');
 
       await expect(article.shareModal).toBeHidden();

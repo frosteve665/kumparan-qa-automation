@@ -226,8 +226,8 @@ export default class EvidenceReporter implements Reporter {
     const count = (s: Status) => this.rows.filter((r) => r.status === s).length;
     const projects = [...new Set(this.rows.map((r) => r.project))].sort();
     const ids = [...new Set(this.rows.map((r) => r.id))].sort();
-    const executed = this.rows.filter((r) => r.status !== 'SKIPPED').length;
-    const passRate = executed ? Math.round(((count('PASS') + count('FLAKY')) / executed) * 100) : 0;
+    // Known defects are the bug checks doing their job, so they are reported apart from failures.
+    const outcome = `${count('PASS') + count('FLAKY')} passed · ${count('DEFECT')} known defects reproduced · ${count('FAIL')} failed`;
     const rowsSorted = [...this.rows].sort((a, b) => a.id.localeCompare(b.id) || a.project.localeCompare(b.project));
 
     const tiles = STATUSES.map((s) => `<div class="tile s-${s}"><b>${count(s)}</b><span>${s}</span></div>`).join('');
@@ -260,7 +260,7 @@ export default class EvidenceReporter implements Reporter {
     return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>kumparan QA Evidence</title><style>${STYLE}</style></head><body><main>
 <h1>kumparan QA Evidence Dashboard</h1>
-<div class="muted">Run ${this.runId} · overall ${result.status.toUpperCase()} · ${this.rows.length} executions across ${projects.length} projects · ${passRate}% of executed tests passed · <a href="../../index.html">run history</a></div>
+<div class="muted">Run ${this.runId} · overall ${result.status.toUpperCase()} · ${this.rows.length} executions across ${projects.length} projects · ${outcome} · <a href="../../index.html">run history</a></div>
 <div class="tiles">${tiles}</div>
 <h2>Coverage matrix: each test case on each platform</h2>
 <div class="wrap"><table><thead><tr><th>ID</th><th>Test case</th>${projects.map((p) => `<th>${p}</th>`).join('')}</tr></thead><tbody>${matrix}</tbody></table></div>
@@ -273,13 +273,17 @@ export default class EvidenceReporter implements Reporter {
 
 /** Video plays inline (loaded on demand); other evidence is linked. */
 function evidenceCell(r: Row): string {
-  const video = r.evidence.find((e) => e.name === 'video');
+  // One video per browser tab: a test that opens a new tab has two.
+  const videos = r.evidence.filter((e) => e.name === 'video').sort((a, b) => a.href.localeCompare(b.href));
   const links = r.evidence
     .filter((e) => e.name !== 'video')
     .map((e) => `<a href="${e.href}">${esc(e.name)}</a>`)
     .join(' · ');
-  const player = video
-    ? `<details><summary>▶ Play video</summary><video controls preload="none" src="${video.href}"></video></details>`
-    : '';
-  return player + (links ? `<div>${links}</div>` : '') || '<span class="muted">none</span>';
+  const players = videos
+    .map((v, i) => {
+      const label = videos.length > 1 ? `▶ Play video (tab ${i + 1})` : '▶ Play video';
+      return `<details><summary>${label}</summary><video controls preload="none" src="${v.href}"></video></details>`;
+    })
+    .join('');
+  return players + (links ? `<div>${links}</div>` : '') || '<span class="muted">none</span>';
 }

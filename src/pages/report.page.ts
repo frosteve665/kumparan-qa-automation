@@ -80,6 +80,7 @@ export class ReportPage extends BasePage {
   }
 
   async cancel(): Promise<void> {
+    await this.step('Tap "Batal"');
     await this.cancelButton.click();
   }
 
